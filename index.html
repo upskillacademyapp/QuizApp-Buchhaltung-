@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>BuchhalterBasis.de – Buchhaltung lernen & Vorlagen</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@500;700&display=swap');
+
+/* ── TOKENS ── */
+* { box-sizing:border-box; margin:0; padding:0 }
+
+html, body {
+  background-color: #f0f7f4;
+  font-family: 'Outfit', sans-serif;
+  color: #0d1f1a;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle grid */
+body::before {
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(14,164,114,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14,164,114,.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Pages */
+.page { display:none !important; position:relative; z-index:1 }
+.page.active { display:flex !important; flex-direction:column; min-height:100vh }
+
+/* ── NAV ── */
+nav {
+  position: sticky; top:0; z-index:100;
+  background: rgba(240,247,244,.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1.5px solid #c6e8d9;
+  padding: 0 28px;
+  display: flex; align-items:center; justify-content:space-between;
+  height: 60px;
+}
+.nav-logo {
+  font-family:'DM Serif Display', serif;
+  font-size: 20px; color: #0a7a55; letter-spacing: -0.3px;
+}
+.nav-logo span { color: #0d1f1a }
+.nav-links { display:flex; gap:4px }
+.nav-link {
+  padding: 7px 16px; border-radius: 8px;
+  font-size: 14px; font-weight: 600;
+  cursor: pointer; border: none; background: transparent;
+  color: #4a6b60; transition: all .18s; font-family:'Outfit',sans-serif;
+}
+.nav-link:hover { background: rgba(14,164,114,.10); color:#0a7a55 }
+.nav-link.active { background: #0ea472; color:#fff }
+
+/* ── HERO ── */
+.hero {
+  padding: 80px 24px 60px;
+  text-align: center;
+  position: relative;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: #0ea472;
+  background: rgba(14,164,114,.10);
+  padding: 6px 16px; border-radius: 999px;
+  margin-bottom: 24px;
+  animation: popIn .5s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes popIn { from{opacity:0;transform:scale(.7)} to{opacity:1;transform:scale(1)} }
+
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(44px, 7vw, 82px);
+  line-height: 1.0; letter-spacing: -2px;
+  margin-bottom: 20px;
+  animation: riseIn .5s .1s both;
+}
+.hero h1 em { font-style: italic; color: #0ea472 }
+@keyframes riseIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+.hero p {
+  font-size: 18px; color: #4a6b60; max-width: 560px;
+  margin: 0 auto 40px; line-height: 1.65; font-weight: 400;
+  animation: riseIn .5s .2s both;
+}
+.hero-ctas { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; animation:riseIn .5s .3s both }
+
+/* Floating badges */
+.float-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 700; padding: 4px 10px;
+  border-radius: 6px; opacity: .7;
+}
+.float-badges { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:36px; animation:riseIn .5s .4s both }
+.fb-green { background:rgba(14,164,114,.12); color:#0a7a55 }
+.fb-blue  { background:rgba(59,130,246,.10); color:#1d4ed8 }
+.fb-amber { background:rgba(245,158,11,.12); color:#92400e }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items:center; gap:8px;
+  padding: 13px 28px; border-radius: 12px;
+  font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 700;
+  cursor: pointer; border: none; transition: all .2s; text-decoration:none;
+}
+.btn-primary {
+  background: #0ea472; color: #fff;
+  box-shadow: 0 6px 20px rgba(14,164,114,.35);
+}
+.btn-primary:hover { background:#0a7a55; transform:translateY(-2px); box-shadow:0 10px 28px rgba(14,164,114,.4) }
+.btn-outline {
+  background: #fff; color: #0ea472;
+  border: 2px solid #0ea472;
+}
+.btn-outline:hover { background:#f0fdf8; transform:translateY(-2px) }
+.btn-ghost {
+  background: rgba(255,255,255,.7); color:#4a6b60;
+  border: 1.5px solid #c6e8d9;
+}
+.btn-ghost:hover { border-color:#0ea472; color:#0a7a55 }
+
+/* ── FEATURE CARDS ── */
+.features {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+  gap: 20px; padding: 0 24px 80px; max-width: 1100px; margin: 0 auto;
+}
+.feat-card {
+  background: #fff; border: 1.5px solid #d4edd7;
+  border-radius: 20px; padding: 28px;
+  box-shadow: 0 2px 16px rgba(14,164,114,.07);
+  transition: all .2s;
+}
+.feat-card:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(14,164,114,.13) }
+.feat-icon { font-size:36px; margin-bottom:16px }
+.feat-title { font-size:18px; font-weight:700; margin-bottom:8px }
+.feat-desc  { font-size:14px; color:#4a6b60; line-height:1.6 }
+
+/* ══════════════════════════════════════════════════════
+   QUIZ PAGE
+══════════════════════════════════════════════════════ */
+#quiz-page { background:#f0f7f4 }
+
+.quiz-home {
+  max-width: 920px; margin: 0 auto;
+  padding: 48px 24px 60px; text-align:center;
+}
+.quiz-home h2 {
+  font-family:'DM Serif Display',serif;
+  font-size: clamp(32px,5vw,52px); margin-bottom:10px;
+}
+.quiz-home p { color:#4a6b60; font-size:16px; margin-bottom:40px }
+
+.course-tabs { display:flex; gap:10px; justify-content:center; margin-bottom:32px; flex-wrap:wrap }
+.ctab {
+  padding: 10px 24px; border-radius:12px; font-size:14px; font-weight:700;
+  cursor:pointer; border:2px solid #c6e8d9; background:#fff; color:#4a6b60;
+  transition:all .2s; font-family:'Outfit',sans-serif;
+}
+.ctab.active { color:#fff; border-color:transparent }
+.ctab-a.active { background:#0ea472; box-shadow:0 6px 20px rgba(14,164,114,.3) }
+.ctab-b.active { background:#3b5bdb; box-shadow:0 6px 20px rgba(59,91,219,.3) }
+.ctab:hover:not(.active) { border-color:#0ea472; color:#0ea472 }
+
+.course-panel { display:none }
+.course-panel.active { display:block; animation:fadeUp .3s ease }
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+.section-lbl {
+  font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase; margin-bottom:14px; padding-left:2px;
+}
+.lbl-green { color:#0ea472 } .lbl-blue { color:#3b5bdb }
+
+.topic-grid {
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+  gap:12px; margin-bottom:28px;
+}
+.topic-card {
+  background:#fff; border:2px solid #d4edd7; border-radius:14px;
+  padding:18px 16px; cursor:pointer; transition:all .2s;
+  text-align:left; position:relative; overflow:hidden;
+  box-shadow:0 2px 10px rgba(14,164,114,.06);
+}
+.topic-card::before {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:3px;
+  transform:scaleX(0); transform-origin:left; transition:transform .25s;
+}
+.tc-green::before { background:linear-gradient(90deg,#0ea472,#06c47f) }
+.tc-blue::before  { background:linear-gradient(90deg,#3b5bdb,#748ffc) }
+.topic-card:hover::before,.topic-card.selected::before { transform:scaleX(1) }
+.tc-green:hover,.tc-green.selected { border-color:#0ea472; background:rgba(14,164,114,.07); transform:translateY(-2px) }
+.tc-blue:hover,.tc-blue.selected   { border-color:#3b5bdb; background:rgba(59,91,219,.07);  transform:translateY(-2px) }
+.t-num { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; margin-bottom:6px }
+.tc-green .t-num { color:#0ea472 } .tc-blue .t-num { color:#3b5bdb }
+.t-name { font-size:13px; font-weight:700; line-height:1.4 }
+.t-check {
+  position:absolute; top:12px; right:12px; width:20px; height:20px;
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:10px; font-weight:900; opacity:0; transition:all .2s; color:#fff;
+}
+.tc-green .t-check { background:#0ea472 } .tc-blue .t-check { background:#3b5bdb }
+.topic-card.selected .t-check { opacity:1 }
+.btn-row { display:flex; gap:12px; justify-content:center; flex-wrap:wrap }
+
+/* Active quiz */
+.qz-topbar {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 28px; background:rgba(240,247,244,.95);
+  backdrop-filter:blur(12px); border-bottom:1.5px solid #c6e8d9;
+  position:sticky; top:60px; z-index:10;
+}
+.qz-logo { font-family:'DM Serif Display',serif; font-size:18px; color:#0a7a55 }
+.qz-logo.blue { color:#3b5bdb }
+.qz-meta { display:flex; align-items:center; gap:16px }
+.q-cnt {
+  font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700;
+  color:#0ea472; background:rgba(14,164,114,.10); padding:5px 13px; border-radius:999px;
+}
+.q-cnt.blue { color:#3b5bdb; background:rgba(59,91,219,.10) }
+.prog-wrap { height:4px; background:#d4edd7 }
+.prog-bar { height:100%; background:linear-gradient(90deg,#0ea472,#06c47f); transition:width .5s cubic-bezier(.4,0,.2,1) }
+.prog-bar.blue { background:linear-gradient(90deg,#3b5bdb,#748ffc) }
+
+.qz-body { flex:1; display:flex; align-items:flex-start; justify-content:center; padding:36px 16px 60px }
+.qz-card {
+  background:#fff; border:1.5px solid #d4edd7; border-radius:24px;
+  padding:40px; max-width:700px; width:100%;
+  box-shadow:0 8px 40px rgba(14,164,114,.10), 0 2px 8px rgba(14,164,114,.06);
+  animation:cardIn .35s cubic-bezier(.4,0,.2,1);
+}
+@keyframes cardIn { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+.q-tag {
+  display:inline-block; font-family:'JetBrains Mono',monospace;
+  font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+  color:#0ea472; background:rgba(14,164,114,.10);
+  padding:5px 12px; border-radius:6px; margin-bottom:18px;
+}
+.q-tag.blue { color:#3b5bdb; background:rgba(59,91,219,.10) }
+.q-text {
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(19px,2.8vw,24px); line-height:1.45; margin-bottom:28px;
+}
+.opts { display:flex; flex-direction:column; gap:10px; margin-bottom:24px }
+.opt {
+  display:flex; align-items:flex-start; gap:14px; padding:15px 18px;
+  background:#f0f7f4; border:2px solid #d4edd7; border-radius:12px;
+  cursor:pointer; transition:all .16s; font-size:14.5px; line-height:1.5;
+  text-align:left; color:#2d4a40; font-family:'Outfit',sans-serif;
+  font-weight:500; width:100%;
+}
+.opt:hover:not(.locked) { border-color:#0ea472; background:rgba(14,164,114,.07); transform:translateX(4px) }
+.opt-k {
+  flex-shrink:0; width:28px; height:28px; border-radius:8px;
+  background:#d4edd7; display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700;
+  color:#4a6b60; transition:all .16s;
+}
+.opt.correct { border-color:#0ea472; background:rgba(14,164,114,.09) }
+.opt.correct .opt-k { background:#0ea472; color:#fff }
+.opt.wrong   { border-color:#e03131; background:rgba(224,49,49,.07) }
+.opt.wrong .opt-k   { background:#e03131; color:#fff }
+.opt.locked  { cursor:default; transform:none }
+
+.expl-box {
+  background:#f0fdf8; border:1.5px solid rgba(14,164,114,.2);
+  border-left:4px solid #0ea472; border-radius:12px;
+  padding:16px 18px; font-size:14px; color:#2d4a40;
+  line-height:1.7; margin-bottom:22px; display:none; font-weight:500;
+}
+.expl-box.show { display:block; animation:fadeUp .28s ease }
+.expl-box.wrong { background:#fff5f5; border-left-color:#e03131; border-color:rgba(224,49,49,.2) }
+.qz-nav { display:flex; justify-content:flex-end }
+
+/* ── RESULTS ── */
+.results-wrap {
+  max-width:580px; margin:0 auto; padding:60px 24px; text-align:center;
+}
+.res-badge {
+  display:inline-block; font-family:'JetBrains Mono',monospace;
+  font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+  padding:5px 16px; border-radius:999px; margin-bottom:20px;
+  background:#0ea472; color:#fff; box-shadow:0 4px 16px rgba(14,164,114,.3);
+}
+.res-badge.blue { background:#3b5bdb; box-shadow:0 4px 16px rgba(59,91,219,.3) }
+.score-ring { width:160px; height:160px; margin:0 auto 28px; position:relative }
+.score-ring svg { transform:rotate(-90deg) }
+.score-center {
+  position:absolute; inset:0;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+}
+.score-pct {
+  font-family:'DM Serif Display',serif; font-size:44px;
+  color:#0ea472; line-height:1;
+}
+.score-pct.blue { color:#3b5bdb }
+.score-lbl {
+  font-family:'JetBrains Mono',monospace; font-size:9px;
+  color:#4a6b60; letter-spacing:2px; margin-top:2px;
+}
+.res-title { font-family:'DM Serif Display',serif; font-size:30px; margin-bottom:8px }
+.res-sub   { color:#4a6b60; font-size:15px; margin-bottom:32px; line-height:1.65 }
+.breakdown { display:flex; justify-content:center; gap:14px; margin-bottom:28px; flex-wrap:wrap }
+.bk-item {
+  background:#fff; border:2px solid #d4edd7; border-radius:16px;
+  padding:16px 22px; text-align:center; min-width:96px;
+}
+.bk-val { font-family:'DM Serif Display',serif; font-size:32px; margin-bottom:4px }
+.bk-val.c { color:#0ea472 } .bk-val.w { color:#e03131 }
+.bk-lbl { font-size:10px; color:#4a6b60; text-transform:uppercase; letter-spacing:1px; font-family:'JetBrains Mono',monospace }
+.topic-bk {
+  background:#fff; border:2px solid #d4edd7; border-radius:16px;
+  padding:22px; margin-bottom:28px; text-align:left;
+}
+.tb-title { font-family:'JetBrains Mono',monospace; font-size:10px; color:#4a6b60; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:16px }
+.tb-row { display:flex; align-items:center; gap:10px; margin-bottom:10px }
+.tb-name { flex:1; font-size:13px; font-weight:600; line-height:1.3 }
+.tb-bar-wrap { width:110px; height:7px; background:#d4edd7; border-radius:999px; overflow:hidden; flex-shrink:0 }
+.tb-bar { height:100%; border-radius:999px; background:linear-gradient(90deg,#0ea472,#06c47f); transition:width 1s ease }
+.tb-bar.blue { background:linear-gradient(90deg,#3b5bdb,#748ffc) }
+.tb-score { font-family:'JetBrains Mono',monospace; font-size:11px; color:#4a6b60; width:34px; text-align:right; flex-shrink:0 }
+
+/* ══════════════════════════════════════════════════════
+   DOWNLOAD PAGE
+══════════════════════════════════════════════════════ */
+#download-page { background:#f0f7f4 }
+.dl-hero {
+  max-width:900px; margin:0 auto; padding:56px 24px 32px; text-align:center;
+}
+.dl-hero h2 { font-family:'DM Serif Display',serif; font-size:clamp(32px,5vw,54px); margin-bottom:12px }
+.dl-hero p  { color:#4a6b60; font-size:16px; max-width:580px; margin:0 auto 36px; line-height:1.65 }
+
+.legal-banner {
+  display:flex; align-items:flex-start; gap:14px;
+  background:#fff; border:2px solid #fbbf24; border-radius:16px;
+  padding:20px 24px; margin:0 24px 48px; max-width:900px; margin-left:auto; margin-right:auto;
+  box-shadow:0 2px 12px rgba(251,191,36,.15);
+}
+.legal-banner .icon { font-size:28px; flex-shrink:0; margin-top:2px }
+.legal-banner h4 { font-size:15px; font-weight:700; margin-bottom:4px; color:#92400e }
+.legal-banner p  { font-size:13px; color:#4a6b60; line-height:1.6 }
+
+.dl-grid {
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:20px; padding:0 24px 80px; max-width:1100px; margin:0 auto;
+}
+.dl-card {
+  background:#fff; border:2px solid #d4edd7; border-radius:20px;
+  overflow:hidden; box-shadow:0 2px 16px rgba(14,164,114,.07);
+  transition:all .22s; display:flex; flex-direction:column;
+}
+.dl-card:hover { transform:translateY(-4px); box-shadow:0 14px 36px rgba(14,164,114,.13) }
+.dl-card-head {
+  padding:24px 24px 20px;
+  background:linear-gradient(135deg,rgba(14,164,114,.08),rgba(6,196,127,.04));
+  border-bottom:1.5px solid #d4edd7;
+}
+.dl-icon { font-size:40px; margin-bottom:12px }
+.dl-title { font-size:18px; font-weight:800; margin-bottom:6px }
+.dl-subtitle { font-size:12px; font-weight:600; color:#0ea472; font-family:'JetBrains Mono',monospace; letter-spacing:.5px }
+.dl-card-body { padding:20px 24px; flex:1; display:flex; flex-direction:column }
+.dl-desc { font-size:14px; color:#4a6b60; line-height:1.65; margin-bottom:16px; flex:1 }
+.dl-features { display:flex; flex-direction:column; gap:6px; margin-bottom:20px }
+.dl-feature {
+  display:flex; align-items:center; gap:8px;
+  font-size:13px; color:#2d4a40; font-weight:500;
+}
+.dl-feature::before { content:'✓'; color:#0ea472; font-weight:900; font-size:12px; flex-shrink:0 }
+.dl-legal {
+  font-size:11px; color:#4a6b60; background:rgba(14,164,114,.05);
+  border:1px solid #d4edd7; border-radius:8px;
+  padding:10px 12px; line-height:1.6; margin-bottom:16px;
+}
+.dl-legal strong { color:#0a7a55 }
+.dl-btn {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  padding:12px; border-radius:12px; font-size:14px; font-weight:700;
+  cursor:pointer; border:none; transition:all .2s; font-family:'Outfit',sans-serif;
+  background:#0ea472; color:#fff;
+  box-shadow:0 4px 16px rgba(14,164,114,.3);
+  text-decoration:none; width:100%;
+}
+.dl-btn:hover { background:#0a7a55; transform:translateY(-1px); box-shadow:0 8px 24px rgba(14,164,114,.35) }
+.dl-tag {
+  display:inline-block; font-family:'JetBrains Mono',monospace;
+  font-size:9px; font-weight:700; padding:2px 8px; border-radius:4px;
+  letter-spacing:.5px; text-transform:uppercase;
+  background:rgba(14,164,114,.12); color:#0a7a55; margin-right:4px;
+}
+
+/* ── FOOTER ── */
+footer {
+  background:#0d1f1a; color:#8aada4; padding:32px 24px;
+  text-align:center; font-size:13px; line-height:1.7;
+}
+footer a { color:#0ea472; text-decoration:none }
+footer strong { color:#fff }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Buchhalter<span>Basis</span></div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showMainPage('home-page')">🏠 Start</button>
+    <button class="nav-link" onclick="showMainPage('quiz-page')">🧠 Quiz</button>
+    <button class="nav-link" onclick="showMainPage('download-page')">📥 Vorlagen</button>
+  </div>
+</nav>
+
+<!-- ══════════════ HOME PAGE ══════════════ -->
+<div id="home-page" class="page active">
+  <div class="hero">
+    <div class="hero-eyebrow">🇩🇪 Buchhaltung für Deutschland</div>
+    <h1>Buchhaltung<br><em>einfach</em> lernen.</h1>
+    <p>Lerne eigenständig deine Buchhaltung zu führen – mit interaktivem Quiz, kostenlosen Vorlagen und rechtssicheren Informationen nach HGB & EStG.</p>
+    <div class="hero-ctas">
+      <button class="btn btn-primary" onclick="showMainPage('quiz-page')">🧠 Quiz starten</button>
+      <button class="btn btn-outline" onclick="showMainPage('download-page')">📥 Vorlagen downloaden</button>
+    </div>
+    <div class="float-badges">
+      <span class="float-badge fb-green">§ 238 HGB</span>
+      <span class="float-badge fb-blue">SKR03 / SKR04</span>
+      <span class="float-badge fb-green">§ 4 Abs. 3 EStG</span>
+      <span class="float-badge fb-amber">§ 14 UStG</span>
+      <span class="float-badge fb-green">§ 147 AO – 10 Jahre</span>
+      <span class="float-badge fb-blue">ELSTER / DATEV</span>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feat-card">
+      <div class="feat-icon">🧠</div>
+      <div class="feat-title">Interaktives Quiz</div>
+      <div class="feat-desc">Teste dein Wissen in 2 Kursen mit über 100 Fragen zu HGB, EStG, UStG, Buchungssätzen und mehr – mit sofortiger Erklärung.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📋</div>
+      <div class="feat-title">Grundlagen-Kurs</div>
+      <div class="feat-desc">Von Soll & Haben bis zur Bilanz – alle Grundkonzepte der deutschen Buchführung, SKR03/SKR04, Jahresabschluss und GoBD.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🏛️</div>
+      <div class="feat-title">IHK / DATEV Vorbereitung</div>
+      <div class="feat-desc">Kosten- & Leistungsrechnung, Umsatzsteuer, Körperschaftsteuer, Gewerbesteuer, Lohnbuchhaltung und GoBD.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📥</div>
+      <div class="feat-title">Kostenlose Excel-Vorlagen</div>
+      <div class="feat-desc">Kassenbuch, EÜR, Rechnungsvorlage, AfA-Tabelle, Fahrtenbuch und USt-Hilfsblatt – rechtskonform und sofort einsatzbereit.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">⚖️</div>
+      <div class="feat-title">Rechtskonform</div>
+      <div class="feat-desc">Alle Inhalte orientieren sich an aktuellen Gesetzen: HGB, EStG, UStG, AO und GoBD. Kein Ersatz für steuerliche Beratung.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🆓</div>
+      <div class="feat-title">100% kostenlos</div>
+      <div class="feat-desc">Alle Vorlagen, das Quiz und alle Inhalte sind vollständig kostenlos – ohne Registrierung, ohne Abo.</div>
+    </div>
+  </div>
+
+  <footer>
+    <strong>⚠️ Rechtlicher Hinweis:</strong> Alle Inhalte dieser Website dienen ausschließlich zu Lernzwecken und stellen keine steuerliche oder rechtliche Beratung dar.
+    Für individuelle Fragen wende dich an einen zugelassenen Steuerberater.<br>
+    Rechtsstand der Inhalte: aktuell nach HGB, EStG, UStG und AO. · Kein Ersatz für professionellen Rat.
+  </footer>
+</div>
+
+<!-- ══════════════ QUIZ PAGE ══════════════ -->
+<div id="quiz-page" class="page">
+
+  <!-- Quiz Home -->
+  <div id="quiz-home-view">
+    <div class="quiz-home">
+      <h2>📚 Buchhaltungs-Quiz</h2>
+      <p>Wähle deinen Kurs und die Themen – dann geht's los!</p>
+
+      <div class="course-tabs">
+        <button class="ctab ctab-a active" onclick="switchCourse('a')">📘 Grundlagen-Kurs</button>
+        <button class="ctab ctab-b" onclick="switchCourse('b')">🏛️ IHK / DATEV Vorbereitung</button>
+      </div>
+
+      <div class="course-panel active" id="panel-a">
+        <div class="section-lbl lbl-green">Themen auswählen</div>
+        <div class="topic-grid" id="grid-a"></div>
+        <div class="btn-row">
+          <button class="btn btn-ghost" onclick="selectAllTopics('a')">Alle auswählen</button>
+          <button class="btn btn-primary" onclick="startQuiz('a')">Quiz starten →</button>
+        </div>
+      </div>
+
+      <div class="course-panel" id="panel-b">
+        <div class="section-lbl lbl-blue">Module auswählen</div>
+        <div class="topic-grid" id="grid-b"></div>
+        <div class="btn-row">
+          <button class="btn btn-ghost" onclick="selectAllTopics('b')">Alle auswählen</button>
+          <button class="btn btn-primary" style="background:#3b5bdb;box-shadow:0 6px 20px rgba(59,91,219,.3)" onclick="startQuiz('b')">Quiz starten →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active Quiz -->
+  <div id="quiz-active-view" style="display:none; flex-direction:column; flex:1">
+    <div class="qz-topbar">
+      <span class="qz-logo" id="qz-logo">Grundlagen</span>
+      <div class="qz-meta">
+        <span class="q-cnt" id="q-cnt">1 / 10</span>
+        <button class="btn btn-ghost" style="padding:7px 14px;font-size:13px" onclick="backToQuizHome()">← Beenden</button>
+      </div>
+    </div>
+    <div class="prog-wrap"><div class="prog-bar" id="prog-bar" style="width:0%"></div></div>
+    <div class="qz-body">
+      <div class="qz-card" id="qz-card">
+        <div class="q-tag" id="q-tag"></div>
+        <div class="q-text" id="q-text"></div>
+        <div class="opts"  id="q-opts"></div>
+        <div class="expl-box" id="q-expl"></div>
+        <div class="qz-nav">
+          <button class="btn btn-primary" id="q-next" onclick="nextQuestion()" style="display:none">Weiter →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="quiz-results-view" style="display:none">
+    <div class="results-wrap">
+      <div class="res-badge" id="res-badge">GRUNDLAGEN-KURS</div>
+      <div class="score-ring">
+        <svg width="160" height="160" viewBox="0 0 160 160">
+          <circle cx="80" cy="80" r="67" fill="none" stroke="#d4edd7" stroke-width="10"/>
+          <circle cx="80" cy="80" r="67" fill="none" stroke="url(#rg)" stroke-width="10"
+            stroke-linecap="round" stroke-dasharray="421" id="res-circle" stroke-dashoffset="421"/>
+          <defs>
+            <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#0ea472" id="rg1"/>
+              <stop offset="100%" stop-color="#06c47f" id="rg2"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="score-center">
+          <div class="score-pct" id="res-pct">0%</div>
+          <div class="score-lbl">ERGEBNIS</div>
+        </div>
+      </div>
+      <h2 class="res-title" id="res-title"></h2>
+      <p  class="res-sub"   id="res-sub"></p>
+      <div class="breakdown">
+        <div class="bk-item"><div class="bk-val c" id="res-correct">0</div><div class="bk-lbl">Richtig</div></div>
+        <div class="bk-item"><div class="bk-val w" id="res-wrong">0</div><div class="bk-lbl">Falsch</div></div>
+        <div class="bk-item"><div class="bk-val" id="res-total" style="color:#0ea472">0</div><div class="bk-lbl">Gesamt</div></div>
+      </div>
+      <div class="topic-bk" id="res-topic-bk"></div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="backToQuizHome()">Themen ändern</button>
+        <button class="btn btn-primary" id="res-restart" onclick="restartQuiz()">Wiederholen →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ DOWNLOAD PAGE ══════════════ -->
+<div id="download-page" class="page">
+  <div class="dl-hero">
+    <div class="hero-eyebrow" style="margin-bottom:18px">📥 Kostenlose Excel-Vorlagen</div>
+    <h2>Deine Buchhaltung.<br>Selbst gemacht.</h2>
+    <p>Alle Vorlagen sind rechtskonform nach HGB, EStG, UStG und AO gestaltet, sofort einsatzbereit und komplett kostenlos.</p>
+  </div>
+
+  <div class="legal-banner" style="max-width:900px;margin:0 auto 40px;display:flex;align-items:flex-start;gap:14px;background:#fff;border:2px solid #fbbf24;border-radius:16px;padding:20px 24px">
+    <div style="font-size:28px;flex-shrink:0;margin-top:2px">⚖️</div>
+    <div>
+      <h4 style="font-size:15px;font-weight:700;margin-bottom:4px;color:#92400e">Wichtiger rechtlicher Hinweis</h4>
+      <p style="font-size:13px;color:#4a6b60;line-height:1.6">Diese Vorlagen dienen als Arbeitshilfe und ersetzen <strong>keine steuerliche Beratung</strong>. Für die korrekte Anwendung und individuelle Anpassung an deine Situation wende dich an einen zugelassenen <strong>Steuerberater</strong>. Alle Vorlagen entsprechen dem aktuellen Rechtsstand nach HGB, EStG, UStG und AO – ohne Gewähr.</p>
+    </div>
+  </div>
+
+  <div class="dl-grid">
+
+    <div class="dl-card">
+      <div class="dl-card-head">
+        <div class="dl-icon">📒</div>
+        <div class="dl-title">Kassenbuch</div>
+        <div class="dl-subtitle">§ 146 AO · § 147 AO</div>
+      </div>
+      <div class="dl-card-body">
+        <p class="dl-desc">Tägliche Erfassung aller Barein- und -ausgaben mit automatischem Saldo. Für alle Unternehmen mit Bargeldumsatz verpflichtend.</p>
+        <div class="dl-features">
+          <div class="dl-feature">Automatischer Tagessaldo</div>
+          <div class="dl-feature">Monatsabschluss & Summen</div>
+          <div class="dl-feature">Beleg-Nr. & Buchungstext</div>
+          <div class="dl-feature">Unterschriftenfeld & Pflichtfelder</div>
+        </div>
+        <div class="dl-legal">
+          <strong>Rechtsgrundlage:</strong> § 146 Abs. 1 AO (tägliche Führung), § 147 AO (10 Jahre Aufbewahrung). Keine Radierungen oder Tipp-Ex. Bei Mängeln droht Schätzung gem. § 162 AO.
+        </div>
+        <span class="dl-tag">Excel</span><span class="dl-tag">Kostenlos</span>
+        <a href="Kassenbuch_Vorlage.xlsx" download class="dl-btn" style="margin-top:12px">⬇️ Kassenbuch herunterladen</a>
+      </div>
+    </div>
+
+    <div class="dl-card">
+      <div class="dl-card-head">
+        <div class="dl-icon">📊</div>
+        <div class="dl-title">EÜR – Einnahmen-Überschuss-Rechnung</div>
+        <div class="dl-subtitle">§ 4 Abs. 3 EStG · Anlage EÜR</div>
+      </div>
+      <div class="dl-card-body">
+        <p class="dl-desc">Vollständige EÜR für Freiberufler und Kleinunternehmer mit Monatsübersicht, SKR03-Konten und automatischen Jahressummen.</p>
+        <div class="dl-features">
+          <div class="dl-feature">12 Monate + Jahressumme</div>
+          <div class="dl-feature">Alle gängigen Ausgabenkategorien</div>
+          <div class="dl-feature">SKR03-Kontonummern hinterlegt</div>
+          <div class="dl-feature">Gewinn/Verlust automatisch</div>
+        </div>
+        <div class="dl-legal">
+          <strong>Achtung:</strong> Die offizielle Anlage EÜR muss elektronisch via <strong>ELSTER</strong> übermittelt werden (§ 60 Abs. 4 EStDV). Diese Vorlage ist ein Arbeitsblatt – kein Ersatz für ELSTER.
+        </div>
+        <span class="dl-tag">Excel</span><span class="dl-tag">Kostenlos</span>
+        <a href="EÜR_Vorlage.xlsx" download class="dl-btn" style="margin-top:12px">⬇️ EÜR herunterladen</a>
+      </div>
+    </div>
+
+    <div class="dl-card">
+      <div class="dl-card-head">
+        <div class="dl-icon">🧾</div>
+        <div class="dl-title">Rechnungsvorlage</div>
+        <div class="dl-subtitle">§§ 14, 14a UStG · § 238 HGB</div>
+      </div>
+      <div class="dl-card-body">
+        <p class="dl-desc">Professionelle Rechnungsvorlage mit allen gesetzlichen Pflichtangaben, automatischer Mehrwertsteuer-Berechnung und IBAN-Feld.</p>
+        <div class="dl-features">
+          <div class="dl-feature">Alle UStG-Pflichtangaben</div>
+          <div class="dl-feature">19% & 7% MwSt. automatisch</div>
+          <div class="dl-feature">Netto → Brutto Berechnung</div>
+          <div class="dl-feature">Bankverbindung & Zahlungsziel</div>
+        </div>
+        <div class="dl-legal">
+          <strong>Pflichtangaben gem. § 14 UStG:</strong> Name & Anschrift, Steuernummer oder USt-IdNr., Rechnungsdatum, fortlaufende Nr., Leistungsbeschreibung & -zeitraum, Netto, Steuersatz, MwSt.-Betrag, Brutto.
+        </div>
+        <span class="dl-tag">Excel</span><span class="dl-tag">Kostenlos</span>
+        <a href="Rechnungsvorlage.xlsx" download class="dl-btn" style="margin-top:12px">⬇️ Rechnung herunterladen</a>
+      </div>
+    </div>
+
+    <div class="dl-card">
+      <div class="dl-card-head">
+        <div class="dl-icon">🏭</div>
+        <div class="dl-title">Anlagenspiegel & AfA-Tabelle</div>
+        <div class="dl-subtitle">§ 7 EStG · § 6 Abs. 2 EStG</div>
+      </div>
+      <div class="dl-card-body">
+        <p class="dl-desc">Vollständiger Anlagenspiegel mit automatischer AfA-Berechnung (lineare Methode), Restbuchwert und kumulierten Abschreibungen.</p>
+        <div class="dl-features">
+          <div class="dl-feature">Lineare AfA automatisch (§ 7 EStG)</div>
+          <div class="dl-feature">Restbuchwert 01.01. & 31.12.</div>
+          <div class="dl-feature">GWG-Hinweis (bis 800 € netto)</div>
+          <div class="dl-feature">Jahres-AfA Gesamtsumme</div>
+        </div>
+        <div class="dl-legal">
+          <strong>Hinweis:</strong> Nutze die amtlichen AfA-Tabellen des BMF für die korrekte Nutzungsdauer. GWG bis 800 € netto sofort abschreibbar (§ 6 Abs. 2 EStG). Halbjahresregel beachten.
+        </div>
+        <span class="dl-tag">Excel</span><span class="dl-tag">Kostenlos</span>
+        <a href="Anlagenspiegel_AfA.xlsx" download class="dl-btn" style="margin-top:12px">⬇️ AfA-Tabelle herunterladen</a>
+      </div>
+    </div>
+
+    <div class="dl-card">
+      <div class="dl-card-head">
+        <div class="dl-icon">🚗</div>
+        <div class="dl-title">Fahrtenbuch</div>
+        <div class="dl-subtitle">§ 6 Abs. 1 Nr. 4 EStG · BFH-Urteil</div>
+      </div>
+      <div class="dl-card-body">
+        <p class="dl-desc">Ordnungsgemäßes Fahrtenbuch mit allen Pflichtangaben als Nachweis der betrieblichen Kfz-Nutzung – als Alternative zur 1%-Regelung.</p>
+        <div class="dl-features">
+          <div class="dl-feature">Alle BFH-Pflichtangaben</div>
+          <div class="dl-feature">Privat / betrieblich getrennt</div>
+          <div class="dl-feature">Automatische KM-Berechnung</div>
+          <div class="dl-feature">Betriebliche Nutzung in %</div>
+        </div>
+        <div class="dl-legal">
+          <strong>BFH-Anforderungen:</strong> Lückenlos, zeitnah und unveränderbar. Pflicht: Datum, KM-Stand Abfahrt/Ankunft, Ziel, Zweck, aufgesuchte Personen. Fehler → 1%-Regelung (§ 6 Abs. 1 Nr. 4 EStG).
+        </div>
+        <span class="dl-tag">Excel</span><span class="dl-tag">Kostenlos</span>
+        <a href="Fahrtenbuch_Vorlage.xlsx" download class="dl-btn" style="margin-top:12px">⬇️ Fahrtenbuch herunterladen</a>
+      </div>
+    </div>
+
+    <div class="dl-card">
+      <div class="dl-card-head">
+        <div class="dl-icon">📋</div>
+        <div class="dl-title">USt-Voranmeldung Hilfsblatt</div>
+        <div class="dl-subtitle">§§ 16, 18 UStG · ELSTER</div>
+      </div>
+      <div class="dl-card-body">
+        <p class="dl-desc">Hilfsblatt zur Vorbereitung der monatlichen oder vierteljährlichen Umsatzsteuer-Voranmeldung mit allen relevanten Kennziffern (KZ).</p>
+        <div class="dl-features">
+          <div class="dl-feature">Alle relevanten Kennziffern (KZ)</div>
+          <div class="dl-feature">USt 19% & 7% automatisch</div>
+          <div class="dl-feature">Vorsteuer & Zahllast</div>
+          <div class="dl-feature">Hinweise zu ELSTER-Abgabe</div>
+        </div>
+        <div class="dl-legal">
+          <strong>Wichtig:</strong> Dieses Hilfsblatt ersetzt <strong>NICHT</strong> die offizielle USt-Voranmeldung. Abgabe via <strong>ELSTER</strong> (§ 18 Abs. 1 UStG). Fällig am 10. des Folgemonats/-quartals.
+        </div>
+        <span class="dl-tag">Excel</span><span class="dl-tag">Kostenlos</span>
+        <a href="USt_Voranmeldung_Hilfsblatt.xlsx" download class="dl-btn" style="margin-top:12px">⬇️ USt-Hilfsblatt herunterladen</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <strong>⚠️ Alle Vorlagen sind Arbeitshilfen und ersetzen keine steuerliche Beratung.</strong><br>
+    Rechtsstand: aktuell nach HGB, EStG, UStG und AO · Für individuelle Fragen: zugelassener Steuerberater<br>
+    <a href="https://www.elster.de" target="_blank">ELSTER</a> ·
+    <a href="https://www.bundesfinanzministerium.de" target="_blank">BMF AfA-Tabellen</a> ·
+    <a href="https://www.gesetze-im-internet.de/hgb/" target="_blank">HGB Online</a>
+  </footer>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════
+function showMainPage(id) {
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+    p.style.display = 'none';
+  });
+  const el = document.getElementById(id);
+  el.classList.add('active');
+  el.style.display = 'flex';
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  const idx = ['home-page','quiz-page','download-page'].indexOf(id);
+  document.querySelectorAll('.nav-link')[idx]?.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ═══════════════════════════════════════════════════
+// TOPIC DATA
+// ═══════════════════════════════════════════════════
+const TOPICS_A = [
+  "Grundkonzepte der Buchführung",
+  "Soll & Haben – Buchungssätze",
+  "SKR03 / SKR04 Kontenrahmen",
+  "Handelsbücher & GoBD",
+  "Umsatzsteuer (UStG)",
+  "Jahresabschluss (Bilanz & GuV)",
+  "Steuerrecht Grundlagen"
+];
+const TOPICS_B = [
+  "Doppelte Buchführung vertieft",
+  "Jahresabschlussanalyse (KPIs)",
+  "Kosten- & Leistungsrechnung",
+  "Budgetierung & Abweichungsanalyse",
+  "Ertragsteuern (KSt, GewSt, ESt)",
+  "Lohnbuchhaltung & Sozialversicherung",
+  "GoBD & Digitale Buchführung"
+];
+
+// ═══════════════════════════════════════════════════
+// QUESTIONS – Grundlagen-Kurs (Course A)
+// ═══════════════════════════════════════════════════
+const QA = [
+  // T0 – Grundkonzepte
+  {t:0,q:"Was versteht man unter dem Grundsatz der Buchführung 'GoB'?",o:["Gewinn oder Buchwert","Grundsätze ordnungsmäßiger Buchführung – Regeln für korrekte und vollständige Aufzeichnungen","Gewerbeordnung für Betriebe","Gesellschaftliche Ordnung der Bilanz"],a:1,e:"GoB (§ 238 HGB) umfasst alle Grundsätze für eine ordnungsmäßige Buchführung: Vollständigkeit, Richtigkeit, Klarheit, Kontinuität und Zeitgerechtheit."},
+  {t:0,q:"Ab welchem Jahresumsatz besteht in Deutschland für Kaufleute eine Buchführungspflicht?",o:["Ab 22.000 € Umsatz","Ab 600.000 € Umsatz oder 60.000 € Gewinn (§ 141 AO) für Gewerbetreibende","Ab 1.000.000 € Umsatz","Immer, ohne Ausnahme"],a:1,e:"Gewerbetreibende sind nach § 141 AO buchführungspflichtig ab 600.000 € Umsatz oder 60.000 € Gewinn p.a. Freiberufler und Kleinunternehmer können die EÜR (§ 4 Abs. 3 EStG) nutzen."},
+  {t:0,q:"Was ist die GoBD?",o:["Gewinnorientierte Buchführungs-Dokumentation","Grundsätze zur ordnungsmäßigen Führung und Aufbewahrung von Büchern, Aufzeichnungen und Unterlagen in elektronischer Form","Gewerbesteuer-Ordnung für Buchhalter in Deutschland","Gesetz über ordentliche Buchführungsdaten"],a:1,e:"Die GoBD (BMF-Schreiben 2019) regelt die Anforderungen an digitale und elektronische Buchführungssysteme: Unveränderbarkeit, Nachvollziehbarkeit, Zeitgerechtheit und Datensicherheit."},
+  {t:0,q:"Wie lange müssen Buchungsbelege in Deutschland aufbewahrt werden?",o:["3 Jahre","6 Jahre","10 Jahre (§ 147 AO)","25 Jahre"],a:2,e:"Buchungsbelege, Inventare, Bilanzen und Buchführungsunterlagen müssen gem. § 147 Abs. 3 AO 10 Jahre aufbewahrt werden. Handelsbriefe: 6 Jahre."},
+  {t:0,q:"Wer ist nach § 238 HGB buchführungspflichtig?",o:["Nur Aktiengesellschaften","Jeder Kaufmann (Ist-Kaufmann, Kann-Kaufmann) im Rahmen seines Handelsgewerbes","Nur GmbHs und AGs","Nur Unternehmen mit mehr als 10 Mitarbeitern"],a:1,e:"Gem. § 238 HGB ist jeder Kaufmann verpflichtet, Bücher zu führen und dabei die GoB zu beachten. Die Buchführungspflicht gilt unabhängig von der Unternehmensgröße."},
+  {t:0,q:"Was ist das Inventar in der Buchführung?",o:["Die Waren im Lager","Ein vollständiges Verzeichnis aller Vermögensgegenstände und Schulden mit Wertangaben (§ 240 HGB)","Der Kontenrahmen (SKR03)","Die jährliche Gewinn- und Verlustrechnung"],a:1,e:"Das Inventar (§ 240 HGB) ist ein vollständiges, geordnetes Verzeichnis aller Vermögensgegenstände, Forderungen und Schulden mit Mengen- und Wertangaben – Grundlage der Eröffnungsbilanz."},
+  {t:0,q:"Was besagt das Realisationsprinzip (§ 252 Abs. 1 Nr. 4 HGB)?",o:["Gewinne dürfen schon bei Vertragsabschluss erfasst werden","Gewinne dürfen erst erfasst werden, wenn sie realisiert (d.h. der Umsatz tatsächlich erbracht) wurde","Verluste dürfen nicht erfasst werden","Einnahmen und Ausgaben werden immer im gleichen Jahr erfasst"],a:1,e:"Das Realisationsprinzip schreibt vor, dass Gewinne erst ausgewiesen werden dürfen, wenn sie durch Leistungserbringung realisiert wurden. Dagegen sind drohende Verluste sofort zu berücksichtigen (Imparitätsprinzip)."},
+  {t:0,q:"Was ist ein Geschäftsvorfall in der Buchführung?",o:["Ein Mitarbeitergespräch","Jedes wirtschaftliche Ereignis, das das Vermögen oder die Schulden des Unternehmens verändert und belegt wird","Eine informelle Notiz des Inhabers","Der jährliche Steuertermin"],a:1,e:"Ein Geschäftsvorfall ist ein konkretes wirtschaftliches Ereignis (z.B. Kauf, Verkauf, Zahlung), das durch einen Beleg dokumentiert wird und das Vermögen oder die Schulden des Unternehmens verändert."},
+  {t:0,q:"Was ist der Grundsatz der Einzelbewertung (§ 252 Abs. 1 Nr. 3 HGB)?",o:["Alle Vermögensgegenstände werden gemeinsam bewertet","Jeder Vermögensgegenstand und jede Schuld ist einzeln zu bewerten","Nur Anlagevermögen wird einzeln bewertet","Bewertung erfolgt immer zum Marktwert"],a:1,e:"Der Grundsatz der Einzelbewertung verlangt, dass Vermögensgegenstände und Schulden grundsätzlich einzeln, d.h. nicht in Gruppen oder saldiert, bewertet werden."},
+  {t:0,q:"Was versteht man unter dem Niederstwertprinzip?",o:["Anlagevermögen wird immer zum niedrigsten historischen Wert erfasst","Beim Umlaufvermögen ist der niedrigere Wert aus Anschaffungskosten und Marktwert anzusetzen (strenges Niederstwertprinzip)","Alle Vermögensgegenstände werden mit dem aktuellen Marktwert bewertet","Der Gewinn ist möglichst niedrig auszuweisen"],a:1,e:"Das strenge Niederstwertprinzip (§ 253 Abs. 4 HGB) gilt für das Umlaufvermögen: Es ist immer der niedrigere Wert aus Anschaffungskosten und aktuellem Marktwert anzusetzen – unabhängig davon, ob die Wertminderung dauerhaft ist."},
+  // T1 – Soll & Haben
+  {t:1,q:"Wie lautet die Buchung beim Kauf von Waren auf Ziel (Lieferkauf)?",o:["Kasse an Wareneingang","Wareneingang / Einkauf (Soll) an Verbindlichkeiten L+L (Haben)","Forderungen (Soll) an Umsatzerlöse (Haben)","Bank (Soll) an Verbindlichkeiten (Haben)"],a:1,e:"Beim Kauf auf Ziel erhält das Unternehmen die Ware sofort, zahlt aber später: Wareneinkauf (Kto. 3200/SKR03) im Soll, Verbindlichkeiten L+L (Kto. 1600/SKR03) im Haben."},
+  {t:1,q:"Was bedeutet 'per Saldo'?",o:["Eine Überweisung per Bank","Die Differenz zwischen Soll-Summe und Haben-Summe eines Kontos","Die Summe aller Einnahmen","Ein Buchungsfehler"],a:1,e:"Der Saldo ist die Differenz zwischen den Summen der Soll- und Haben-Seite eines Kontos. Ein Sollsaldo bedeutet, dass die Soll-Seite größer ist; ein Habensaldo umgekehrt."},
+  {t:1,q:"Wie bucht man die Zahlung einer Lieferantenrechnung per Überweisung?",o:["Verbindlichkeiten L+L (Soll) an Bank (Haben)","Bank (Soll) an Verbindlichkeiten L+L (Haben)","Forderungen (Soll) an Verbindlichkeiten (Haben)","Kasse (Soll) an Bank (Haben)"],a:0,e:"Bei Zahlung einer Lieferantenrechnung per Bank: Verbindlichkeiten L+L wird verringert (Soll), Bank wird verringert (Haben). Die Schuld gegenüber dem Lieferanten ist beglichen."},
+  {t:1,q:"Was ist ein 'gemischter Buchungssatz'?",o:["Ein Buchungssatz mit Fehlern","Ein Buchungssatz mit mehr als einem Soll- oder Haben-Konto","Ein Buchungssatz ohne Beleg","Ein Buchungssatz in Fremdwährung"],a:1,e:"Ein zusammengesetzter (gemischter) Buchungssatz enthält mehr als ein Soll- oder Haben-Konto. Bedingung: Die Summe der Sollbeträge muss die Summe der Habenbeträge ergeben."},
+  {t:1,q:"Wie lautet der Buchungssatz beim Erhalt einer Kundenzahlung per Bank?",o:["Umsatzerlöse (Soll) an Forderungen (Haben)","Bank (Soll) an Forderungen L+L (Haben)","Verbindlichkeiten (Soll) an Bank (Haben)","Kasse (Soll) an Umsatzerlöse (Haben)"],a:1,e:"Beim Eingang einer Kundenzahlung: Bank (Kto. 1200) im Soll (Zugang), Forderungen L+L (Kto. 1400) im Haben (Abgang – Forderung ist erfüllt)."},
+  {t:1,q:"Was ist das 'Prinzip der doppelten Buchführung'?",o:["Jeder Beleg wird zweimal gebucht","Jede Buchung berührt immer mindestens zwei Konten: einmal Soll, einmal Haben – mit gleichen Beträgen","Gewinne werden doppelt erfasst","Ausgaben werden im Soll und Haben gleichzeitig gebucht"],a:1,e:"Die doppelte Buchführung (Doppik) erfasst jeden Geschäftsvorfall auf mindestens zwei Konten: Soll und Haben mit identischen Beträgen. Dadurch ist eine lückenlose Kontrolle möglich."},
+  {t:1,q:"Wie bucht man die Aufnahme eines Bankdarlehens von 50.000 €?",o:["Darlehen (Soll) an Bank (Haben)","Bank (Soll) an Darlehensverbindlichkeiten (Haben)","Eigenkapital (Soll) an Bank (Haben)","Forderungen (Soll) an Darlehen (Haben)"],a:1,e:"Bankdarlehen: Bank (Kto. 1200) im Soll – Zugang an Zahlungsmitteln, Darlehensverbindlichkeiten (Kto. 0700/SKR03) im Haben – Entstehung einer Schuld."},
+  {t:1,q:"Auf welcher Seite nehmen Aktivkonten zu?",o:["Im Haben","Im Soll","Auf beiden Seiten gleichzeitig","Abhängig vom Kontostand"],a:1,e:"Aktivkonten (z.B. Kasse, Bank, Forderungen, Anlagevermögen) nehmen auf der Soll-Seite (links) zu und auf der Haben-Seite (rechts) ab."},
+  {t:1,q:"Was ist eine 'Abstimmung' im Buchhaltungskontext?",o:["Ein Gespräch mit dem Finanzamt","Der Vergleich von Buchführungsdaten mit externen Belegen oder Kontoauszügen zur Fehlerprüfung","Die Jahresabschlussprüfung durch den Wirtschaftsprüfer","Die monatliche Gehaltszahlung"],a:1,e:"Eine Abstimmung (Reconciliation) prüft, ob Buchführungsdaten mit externen Quellen (z.B. Kontoauszug, Lieferantenrechnung) übereinstimmen – wichtige Kontrollmaßnahme zur Fehlervermeidung."},
+  {t:1,q:"Wie bucht man die Gehaltszahlung von 3.000 € brutto per Bank?",o:["Personalaufwand (Soll) an Kasse (Haben)","Löhne und Gehälter (Soll) an Bank (Haben)","Bank (Soll) an Verbindlichkeiten (Haben)","Eigenkapital (Soll) an Personalaufwand (Haben)"],a:1,e:"Gehaltszahlung: Löhne und Gehälter (Kto. 4120/SKR03) im Soll – Aufwand entsteht; Bank (Kto. 1200) im Haben – Bankguthaben sinkt. (Vereinfacht ohne SV/LSt-Abzüge)"},
+  // T2 – Kontenrahmen
+  {t:2,q:"Was ist der Unterschied zwischen SKR03 und SKR04?",o:["SKR03 ist für Großunternehmen, SKR04 für KMU","SKR03 ist nach dem Abschlussgliederungsprinzip strukturiert, SKR04 nach dem Prozessgliederungsprinzip","Es gibt keinen Unterschied","SKR04 ist veraltet und nicht mehr zulässig"],a:1,e:"SKR03 ist nach dem Abschlussgliederungsprinzip (nach Bilanzpositionen) gegliedert – häufig von Steuerberatern verwendet. SKR04 folgt dem Prozessgliederungsprinzip – orientiert am betrieblichen Ablauf, oft in der Industrie."},
+  {t:2,q:"In welcher Kontenklasse des SKR03 ist das Bankkonto (laufendes Konto) zu finden?",o:["Klasse 0 – Anlagevermögen","Klasse 1 – Umlaufvermögen / Finanzkonten","Klasse 4 – Betriebliche Aufwendungen","Klasse 8 – Erlöse"],a:1,e:"Im SKR03 befindet sich das Bankkonto in Klasse 1 (Umlaufvermögen und Kapital): Konto 1200 = Bank. Klasse 0 = Anlagevermögen, Klasse 4 = Aufwand, Klasse 8 = Erlöse."},
+  {t:2,q:"Welches Konto im SKR03 wird für Kundenforderungen genutzt?",o:["Konto 0650","Konto 1400 – Forderungen aus Lieferungen und Leistungen","Konto 3200 – Wareneingang","Konto 4120 – Löhne und Gehälter"],a:1,e:"Forderungen aus Lieferungen und Leistungen (gegenüber Kunden) werden im SKR03 auf Konto 1400 gebucht. Es handelt sich um ein Aktivkonto der Klasse 1."},
+  {t:2,q:"Auf welchem SKR03-Konto bucht man Verbindlichkeiten gegenüber Lieferanten?",o:["Konto 1400","Konto 1600 – Verbindlichkeiten aus Lieferungen und Leistungen","Konto 3200","Konto 0500"],a:1,e:"Verbindlichkeiten aus Lieferungen und Leistungen (Lieferantenschulden) werden auf Konto 1600 im SKR03 gebucht. Es ist ein Passivkonto der Klasse 1."},
+  {t:2,q:"Welchem Bereich gehören Konten der Klasse 0 im SKR03 an?",o:["Umlaufvermögen","Anlagevermögen und langfristige Verbindlichkeiten","Betriebliche Aufwendungen","Erlöse und Erträge"],a:1,e:"Klasse 0 im SKR03 umfasst das Anlagevermögen (Gebäude, Maschinen, Fuhrpark, immaterielle Werte) sowie langfristige Finanzierungen (Eigenkapital, Darlehen)."},
+  {t:2,q:"Was ist die Funktion der Klasse 4 im SKR03?",o:["Erlöse aus Verkäufen","Betriebliche Aufwendungen wie Personal, Miete, Energie, Werbung","Umlaufvermögen","Eigenkapital und Rücklagen"],a:1,e:"Klasse 4 im SKR03 enthält alle betrieblichen Aufwendungen: Personalkosten (4120), Miete (4210), Energiekosten (4290), Kfz-Kosten (4520), Werbekosten (4600) etc."},
+  {t:2,q:"Auf welchem SKR03-Konto werden Umsatzerlöse aus Warenverkäufen gebucht?",o:["Konto 3200","Konto 8200 – Erlöse aus Lieferungen und Leistungen","Konto 4800","Konto 1200"],a:1,e:"Umsatzerlöse werden in Klasse 8 des SKR03 erfasst. Konto 8200 ist das häufigste Konto für Erlöse aus dem Verkauf von Waren und Leistungen. (Im SKR04: Klasse 4)"},
+  {t:2,q:"Was ist ein Kontenplan (Kontenrahmen)?",o:["Ein Plan für die jährliche Steuerberatung","Ein systematisches Verzeichnis aller Konten, die ein Unternehmen in seiner Buchführung verwenden kann","Die Gewinn- und Verlustrechnung","Ein Verzeichnis aller Geschäftsvorfälle"],a:1,e:"Der Kontenrahmen (z.B. SKR03 oder SKR04) ist ein standardisiertes, branchenbezogenes Verzeichnis aller möglichen Konten, gegliedert nach Klassen. Jedes Unternehmen passt ihn als individuellen Kontenplan an."},
+  {t:2,q:"Wie viele Kontenklassen hat der SKR03?",o:["5 Klassen (0-4)","10 Klassen (0-9)","7 Klassen (1-7)","12 Klassen"],a:1,e:"Der SKR03 hat 10 Klassen, nummeriert von 0 bis 9: 0=Anlagevermögen, 1=Umlaufvermögen, 2=Neutrale Aufwendungen, 3=Wareneinkauf, 4=Betriebsaufwand, 8=Erlöse etc."},
+  {t:2,q:"Was ist der Unterschied zwischen Kontenrahmen und Kontenplan?",o:["Es gibt keinen Unterschied","Der Kontenrahmen ist ein allgemeiner Standard (z.B. SKR03); der Kontenplan ist die unternehmensspezifische Auswahl und Anpassung davon","Der Kontenplan ist gesetzlich vorgeschrieben, der Kontenrahmen freiwillig","Der Kontenrahmen gilt nur für GmbHs"],a:1,e:"Der Kontenrahmen (SKR03/04) ist der branchenweite Standard mit allen möglichen Konten. Der individuelle Kontenplan eines Unternehmens ist eine Auswahl und ggf. Ergänzung daraus – angepasst an die eigene Branche und Größe."},
+  {t:2,q:"Auf welchem Konto (SKR03) wird die Kasse geführt?",o:["Konto 1100 – Kasse","Konto 1200 – Bank","Konto 4800 – Sonstige Aufwendungen","Konto 0320 – Maschinen"],a:0,e:"Die Kasse (Bargeldbestand) wird auf Konto 1100 (SKR03) geführt. Das ist ein Aktivkonto; Eingänge werden im Soll, Ausgänge im Haben gebucht."},
+  // T3 – GoBD & Bücher
+  {t:3,q:"Welche Bücher sind nach § 238 HGB für Kaufleute Pflicht?",o:["Nur das Grundbuch","Grundbuch (Journal) und Hauptbuch (Kontenbuch) sowie ggf. Nebenbücher","Nur das Kassenbuch","Nur die jährliche Bilanz"],a:1,e:"Kaufleute müssen nach HGB mindestens ein Grundbuch (chronologische Erfassung) und ein Hauptbuch (nach Konten geordnet) führen. Nebenbücher (Kassenbuch, Lohnbuch, Anlagenbuch) ergänzen dies."},
+  {t:3,q:"Was ist das 'Kassenbuch' und wann ist es Pflicht?",o:["Ein optionales Heft für private Ausgaben","Ein Buch zur täglichen Aufzeichnung aller Bargeldbewegungen – Pflicht für alle Unternehmen mit Bargeldverkehr (§ 146 AO)","Ein Kontobuch für Bankbewegungen","Ein Buch für Kundenzahlungen per Karte"],a:1,e:"Das Kassenbuch (§ 146 AO) muss täglich geführt werden und alle Barein- und -ausgaben mit Beleg erfassen. Es muss lückenlos und unveränderbar sein. Mängel können zur Schätzung durch das Finanzamt führen."},
+  {t:3,q:"Was fordert die GoBD bezüglich der Unveränderbarkeit von Buchungen?",o:["Buchungen dürfen jederzeit geändert werden","Einmal gespeicherte Buchungen dürfen nicht mehr spurlos verändert oder gelöscht werden – Änderungen nur per Stornobuchung","Buchungen dürfen nach 30 Tagen geändert werden","Nur das Finanzamt darf Buchungen ändern"],a:1,e:"Die GoBD fordert, dass Buchungen nach Erfassung unveränderbar sein müssen. Korrekturen erfolgen ausschließlich durch Stornobuchungen (Gegenbuchung) – keine direkte Überschreibung. Dies gilt auch für digitale Systeme."},
+  {t:3,q:"Was versteht man unter 'zeitgerechter Buchung' (GoBD)?",o:["Buchungen müssen immer am gleichen Tag erfolgen","Buchungen müssen innerhalb angemessener Zeit nach dem Geschäftsvorfall erfasst werden (bei Bargeschäften täglich)","Buchungen dürfen erst am Jahresende erfolgen","Buchungen müssen vor 12 Uhr mittags gemacht werden"],a:1,e:"Die GoBD fordert zeitgerechte Buchungen: Bargeschäfte täglich, andere Geschäftsvorfälle innerhalb von 10 Tagen nach Belegeingang. Verzögerungen können die Ordnungsmäßigkeit der Buchführung gefährden."},
+  {t:3,q:"Was ist ein 'Beleg' in der Buchführung?",o:["Jede mündliche Vereinbarung","Jede schriftliche oder digitale Unterlage, die einen Geschäftsvorfall belegt und die Buchung begründet ('Keine Buchung ohne Beleg')","Der Jahresabschluss","Die monatliche Gewinnermittlung"],a:1,e:"'Keine Buchung ohne Beleg' ist ein Grundsatz der GoB. Belege (Rechnungen, Quittungen, Kontoauszüge, Verträge) begründen und beweisen jeden Geschäftsvorfall. Fehlende Belege können die Buchführung angreifbar machen."},
+  {t:3,q:"Wie lange müssen Handelsbriefe (Eingehende und ausgehende Post) aufbewahrt werden?",o:["3 Jahre","6 Jahre (§ 257 HGB / § 147 AO)","10 Jahre","15 Jahre"],a:1,e:"Handelsbriefe (Angebote, Auftragsbestätigungen, Lieferscheine, Korrespondenz) müssen gem. § 257 HGB und § 147 AO 6 Jahre aufbewahrt werden. Buchungsbelege und Bilanzen: 10 Jahre."},
+  {t:3,q:"Was ist ein 'Grundbuch' (Journal) in der Buchführung?",o:["Das Buch, in dem alle Konten nach Sachgebieten geordnet sind","Das chronologische Aufzeichnungsbuch aller Geschäftsvorfälle – zeitlich geordnet","Die Jahreszusammenfassung der Bilanz","Das Buch für Bargeldgeschäfte"],a:1,e:"Das Grundbuch (Journal) erfasst alle Buchungen in zeitlich chronologischer Reihenfolge. Es ist die Grundlage für das Hauptbuch, in dem dieselben Buchungen nach Konten geordnet werden."},
+  {t:3,q:"Was ist eine 'Stornobuchung'?",o:["Eine Fehlbuchung, die ignoriert wird","Eine spiegelbildliche Gegenbuchung, die eine fehlerhafte Buchung korrekt aufhebt","Eine Buchung ins neue Geschäftsjahr","Eine Buchung ohne Beleg"],a:1,e:"Eine Stornobuchung (oder Korrekturbuchung) hebt eine fehlerhafte Buchung auf, indem der ursprüngliche Buchungssatz umgekehrt gebucht wird. Sie ist der korrekte Weg, Buchfehler zu korrigieren – keine Überschreibung."},
+  {t:3,q:"Was bedeutet 'maschinelle Auswertbarkeit' laut GoBD?",o:["Buchführungsdaten müssen auf Papier verfügbar sein","Buchführungsdaten müssen in einem Format vorliegen, das das Finanzamt mit Prüfprogrammen (z.B. IDEA) auswerten kann","Nur Großunternehmen müssen digitale Daten vorhalten","Buchführung darf nur mit DATEV-Software geführt werden"],a:1,e:"Die GoBD fordert maschinelle Auswertbarkeit: Buchführungsdaten müssen in standardisierten, lesbaren Formaten vorliegen, sodass das Finanzamt sie mit Prüfsoftware (z.B. IDEA) im Rahmen einer Betriebsprüfung auswerten kann."},
+  {t:3,q:"Was ist das 'Hauptbuch' in der Buchführung?",o:["Das Buch, das alle Belege chronologisch sammelt","Das nach Konten geordnete Buch, das alle Buchungen pro Konto mit Saldo zeigt","Die monatliche Umsatzaufstellung","Das Lohnbuch des Unternehmens"],a:1,e:"Das Hauptbuch (Kontenbuch) enthält alle Buchungen geordnet nach Konten (z.B. Kasse, Bank, Forderungen). Aus dem Hauptbuch ergeben sich die Salden aller Konten, die für Bilanz und GuV benötigt werden."},
+  // T4 – USt
+  {t:4,q:"Wer ist Steuerschuldner der Umsatzsteuer (§ 13a UStG)?",o:["Immer der Käufer","In der Regel der leistende Unternehmer; bei bestimmten Leistungen der Leistungsempfänger (Reverse Charge)","Immer das Finanzamt","Der Zwischenhändler"],a:1,e:"Grundsätzlich ist der leistende Unternehmer Steuerschuldner (§ 13a UStG). Bei Reverse Charge (§ 13b UStG) – z.B. Bauleistungen, ig. Erwerbe – schuldet der Leistungsempfänger die USt."},
+  {t:4,q:"Was ist die Kleinunternehmerregelung (§ 19 UStG)?",o:["Eine Steuerbefreiung für alle Unternehmen mit weniger als 10 Mitarbeitern","Unternehmer mit Vorjahresumsatz bis 22.000 € und Schätzung unter 50.000 € im laufenden Jahr können von der USt-Pflicht befreit werden","Eine Regelung nur für Handwerker","Eine Regelung für Unternehmen in strukturschwachen Regionen"],a:1,e:"§ 19 UStG: Bei Vorjahresumsatz ≤ 22.000 € und voraussichtlichem Jahresumsatz ≤ 50.000 € kann der Unternehmer die Kleinunternehmerregelung wählen – keine USt-Ausweisung, kein Vorsteuerabzug."},
+  {t:4,q:"Welche Umsatzsteuersätze gibt es in Deutschland?",o:["Nur 19%","7% (ermäßigt) und 19% (Regelsteuersatz) sowie 0% für bestimmte Umsätze","5%, 10% und 20%","10% und 20%"],a:1,e:"Deutschland hat zwei Steuersätze: 19% (Regelsteuersatz) und 7% (ermäßigter Steuersatz für Lebensmittel, Bücher, ÖPNV etc.). Bestimmte Umsätze sind steuerfrei (§ 4 UStG) oder steuerpflichtig mit 0% (Ausfuhr)."},
+  {t:4,q:"Was ist die Umsatzsteuer-Identifikationsnummer (USt-IdNr.)?",o:["Identisch mit der Steuernummer vom Finanzamt","Eine europaweit einheitliche Nummer für den grenzüberschreitenden Handel innerhalb der EU (beginnt mit 'DE' für Deutschland)","Eine Nummer nur für Großunternehmen","Die IBAN des Unternehmenskontos"],a:1,e:"Die USt-IdNr. (DE + 9 Stellen) wird vom Bundeszentralamt für Steuern ausgestellt und dient der Identifikation im innergemeinschaftlichen Waren- und Dienstleistungsverkehr in der EU. Pflichtangabe auf Rechnungen."},
+  {t:4,q:"Was ist eine innergemeinschaftliche Lieferung (§ 4 Nr. 1b UStG)?",o:["Eine Lieferung innerhalb eines Bundeslandes","Eine Lieferung an einen Unternehmer in einem anderen EU-Mitgliedstaat – steuerbefreit beim Lieferanten","Eine Lieferung an Privatkunden in der EU","Eine Lieferung mit 7% MwSt."],a:1,e:"Eine innergemeinschaftliche Lieferung (ig. Lieferung) ist die steuerfreie Lieferung an einen umsatzsteuerpflichtigen Unternehmer in einem anderen EU-Staat. Voraussetzung: Ware verlässt Deutschland, USt-IdNr. des Empfängers liegt vor."},
+  {t:4,q:"Wie lautet der Buchungssatz für die Verbuchung von Vorsteuer?",o:["Vorsteuer (Haben) an Bank (Soll)","Vorsteuer (Soll) an Verbindlichkeiten (Haben) – bei Eingangsrechnung","Umsatzsteuer (Soll) an Vorsteuer (Haben)","Vorsteuer wird nicht gebucht"],a:1,e:"Bei Eingangsrechnung mit Vorsteuer: Der Nettobetrag und die Vorsteuer (Kto. 1576/SKR03) werden im Soll gebucht; Verbindlichkeiten L+L im Haben. Die Vorsteuer ist ein Aktivkonto (Forderung ggü. Finanzamt)."},
+  {t:4,q:"Wann ist die USt-Voranmeldung fällig?",o:["Am 31. des laufenden Monats","Am 10. des auf den Voranmeldezeitraum folgenden Monats (mit Dauerfristverlängerung: +1 Monat)","Am 31. März jedes Jahres","Quartalsweise am 15. des Folgequartals"],a:1,e:"Die USt-Voranmeldung (§ 18 UStG) ist am 10. des Folgemonats/-quartals fällig (elektronisch via ELSTER). Mit Dauerfristverlängerung (Sondervorauszahlung 1/11) verlängert sich die Frist um einen Monat."},
+  {t:4,q:"Was ist die 'Zahllast' in der USt-Voranmeldung?",o:["Der Gesamtumsatz des Unternehmens","Die Differenz zwischen geschuldeter Umsatzsteuer und abzugsfähiger Vorsteuer – positiv = Zahlung an FA, negativ = Erstattung","Die Umsatzsteuer auf alle Rechnungen ohne Vorsteuerabzug","Der Betrag der Umsatzsteuer auf Ausgangsrechnungen"],a:1,e:"Zahllast = Umsatzsteuer (aus Verkäufen) minus Vorsteuer (aus Einkäufen). Ist die Zahllast positiv, wird sie ans Finanzamt abgeführt. Ist die Vorsteuer höher, entsteht ein Erstattungsanspruch."},
+  {t:4,q:"Welche Leistungen sind nach § 4 UStG steuerfrei?",o:["Alle Dienstleistungen","U.a. Heilbehandlungen, Schulungsleistungen privater Bildungseinrichtungen, Grundstücksvermietung, Kreditvermittlung","Nur Exporte außerhalb der EU","Alle Leistungen unter 100 €"],a:1,e:"§ 4 UStG listet steuerfreie Umsätze: Arzt- und Heilbehandlungen, Umsätze der Krankenhäuser, Schul- und Bildungsleistungen anerkannter Einrichtungen, Grundstücksvermietung, Finanz- und Versicherungsleistungen, Exporte."},
+  {t:4,q:"Was ist der Vorsteuerabzug und wer hat Anspruch darauf?",o:["Jeder Bürger kann Vorsteuer beim Finanzamt einfordern","Unternehmer können die in Eingangsrechnungen ausgewiesene USt als Vorsteuer abziehen, wenn sie umsatzsteuerpflichtige Ausgangsumsätze haben (§ 15 UStG)","Nur Großunternehmen mit Jahresumsatz über 1 Mio €","Nur bei Warenimporten aus dem Ausland"],a:1,e:"§ 15 UStG: Unternehmer, die steuerpflichtige Umsätze erzielen, können die ihnen in Rechnung gestellte USt als Vorsteuer vom Finanzamt zurückfordern – sofern eine ordnungsgemäße Rechnung vorliegt."},
+  // T5 – Jahresabschluss
+  {t:5,q:"Welche Bestandteile hat der Jahresabschluss einer GmbH (§ 264 HGB)?",o:["Nur die Bilanz","Bilanz, Gewinn- und Verlustrechnung und Anhang – größenabhängig auch Lagebericht","Nur GuV und Lagebericht","Nur Bilanz und Kassenbuch"],a:1,e:"GmbHs müssen nach § 264 HGB Jahresabschlüsse erstellen, bestehend aus: Bilanz, GuV und Anhang. Mittelgroße und große GmbHs erstellen zusätzlich einen Lagebericht (§ 289 HGB) und müssen ihn offenlegen."},
+  {t:5,q:"Was ist das Eigenkapital in der Bilanz?",o:["Die Summe aller Schulden","Die Differenz aus Vermögen (Aktiva) minus Schulden (Passiva) – der Anteil der Eigentümer am Unternehmen","Das gesamte Anlagevermögen","Die liquiden Mittel des Unternehmens"],a:1,e:"Eigenkapital = Aktiva − Fremdkapital. Es stellt den Eigentumsanspruch der Gesellschafter dar und setzt sich zusammen aus: Gezeichnetem Kapital (Stammkapital), Kapitalrücklage, Gewinnrücklagen und Jahresüberschuss/-fehlbetrag."},
+  {t:5,q:"Was ist der Unterschied zwischen Anlage- und Umlaufvermögen?",o:["Anlagevermögen ist teurer als Umlaufvermögen","Anlagevermögen dient dauerhaft dem Betrieb (>1 Jahr); Umlaufvermögen wird kurzfristig umgesetzt (<1 Jahr)","Umlaufvermögen ist immer liquide, Anlagevermögen nicht","Es gibt keinen bilanziellen Unterschied"],a:1,e:"Anlagevermögen (§ 247 Abs. 2 HGB) ist dauerhaft für den Geschäftsbetrieb bestimmt: Gebäude, Maschinen, Fuhrpark, Patente. Umlaufvermögen wird kurzfristig umgesetzt: Vorräte, Forderungen, Bankguthaben, Kasse."},
+  {t:5,q:"Was zeigt die Gewinn- und Verlustrechnung (GuV)?",o:["Die Vermögenssituation an einem Stichtag","Alle Erträge und Aufwendungen eines Geschäftsjahres, deren Saldo den Jahresüberschuss oder -fehlbetrag ergibt","Nur die Umsatzerlöse des Jahres","Den Kassenbestand zum Jahresende"],a:1,e:"Die GuV (§§ 275–277 HGB) zeigt alle Erträge (Umsätze, sonstige Erträge) und Aufwendungen (Material, Personal, Abschreibungen, Zinsen, Steuern) eines Geschäftsjahres. Das Ergebnis ist der Jahresüberschuss oder -fehlbetrag."},
+  {t:5,q:"Was ist der Unterschied zwischen dem Gesamtkostenverfahren und dem Umsatzkostenverfahren in der GuV?",o:["Es gibt keinen Unterschied","GKV gliedert nach Aufwandsarten (Material, Personal, Abschreibungen); UKV nach Funktionsbereichen (Herstellung, Vertrieb, Verwaltung)","GKV ist nur für AGs, UKV für GmbHs","UKV ist in Deutschland verboten"],a:1,e:"Das Gesamtkostenverfahren (§ 275 Abs. 2 HGB) gliedert nach Aufwandsarten und ist in Deutschland häufiger. Das Umsatzkostenverfahren (§ 275 Abs. 3 HGB) gliedert nach Funktionsbereichen (Produktion, Vertrieb, Verwaltung) – mehr Managementorientierung."},
+  {t:5,q:"Was ist die Abschreibung (AfA) und welche Methoden gibt es?",o:["Eine Zahlung an das Finanzamt","Die planmäßige Verteilung der Anschaffungskosten eines Wirtschaftsguts über seine Nutzungsdauer – hauptsächlich linear und degressiv","Eine Rückstellung für künftige Ausgaben","Der jährliche Wertzuwachs von Anlagevermögen"],a:1,e:"AfA (Absetzung für Abnutzung, § 7 EStG) verteilt die Anschaffungskosten über die Nutzungsdauer. Lineare AfA: gleiche Beträge jährlich. Degressive AfA (§ 7 Abs. 2 EStG): fallende Beträge, max. 25% oder 2,5-fach linear."},
+  {t:5,q:"Was ist eine Rückstellung (§ 249 HGB)?",o:["Eine Barreserve in der Kasse","Eine Verbindlichkeit mit ungewisser Höhe oder Fälligkeit, die am Bilanzstichtag wahrscheinlich ist","Ein Aktivposten für geplante Investitionen","Eine Sonderabschreibung auf Vorräte"],a:1,e:"Rückstellungen (§ 249 HGB) sind Passivposten für wahrscheinliche Verpflichtungen, deren Höhe oder Fälligkeit noch ungewiss ist: Pensionen, Steuern, Gewährleistungen, ausstehende Rechnungen, Prozessrisiken."},
+  {t:5,q:"Was ist der Unterschied zwischen Rückstellung und Rücklage?",o:["Es gibt keinen Unterschied","Rückstellungen sind Verbindlichkeiten (Passiva); Rücklagen sind Eigenkapital (z.B. Gewinnthesaurierungen)","Rücklagen dienen der Steuervermeidung","Rückstellungen erhöhen den Gewinn"],a:1,e:"Rückstellungen (§ 249 HGB) sind Fremdkapital: Sie decken ungewisse Verbindlichkeiten. Rücklagen (§§ 266, 272 HGB) sind Eigenkapital: Sie entstehen durch Thesaurierung von Gewinnen (gesetzliche Rücklage, Gewinnrücklagen)."},
+  {t:5,q:"Wer muss seinen Jahresabschluss im Bundesanzeiger offenlegen?",o:["Alle Unternehmen","Nur Kapitalgesellschaften (GmbH, AG) und haftungsbeschränkte Personengesellschaften, größenabhängig mit unterschiedlichem Umfang","Nur börsennotierte Unternehmen","Nur Unternehmen mit mehr als 500 Mitarbeitern"],a:1,e:"Kapitalgesellschaften (GmbH, AG, UG) müssen ihren Jahresabschluss beim Bundesanzeiger offenlegen (§ 325 HGB). Kleinstunternehmen: nur Bilanz. Kleine GmbHs: Bilanz + Anhang. Mittelgroße/große: vollständiger Jahresabschluss."},
+  {t:5,q:"Was ist das Stammkapital einer GmbH und wie hoch ist das Minimum?",o:["10.000 € Mindestkapital","25.000 € Mindestkapital (§ 5 GmbHG), bei Gründung mind. 12.500 € eingezahlt","50.000 € Mindestkapital","Kein Mindestkapital erforderlich"],a:1,e:"Das Mindeststammkapital einer GmbH beträgt gem. § 5 GmbHG 25.000 €. Bei Gründung muss mindestens die Hälfte (12.500 €) eingezahlt werden. Das Stammkapital erscheint auf der Passivseite der Bilanz unter Eigenkapital."},
+  // T6 – Steuerrecht
+  {t:6,q:"Was ist der Unterschied zwischen Einkommen- und Körperschaftsteuer?",o:["Es gibt keinen Unterschied","ESt gilt für natürliche Personen (Einzelunternehmer, Gesellschafter); KSt für juristische Personen (GmbH, AG)","KSt gilt für Einzelunternehmer, ESt für GmbHs","Beide gelten für alle Unternehmen gleich"],a:1,e:"Die Einkommensteuer (ESt, § 1 EStG) besteuert natürliche Personen (Einzelunternehmer, Freiberufler, Gesellschafter von Personengesellschaften). Die Körperschaftsteuer (KSt, § 1 KStG) besteuert juristische Personen (GmbH, AG, eG)."},
+  {t:6,q:"Wie hoch ist der Körperschaftsteuersatz in Deutschland?",o:["10% zzgl. Solidaritätszuschlag","15% zzgl. 5,5% Solidaritätszuschlag darauf (effektiv ca. 15,825%)","25% flat","Je nach Gewinnhöhe zwischen 10% und 30%"],a:1,e:"Der KSt-Satz beträgt pauschal 15% (§ 23 KStG) zzgl. 5,5% Solidaritätszuschlag auf die KSt (= 0,825%). Effektiver Satz: ca. 15,825%. Hinzu kommt die Gewerbesteuer (variiert je Gemeinde)."},
+  {t:6,q:"Was ist die Gewerbesteuer und wer ist gewerbesteuerpflichtig?",o:["Eine Steuer auf den Privatbesitz des Unternehmers","Eine kommunale Steuer auf den Gewerbeertrag – gewerbesteuerpflichtig sind alle Gewerbetreibenden (nicht Freiberufler)","Eine Steuer auf den Umsatz","Eine Steuer nur für Einzelunternehmer"],a:1,e:"Die Gewerbesteuer (§ 2 GewStG) ist eine kommunale Steuer auf den Gewerbeertrag. Gewerbesteuerpflichtig sind alle Gewerbetreibenden. Freiberufler (Ärzte, Anwälte, Steuerberater) und Landwirte sind befreit. Der Steuersatz variiert je nach Hebesatz der Gemeinde."},
+  {t:6,q:"Was ist der Gewerbesteuer-Freibetrag für Einzelunternehmen und Personengesellschaften?",o:["Kein Freibetrag","24.500 € (§ 11 Abs. 1 Nr. 1 GewStG) – für natürliche Personen und Personengesellschaften","50.000 €","10.000 €"],a:1,e:"Einzelunternehmen und Personengesellschaften haben einen Gewerbesteuerfreibetrag von 24.500 € (§ 11 Abs. 1 Nr. 1 GewStG). GmbHs und AGs haben keinen Freibetrag – sie zahlen GewSt ab dem ersten Euro Gewerbeertrag."},
+  {t:6,q:"Was ist die Abgeltungsteuer (§ 32d EStG)?",o:["Eine besondere Steuer auf Unternehmensgewinne","Ein pauschaler Steuersatz von 25% (+ SolZ) auf Kapitalerträge wie Dividenden und Zinsen","Eine Steuer auf Immobilienverkäufe","Die Schenkungsteuer für Betriebsübertragungen"],a:1,e:"Die Abgeltungsteuer (§ 32d EStG) beträgt pauschal 25% zzgl. 5,5% SolZ und ggf. KiSt auf private Kapitalerträge (Zinsen, Dividenden, Veräußerungsgewinne). Sie wird direkt von der Bank einbehalten und abgeführt."},
+  {t:6,q:"Was ist der Unterschied zwischen Steuererstattung und Steuernachzahlung?",o:["Es gibt keinen Unterschied","Erstattung = Finanzamt zahlt zurück (zu viel gezahlt); Nachzahlung = Unternehmer muss nachzahlen (zu wenig gezahlt)","Nachzahlung gilt nur für Umsatzsteuer","Erstattung ist nur bei der Körperschaftsteuer möglich"],a:1,e:"Eine Steuererstattung entsteht, wenn Vorauszahlungen oder Quellensteuer die tatsächliche Steuerschuld übersteigen. Eine Nachzahlung ist fällig, wenn die Vorauszahlungen zu niedrig waren. Beides ergibt sich aus dem Steuerbescheid."},
+  {t:6,q:"Was sind latente Steuern (§ 274 HGB)?",o:["Steuern, die nie gezahlt werden","Zeitliche Unterschiede zwischen dem steuerlichen und handelsrechtlichen Ergebnis, die in der Bilanz aktiv oder passiv abzubilden sind","Steuern auf ausländische Einkünfte","Die aufgeschobene Gewerbesteuer für Kleinunternehmen"],a:1,e:"Latente Steuern (§ 274 HGB) entstehen durch unterschiedliche Bewertungsregeln nach HGB und Steuerrecht. Sie sind als aktive (zu wenig versteuert) oder passive (zu viel versteuert) latente Steuern in der Bilanz auszuweisen."},
+  {t:6,q:"Was ist die 'Ist-Besteuerung' bei der Umsatzsteuer?",o:["USt wird immer nach vereinnahmten Entgelten berechnet","USt wird erst bei tatsächlichem Geldeingang fällig (§ 20 UStG) – Genehmigung erforderlich, max. 600.000 € Vorjahresumsatz","USt wird immer monatlich abgeführt","USt wird jährlich zusammen mit der Einkommensteuer gezahlt"],a:1,e:"Die Ist-Besteuerung (§ 20 UStG) erlaubt es, USt erst bei tatsächlichem Zahlungseingang zu berechnen (statt bei Rechnungsstellung). Voraussetzung: Antrag beim Finanzamt, Vorjahresumsatz ≤ 600.000 € oder Freiberufler."},
+  {t:6,q:"Was ist der 'Solidaritätszuschlag' (SolZ)?",o:["Eine separate Steuer auf alle Einkünfte","Ein Aufschlag auf die ESt oder KSt – seit 2021 entfällt er für ca. 90% der Steuerzahler (Freigrenze 16.956 €/Einzelveranlagung)","Eine Steuer nur für Unternehmen","Ein Zuschlag auf die Gewerbesteuer"],a:1,e:"Der SolZ beträgt 5,5% der ESt oder KSt. Seit 2021 gilt eine erhöhte Freigrenze: Einzelveranlagte bis 16.956 € ESt zahlen keinen SolZ. Körperschaften (GmbH, AG) zahlen weiterhin 5,5% auf die KSt."},
+  {t:6,q:"Was sind 'Betriebsausgaben' und wann sind sie steuerlich absetzbar?",o:["Alle Ausgaben des Unternehmers, auch private","Aufwendungen, die durch den Betrieb veranlasst sind (§ 4 Abs. 4 EStG) und somit den Gewinn mindern – keine privaten Kosten","Nur Ausgaben für Waren und Material","Nur Personalkosten"],a:1,e:"Betriebsausgaben (§ 4 Abs. 4 EStG) sind alle Aufwendungen, die betrieblich veranlasst sind und den steuerlichen Gewinn mindern. Keine Betriebsausgaben: private Kosten des Unternehmers, Geschenke über 35 € netto pro Person und Jahr."},
+  // T3–T6: extra questions for KURS B topics
+  // B0: Doppelte Buchführung
+  {t:0,q:"Was versteht man unter 'Eröffnungsbilanz'?",o:["Die Bilanz nach dem ersten Verkauf","Die Bilanz am Beginn eines Geschäftsjahres, die den Anfangsbestand aller Konten zeigt und identisch ist mit der Schlussbilanz des Vorjahres","Die Bilanz nach der Unternehmensgründung (nur einmalig)","Die monatliche Zwischenbilanz"],a:1,e:"Die Eröffnungsbilanz (§ 242 HGB) wird zu Beginn des Geschäftsjahres aufgestellt und entspricht der Schlussbilanz des Vorjahres. Sie zeigt den Anfangsbestand aller Aktiv- und Passivposten und dient zur Eröffnung der Bestandskonten."},
+];
+
+// ═══════════════════════════════════════════════════
+// QUESTIONS – IHK / DATEV Vorbereitung (Course B)
+// ═══════════════════════════════════════════════════
+const QB = [
+  // M0: Doppelte Buchführung vertieft
+  {t:0,q:"Was ist ein 'schwebendes Geschäft' in der Buchführung?",o:["Ein Geschäft mit ausstehender Bezahlung","Ein Geschäftsvorfall, bei dem beide Seiten ihre Leistungen noch nicht vollständig erbracht haben und der daher noch nicht zu buchen ist","Ein Geschäftsvorfall mit unbekannten Vertragspartnern","Ein Buchungsfehler bei Devisenkäufen"],a:1,e:"Schwebende Geschäfte (z.B. Kaufvertrag vor Lieferung und Zahlung) sind noch nicht zu buchen, da die gegenseitigen Ansprüche noch nicht erfüllt sind. Erst bei Leistungserbringung entsteht ein buchungspflichtiger Geschäftsvorfall."},
+  {t:0,q:"Was ist eine 'Saldenprobe' (Summen- und Saldenliste)?",o:["Die jährliche Inventur","Eine Liste aller Konten mit Soll-/Haben-Summen und Salden, die prüft ob Soll = Haben","Die monatliche Gewinnermittlung","Eine Abstimmung der Kassenbuchsalden"],a:1,e:"Die Summen- und Saldenliste (Saldenprobe) listet alle Konten mit ihren Soll- und Haben-Summen sowie den Saldo. Sie dient der Kontrolle: Die Summe aller Sollsummen muss der Summe aller Habensummen entsprechen."},
+  {t:0,q:"Was sind 'Abgrenzungsposten' (ARAP/PRAP)?",o:["Steuerliche Rückstellungen","Aktive (ARAP) und passive (PRAP) Rechnungsabgrenzungsposten, die Einnahmen/Ausgaben periodengerecht abgrenzen","Sonderposten für Investitionszulagen","Rücklagen für Dividendenzahlungen"],a:1,e:"ARAP (aktiver RAP): Ausgaben in der laufenden Periode, die Aufwand für die Folgeperiode darstellen. PRAP (passiver RAP): Einnahmen in der laufenden Periode, die Ertrag der Folgeperiode sind. Beide sichern die periodengerechte Gewinnermittlung."},
+  {t:0,q:"Was ist eine 'Kapitalflussrechnung' (§ 297 HGB)?",o:["Eine vereinfachte Bilanz","Eine Darstellung der Herkunft und Verwendung der Zahlungsmittel in einem Geschäftsjahr – Pflicht für börsennotierte AGs","Eine Liste aller Kapitalgeber des Unternehmens","Eine Überleitung vom steuerlichen zum handelsrechtlichen Ergebnis"],a:1,e:"Die Kapitalflussrechnung (Cashflow-Statement) zeigt, woher Zahlungsmittel kamen und wofür sie verwendet wurden. Gegliedert nach: operativer, Investitions- und Finanzierungstätigkeit. Pflicht für kapitalmarktorientierte Unternehmen (§ 297 HGB)."},
+  {t:0,q:"Was sind 'stille Reserven' in der Bilanz?",o:["Bargeldreserven im Tresor","Wertdifferenzen zwischen dem tatsächlichen Wert eines Vermögensgegenstands und seinem bilanziellen Ansatz (oft durch Vorsichtsbewertung entstanden)","Verborgene Schulden des Unternehmens","Rückstellungen für unbekannte Risiken"],a:1,e:"Stille Reserven entstehen, wenn Vermögensgegenstände unter ihrem tatsächlichen Wert bilanziert werden (z.B. durch lineare AfA, Niederstwertprinzip) oder Passiva überbewertet sind. Bei Auflösung erhöhen sie den Gewinn."},
+  {t:0,q:"Was ist der 'Eigenkapitalspiegel' (§ 264 Abs. 1 HGB)?",o:["Eine vereinfachte Bilanz für Kleinunternehmen","Eine Aufstellung der Veränderungen aller Eigenkapitalkomponenten im Geschäftsjahr","Die Liste der Gesellschafter und ihrer Einlagen","Der jährliche Steuernachweis für das Finanzamt"],a:1,e:"Der Eigenkapitalspiegel (§ 264 Abs. 1 HGB) zeigt, wie sich die einzelnen Eigenkapitalpositionen (gezeichnetes Kapital, Rücklagen, Jahresüberschuss) im Laufe des Geschäftsjahres verändert haben. Pflicht für mittelgroße und große Kapitalgesellschaften."},
+  {t:0,q:"Was ist eine 'Leasing-Verbindlichkeit' und wie wird sie bilanziert?",o:["Immer beim Leasinggeber bilanziert","Bei Finanzierungsleasing wird das Leasingobjekt beim Leasingnehmer aktiviert und eine entsprechende Verbindlichkeit passiviert (wirtschaftliches Eigentum)","Leasingverträge werden nie bilanziert","Nur beim Operating Leasing entsteht eine Verbindlichkeit"],a:1,e:"Beim Finanzierungsleasing (Vertrag läuft über die Nutzungsdauer, Leasingnehmer trägt Risiken) bilanziert der Leasingnehmer das Objekt als Aktivum und die Verpflichtung als Verbindlichkeit. Beim Operating Leasing wird nur die Leasingrate als Aufwand gebucht."},
+  {t:0,q:"Was ist das 'Maßgeblichkeitsprinzip'?",o:["Handelsrecht ist immer maßgeblich für das Steuerrecht","Die handelsrechtliche Buchführung ist grundsätzlich maßgeblich für die steuerrechtliche Gewinnermittlung (§ 5 EStG) – mit Ausnahmen","Das Steuerrecht hat immer Vorrang vor dem Handelsrecht","Beide Rechtsgebiete sind vollständig identisch"],a:1,e:"Das Maßgeblichkeitsprinzip (§ 5 EStG) besagt, dass der steuerliche Gewinn grundsätzlich auf der Handelsbilanz basiert. Steuerliche Sondervorschriften (z.B. abweichende Bewertung, Sonderabschreibungen) durchbrechen diesen Grundsatz."},
+  {t:0,q:"Was ist eine 'Wertberichtigung' auf Forderungen?",o:["Eine Zahlung auf eine offene Rechnung","Eine Abwertung zweifelhafter oder uneinbringlicher Forderungen, die das Risiko eines Ausfalls in der Buchführung abbildet","Eine Aufwertung von Forderungen","Eine Gutschrift des Kunden"],a:1,e:"Wertberichtigungen auf Forderungen (Einzel- oder Pauschalwertberichtigung) erfassen das Risiko, dass Kunden nicht zahlen. Bei konkretem Ausfall: Einzelwertberichtigung. Als allgemeines Risiko: Pauschalwertberichtigung (ca. 1-3% der Forderungen)."},
+  {t:0,q:"Was ist die 'Handelsbilanz' im Unterschied zur 'Steuerbilanz'?",o:["Beide sind identisch","Handelsbilanz nach HGB (für Gläubiger, Gesellschafter); Steuerbilanz nach EStG/KStG (für das Finanzamt) – unterschiedliche Bewertungsregeln möglich","Steuerbilanz ist nur für AGs","Handelsbilanz ist freiwillig"],a:1,e:"Die Handelsbilanz folgt HGB-Grundsätzen und dient der Information von Gläubigern und Gesellschaftern. Die Steuerbilanz (oder steuerliche Überleitungsrechnung) folgt EStG/KStG und dient zur Steuerberechnung. Unterschiede entstehen durch abweichende Bewertungsvorschriften."},
+  // M1: Jahresabschlussanalyse
+  {t:1,q:"Was misst die Eigenkapitalquote?",o:["Den Anteil des Fremdkapitals am Gesamtvermögen","Den Anteil des Eigenkapitals an der Bilanzsumme – ein Maß für die finanzielle Unabhängigkeit","Die jährliche Eigenkapitalrendite","Den Anteil der liquiden Mittel"],a:1,e:"Eigenkapitalquote = EK / Bilanzsumme × 100%. Sie zeigt, wie stark das Unternehmen mit eigenen Mitteln finanziert ist. Hohe EK-Quote = finanzielle Stabilität und Unabhängigkeit von Fremdkapitalgebern."},
+  {t:1,q:"Was ist das EBIT?",o:["Gewinn nach allen Steuern und Zinsen","Ergebnis vor Zinsen und Steuern (Earnings Before Interest and Taxes) – Betriebsergebnis","Gewinn vor Abschreibungen","Der Cashflow des Unternehmens"],a:1,e:"EBIT (Earnings Before Interest and Taxes) = Betriebsergebnis vor Zinsen und Ertragsteuern. Es zeigt die operative Profitabilität unabhängig von der Finanzierungsstruktur und dem Steuersatz – international vergleichbar."},
+  {t:1,q:"Wie berechnet sich der Return on Equity (RoE)?",o:["Umsatz / Eigenkapital","Jahresüberschuss / Eigenkapital × 100%","EBIT / Bilanzsumme","Cashflow / Fremdkapital"],a:1,e:"RoE (Eigenkapitalrendite) = Jahresüberschuss / Eigenkapital × 100%. Er misst die Verzinsung des eingesetzten Eigenkapitals aus Sicht der Gesellschafter – je höher, desto attraktiver die Investition."},
+  {t:1,q:"Was ist der 'Working Capital Ratio'?",o:["Umsatz / Anlagevermögen","Umlaufvermögen / kurzfristige Verbindlichkeiten – ein Liquiditätsmaß (>1 = positiv)","Eigenkapital / Gesamtkapital","EBIT / Zinsen"],a:1,e:"Working Capital Ratio = Umlaufvermögen / kurzfristige Verbindlichkeiten. Ein Wert > 1 zeigt, dass das Umlaufvermögen die kurzfristigen Schulden übersteigt (positive Nettoliquidität). < 1 signalisiert Liquiditätsrisiken."},
+  {t:1,q:"Was versteht man unter der 'Umschlagshäufigkeit der Forderungen'?",o:["Wie oft im Jahr neue Forderungen entstehen","Umsatz / durchschnittliche Forderungen – gibt an, wie schnell Forderungen in Zahlungsmittel umgewandelt werden","Anzahl der Kunden pro Jahr","Anteil der Forderungen an der Bilanzsumme"],a:1,e:"Forderungsumschlag = Umsatz / Ø Forderungen. Je höher der Wert, desto schneller zahlen die Kunden. Das Debitorenziel (in Tagen) = 365 / Forderungsumschlag zeigt, wie lange Kunden durchschnittlich auf Zahlung warten."},
+  {t:1,q:"Was ist die 'goldene Bilanzregel'?",o:["Eigenkapital soll die Hälfte der Bilanzsumme betragen","Langfristige Vermögensgegenstände sollen langfristig finanziert sein (Anlagevermögen durch EK + langfristiges FK)","Umlaufvermögen darf Fremdkapital nie übersteigen","Verbindlichkeiten müssen immer durch Bankguthaben gedeckt sein"],a:1,e:"Die goldene Bilanzregel besagt: Das Anlagevermögen sollte durch Eigenkapital und langfristiges Fremdkapital finanziert sein (Fristenkongruenz). Wird Anlagevermögen kurzfristig finanziert, entsteht ein erhöhtes Liquiditätsrisiko."},
+  {t:1,q:"Was bedeutet ein negativer Cashflow aus operativer Tätigkeit?",o:["Das Unternehmen ist profitabel","Das Kerngeschäft verbraucht mehr Zahlungsmittel als es einbringt – mögliches Warnsignal","Das Unternehmen hat hohe Schulden","Das Unternehmen zahlt keine Dividende"],a:1,e:"Negativer operativer Cashflow bedeutet: Das Unternehmen gibt mehr Geld aus als es aus dem Kerngeschäft einnimmt. Langfristig ist das nicht tragfähig. Ursachen: Verluste, starkes Wachstum mit Vorfinanzierung, verschlechtertes Forderungsmanagement."},
+  {t:1,q:"Was ist die 'Gesamtkapitalrendite' (Return on Assets, RoA)?",o:["Eigenkapital / Jahresüberschuss","(Jahresüberschuss + Fremdkapitalzinsen) / Bilanzsumme × 100% – Rentabilität des gesamten eingesetzten Kapitals","Umsatz / Bilanzsumme","EBITDA / Umsatz"],a:1,e:"RoA (Gesamtkapitalrendite) = (Jahresüberschuss + Fremdkapitalzinsen) / Bilanzsumme × 100%. Sie zeigt, wie effizient das gesamte eingesetzte Kapital (Eigen + Fremd) genutzt wird – unabhängig von der Finanzierungsstruktur."},
+  {t:1,q:"Was ist der 'Leverage-Effekt'?",o:["Die Wirkung von Wechselkursveränderungen auf den Gewinn","Die Hebelwirkung von Fremdkapital: Fremdfinanzierung erhöht die EK-Rendite, solange die Gesamtkapitalrendite über dem FK-Zinssatz liegt","Die Auswirkung der Inflation auf die Bilanzsumme","Der Effekt der Abschreibungen auf den Cashflow"],a:1,e:"Der Leverage-Effekt beschreibt, wie Fremdkapital die Eigenkapitalrendite beeinflusst. Solange die Gesamtkapitalrendite > FK-Zinssatz: Mehr FK = höhere EK-Rendite (positiver Leverage). Bei umgekehrtem Verhältnis: negativer Leverage."},
+  {t:1,q:"Was ist die 'Liquidität 1. Grades' (Barliquidität)?",o:["Umlaufvermögen / kurzfristige Verbindlichkeiten","Zahlungsmittel (Kasse + Bank) / kurzfristige Verbindlichkeiten × 100% – zeigt die sofortige Zahlungsfähigkeit","Forderungen / Verbindlichkeiten","Eigenkapital / kurzfristige Verbindlichkeiten"],a:1,e:"Liquidität 1. Grades = Zahlungsmittel (Kasse + Bank + kurzfristige Wertpapiere) / kurzfristige Verbindlichkeiten × 100%. Richtwert: ca. 20%. Zu hoher Wert: unproduktives Kapital. Zu niedriger Wert: Zahlungsrisiko."},
+  // M2: Kostenrechnung
+  {t:2,q:"Was ist der Unterschied zwischen Kosten und Aufwendungen?",o:["Kosten und Aufwendungen sind identisch","Aufwendungen (GuV) umfassen alle wertmäßigen Güterverbräuche; Kosten (KLR) erfassen nur den betriebszweckbezogenen Verbrauch – Aufwendungen können auch neutral sein","Kosten sind immer höher als Aufwendungen","Aufwendungen entstehen nur im Finanzbereich"],a:1,e:"Aufwendungen (HGB-GuV) umfassen alle Werteverzehre eines Geschäftsjahres, auch neutrale (z.B. Spenden, Verluste aus Anlagenverkauf). Kosten (KLR) sind nur der betriebszweckbezogene, periodengerechte Wertverzehr – ohne neutrale Positionen."},
+  {t:2,q:"Was ist der Deckungsbeitrag I (DB I) und wie berechnet er sich?",o:["Umsatz minus alle Gesamtkosten","Umsatz minus variable Kosten = DB I; zeigt den Beitrag zur Deckung der Fixkosten","Fixkosten minus variable Kosten","Umsatz minus Materialkosten"],a:1,e:"DB I = Umsatz − variable Kosten. Er zeigt, wie viel ein Produkt nach Abzug seiner variablen Kosten zur Deckung der Fixkosten und zum Gewinn beiträgt. DB II = DB I − produktfixe Kosten, DB III = DB II − unternehmensfixe Kosten."},
+  {t:2,q:"Was ist Prozesskostenrechnung?",o:["Eine vereinfachte Form der Vollkostenrechnung","Eine Methode, bei der Gemeinkosten nicht nach Volumenschlüsseln, sondern nach verursachungsgerechten Aktivitäten (Prozessen) auf Produkte verrechnet werden (Activity Based Costing)","Eine Methode zur Berechnung des Gehalts","Eine Variante der EÜR für Produktionsbetriebe"],a:1,e:"Die Prozesskostenrechnung (Activity Based Costing) rechnet Gemeinkosten nach Kostentreibern (z.B. Anzahl Bestellungen, Rüstvorgänge) zu – nicht nach Volumen. Sie bietet bessere Transparenz bei indirekten Kosten in der Verwaltung und Logistik."},
+  {t:2,q:"Was ist der 'Break-Even-Point' in der Kostenrechnung?",o:["Der Punkt, bei dem das Unternehmen maximal wächst","Die Umsatzmenge oder der Umsatz, bei dem Gesamtkosten gleich Gesamterlöse sind – kein Gewinn, kein Verlust","Der optimale Verkaufspreis","Der maximale Produktionsoutput"],a:1,e:"Break-Even-Point (BEP) = Fixkosten / Deckungsbeitrag je Einheit (Menge) oder Fixkosten / Deckungsbeitragsquote (Umsatz). Unterhalb des BEP: Verlust. Oberhalb: Gewinn. Er ist zentral für Preis- und Mengenentscheidungen."},
+  {t:2,q:"Was ist die 'Istkostenrechnung'?",o:["Eine Planung zukünftiger Kosten","Eine Kostenrechnung auf Basis tatsächlich angefallener Kosten der Vergangenheit","Eine Schätzung der Kosten für das nächste Quartal","Eine Abrechnung nur der Fixkosten"],a:1,e:"Die Istkostenrechnung erfasst die tatsächlich in der Periode angefallenen Kosten. Sie ermöglicht Rückblicke und Ist-Soll-Vergleiche. Nachteil: Schwankende Kosten werden unverändert weitergegeben – Plankosten-/Normalkostenrechnung sind stabiler."},
+  {t:2,q:"Was ist der Unterschied zwischen Vollkosten- und Teilkostenrechnung?",o:["Es gibt keinen Unterschied","Vollkostenrechnung verrechnet alle Kosten (fix + variabel) auf Produkte; Teilkostenrechnung (z.B. DB-Rechnung) verrechnet nur variable Kosten","Teilkostenrechnung ist nur für Dienstleister","Vollkostenrechnung berücksichtigt keine Fixkosten"],a:1,e:"Vollkostenrechnung: Alle Kosten (fix + variabel) werden auf Produkte verteilt – gibt den Selbstkostenpreis an. Teilkostenrechnung (Deckungsbeitragsrechnung): Nur variable Kosten werden direkt zugeordnet – Fixkosten werden als Block behandelt."},
+  {t:2,q:"Was sind 'Gemeinkosten' und wie werden sie verrechnet?",o:["Kosten, die mehrere Unternehmen gemeinsam tragen","Kosten, die sich nicht direkt einem Produkt/Auftrag zuordnen lassen und über Schlüssel (Umlage) auf Kostenstellen und -träger verteilt werden","Kosten für gemeinsame Betriebsausflüge","Alle variablen Kosten"],a:1,e:"Gemeinkosten (z.B. Miete, Verwaltung, Geschäftsführergehalt) können nicht direkt einem Produkt zugeordnet werden. Sie werden über Kostenstellenrechnung und Zuschlagssätze (z.B. Fertigungsgemeinkosten = % der Fertigungslöhne) verrechnet."},
+  {t:2,q:"Was ist eine 'Kostenträgerzeitrechnung' (KTZ)?",o:["Eine Aufzeichnung aller Geschäftsvorfälle","Eine Periodenrechnung, die den Gesamt-Betriebserfolg (Ergebnis) durch Gegenüberstellung von Erlösen und Kosten ermittelt","Eine Inventurmethode","Eine Form der Bilanzanalyse"],a:1,e:"Die Kostenträgerzeitrechnung (kurzfristige Erfolgsrechnung) zeigt das Betriebsergebnis für eine Periode durch Gegenüberstellung der Erlöse und der Kosten der abgesetzten Leistungen – vergleichbar mit der internen GuV."},
+  {t:2,q:"Was ist eine 'Plankostenrechnung'?",o:["Eine Schätzung der Bilanzsumme","Eine zukunftsorientierte Kostenrechnung mit Plankosten als Vorgabe – Abweichungen werden als Verbrauchsabweichung oder Beschäftigungsabweichung analysiert","Eine Nachkalkulation der Istkostenrechnung","Ein Budgetplan ohne Kostenstellen"],a:1,e:"Die Plankostenrechnung arbeitet mit vorher festgelegten Sollkosten. Nach der Periode werden Plan-Ist-Abweichungen analysiert: Verbrauchsabweichung (zu viel/wenig verbraucht) und Beschäftigungsabweichung (über/unter Plan produziert)."},
+  {t:2,q:"Was ist ein 'Kalkulationsschema' für Industrieunternehmen?",o:["Eine Steuertabelle","Die strukturierte Aufstellung aller Kosten zur Ermittlung des Selbstkostenpreises: Material + Lohn + Gemeinkosten + Sonderkosten","Eine Buchungsübersicht","Ein Verzeichnis aller Geschäftsvorfälle"],a:1,e:"Typisches Kalkulationsschema: Materialeinzelkosten + Materialgemeinkosten = Materialkosten. + Fertigungslöhne + Fertigungsgemeinkosten + Sonderkosten der Fertigung = Herstellkosten. + Verwaltungs- und Vertriebsgemeinkosten = Selbstkosten."},
+  // M3: Budgetierung
+  {t:3,q:"Was ist 'Beyond Budgeting'?",o:["Eine erweiterte Form der klassischen Budgetplanung","Ein Managementkonzept, das auf starre Jahresbudgets verzichtet und stattdessen auf flexible, rollierende Forecasts und dezentrale Steuerung setzt","Eine Methode zur Steueroptimierung","Eine Rechnungslegungsvorschrift nach HGB"],a:1,e:"Beyond Budgeting ersetzt starre Jahresbudgets durch flexible Planung: rollende Forecasts (z.B. 12-Monats-Horizont), relative Ziele (statt absoluter Budgets) und dezentrale Entscheidungsbefugnis. Ziel: Agilität und Marktreaktionsfähigkeit."},
+  {t:3,q:"Was ist ein 'rollierender Forecast'?",o:["Eine Prognose nur für das Folgejahr","Eine fortlaufend aktualisierte Planung über einen festen Zukunftshorizont (z.B. 12 Monate), unabhängig vom Geschäftsjahresende","Eine Monatsplanung für die Produktion","Eine Schätzung der Steuerlast"],a:1,e:"Beim rollierenden Forecast wird der Planungshorizont regelmäßig (monatlich oder quartalsweise) um eine Periode verlängert. Z.B.: Im März wird der nächste März ergänzt. So bleibt der Blickhorizont konstant aktuell – flexibler als der Jahresbudgetprozess."},
+  {t:3,q:"Was ist ein 'Investitionsbudget'?",o:["Das Budget für Personalentwicklung","Die geplanten Ausgaben für Anlagevermögen (Maschinen, IT, Gebäude) in einem Geschäftsjahr – Teil des Masterbudgets","Die geplanten Marketingausgaben","Das Budget für die Hauptversammlung"],a:1,e:"Das Investitionsbudget plant alle Ausgaben für Anlagevermögen im Planungsjahr. Es enthält: geplante Investitionen, Ersatzinvestitionen und Desinvestitionen. Es beeinflusst direkt den Cashflow aus Investitionstätigkeit."},
+  {t:3,q:"Was ist 'Abweichungsursachenanalyse' im Controlling?",o:["Eine Überprüfung der Buchführung","Die systematische Untersuchung, warum Ist-Werte von Plan-Werten abweichen – mit dem Ziel, Maßnahmen zur Korrektur abzuleiten","Eine Analyse der Steuerbescheide","Die Prüfung der Jahresabschlüsse durch den Wirtschaftsprüfer"],a:1,e:"Die Abweichungsursachenanalyse untersucht Plan-Ist-Differenzen nach ihren Ursachen: Mengenabweichung (mehr/weniger produziert), Preisabweichung (höhere/niedrigere Preise), Strukturabweichung (andere Produktmix). Basis für Managemententscheidungen."},
+  {t:3,q:"Was ist das 'Balanced Scorecard'-Konzept?",o:["Ein vereinfachtes Kassenbuch","Ein strategisches Steuerungsinstrument, das finanzielle und nicht-finanzielle Kennzahlen in vier Perspektiven kombiniert: Finanzen, Kunden, Prozesse, Lernen/Entwicklung","Eine Methode der Kostenrechnung","Ein Tool für die Lohnbuchhaltung"],a:1,e:"Die Balanced Scorecard (Kaplan/Norton) misst die Unternehmensperformance aus vier Perspektiven: Finanzen (z.B. RoE), Kunden (Zufriedenheit, Marktanteil), interne Prozesse (Qualität, Durchlaufzeit), Lernen/Wachstum (Mitarbeiterkompetenz, Innovation)."},
+  {t:3,q:"Was ist 'Zero-Based Budgeting' (ZBB)?",o:["Budgetierung auf Basis des Vorjahres +/- Anpassungen","Jede Kostenstelle muss ihr Budget von null an rechtfertigen, ohne Vorjahreswerte vorauszusetzen – fördert Effizienz und eliminiert Kostenschleichen","Eine Methode ohne Budgetplanung","Eine Steuerabschreckungsstrategie"],a:1,e:"ZBB: Jeder Bereich beginnt bei null und muss alle Ausgaben von Grund auf begründen. Kein 'Weiter wie bisher'. Vorteile: Entdeckt ineffiziente Kostenpositionen. Nachteile: Hoher Aufwand, daher oft nur alle paar Jahre angewendet."},
+  {t:3,q:"Was ist der 'Soll-Ist-Vergleich' im Controlling?",o:["Vergleich des aktuellen Jahresabschlusses mit dem des Vorjahres","Gegenüberstellung von geplanten (Soll) und tatsächlichen (Ist) Werten zur Steuerung und Kontrolle der Unternehmensleistung","Vergleich zwischen zwei Wettbewerbern","Ein Vergleich von Handels- und Steuerbilanz"],a:1,e:"Der Soll-Ist-Vergleich ist das Kernwerkzeug des operativen Controllings: Planwerte (Budget) werden den tatsächlichen Werten (Ist) gegenübergestellt. Abweichungen werden analysiert und Gegenmaßnahmen eingeleitet."},
+  {t:3,q:"Was ist 'Benchmarking' im Controlling-Kontext?",o:["Eine interne Kostenanalyse","Der systematische Vergleich von Prozessen, Kosten und Kennzahlen mit dem besten Wettbewerber oder branchenweit besten Unternehmen","Eine Methode der Jahresabschlussanalyse","Ein Verfahren zur Budgeterstellung"],a:1,e:"Benchmarking vergleicht die eigene Performance mit Branchenbesten oder direkten Wettbewerbern. Internes Benchmarking: Vergleich zwischen Standorten/Abteilungen. Externes: Vergleich mit Wettbewerbern. Ziel: Best Practices identifizieren und übernehmen."},
+  {t:3,q:"Was ist ein 'Budgetary Slack' (Budgetpuffer)?",o:["Ein Puffer in der Bilanz","Die bewusste Unterschätzung von Erlösen oder Überschätzung von Kosten im Budget – um Ziele leichter erreichbar zu machen","Eine Rücklage für unvorhergesehene Steuern","Ein gesetzlich vorgeschriebener Liquiditätspuffer"],a:1,e:"Budgetary Slack entsteht, wenn Manager beim Budgetprozess Spielraum einbauen: zu niedrige Erlösziele oder zu hohe Kostenpläne. Folge: Ziele werden leicht übererfüllt, aber das Unternehmen schöpft sein Potenzial nicht aus."},
+  {t:3,q:"Was sind 'KPIs' (Key Performance Indicators)?",o:["Interne Buchhaltungskonten","Quantitative Messgrößen, die den Zielerreichungsgrad kritischer Erfolgsfaktoren anzeigen – z.B. Umsatzwachstum, EBIT-Marge, Kundenzufriedenheit","Steuerliche Pflichtangaben","Eine Bewertungsmethode für das Anlagevermögen"],a:1,e:"KPIs sind Kennzahlen, die den Fortschritt bei der Erreichung strategischer und operativer Ziele messen. Sie sollten SMART sein: spezifisch, messbar, attraktiv, realistisch, terminiert. Beispiele: EBIT-Marge, Forderungsumschlag, Mitarbeiterfluktuation."},
+  // M4: Ertragsteuern
+  {t:4,q:"Was ist die 'verdeckte Gewinnausschüttung' (vGA) bei der GmbH?",o:["Eine reguläre Dividendenausschüttung","Eine Zuwendung der GmbH an ihren Gesellschafter, die nicht dem Fremdvergleich standhält und steuerlich als Gewinnausschüttung behandelt wird","Eine geheime Rücklage","Eine steuerfreie Sachzuwendung"],a:1,e:"Eine vGA (§ 8 Abs. 3 KStG) liegt vor, wenn eine GmbH einem Gesellschafter Vorteile gewährt, die ein fremder Dritter nicht erhalten hätte (z.B. überhöhtes Gehalt, zinsloses Darlehen). Die vGA wird dem Gewinn hinzugerechnet – steuerlich nachteilig."},
+  {t:4,q:"Was ist der 'Hinzurechnungsbetrag' bei der Gewerbesteuer (§ 8 GewStG)?",o:["Ein Bonus für gewerbesteuerstarke Gemeinden","Bestimmte Aufwendungen (z.B. Zinsen, Mieten, Leasingkosten), die dem Gewinn für Gewerbesteuerzwecke anteilig hinzugerechnet werden","Eine Strafe für Steuerhinterziehung","Der Gewerbesteuer-Freibetrag"],a:1,e:"§ 8 GewStG: Dem handelsrechtlichen Gewinn werden bestimmte Aufwendungen hinzugerechnet: 25% der Zinsen, 20% der Mieten/Pachten für bewegliche Wirtschaftsgüter, 50% der Mieten für Immobilien usw. Zweck: Gewerbeertrag soll kapitalstrukturunabhängig sein."},
+  {t:4,q:"Was ist der 'Solidaritätszuschlag auf Körperschaftsteuer' seit der Reform 2021?",o:["Er wurde vollständig abgeschafft","Juristische Personen (GmbH, AG) zahlen weiterhin 5,5% SolZ auf ihre KSt – die Abschaffung galt nur für Privatpersonen","Der Satz wurde auf 3% gesenkt","Er wurde in die KSt integriert"],a:1,e:"Seit 2021 zahlen die meisten natürlichen Personen keinen SolZ mehr. Juristische Personen (GmbH, AG, eG) zahlen jedoch weiterhin 5,5% SolZ auf ihre Körperschaftsteuer. Dies führt zu einem effektiven KSt-Satz von ca. 15,825%."},
+  {t:4,q:"Was ist der 'Tonnagesteuer'-Satz?",o:["Eine pauschale KSt für alle Reedereien","Eine Pauschalbesteuerung für Schifffahrtsunternehmen auf Basis der Schiffsgröße (Tonnage) statt des tatsächlichen Gewinns","Eine Steuer auf LKW-Transporte","Eine kommunale Steuer für Hafenstädte"],a:1,e:"Die Tonnagesteuer (§ 5a EStG) ermöglicht Reedereien, ihren Gewinn aus dem Betrieb von Handelsschiffen pauschal nach der Schiffsgröße zu ermitteln statt nach dem tatsächlichen Gewinn – meist steuerlich günstiger."},
+  {t:4,q:"Was ist die 'Zinsschranke' (§ 4h EStG)?",o:["Eine Begrenzung der Kreditzinsen","Eine Regelung, die den Zinsaufwandsabzug auf 30% des steuerlichen EBITDA begrenzt – nicht abzugsfähige Zinsen können vorgetragen werden","Eine Zinsobergrenze für Steuerverbindlichkeiten","Ein Verbot von Gesellschafterdarlehen"],a:1,e:"Die Zinsschranke (§ 4h EStG / § 8a KStG) begrenzt den steuerlichen Abzug von Nettozinsaufwand auf 30% des steuerlichen EBITDA. Nicht abzugsfähige Zinsen können in Folgejahre vorgetragen werden. Ausnahme: Freigrenze 3 Mio. €."},
+  {t:4,q:"Was sind 'Organschaft' und 'Ergebnisabführungsvertrag'?",o:["Ein Zusammenschluss von Gewerkschaft und Arbeitgebern","Eine steuerliche Einheit, bei der eine Tochtergesellschaft ihren gesamten Gewinn an die Muttergesellschaft abführt – steuerliche Konsolidierung","Eine freiwillige Fusion zweier Unternehmen","Ein Vertrag über gemeinsame Buchführung"],a:1,e:"Bei der Organschaft (§§ 14 ff. KStG) wird das Einkommen einer Tochterkapitalgesellschaft (Organgesellschaft) dem Mutterunternehmen (Organträger) direkt zugerechnet. Voraussetzung: Ergebnisabführungsvertrag und finanzielle Eingliederung. Ziel: Verlustverrechnung im Konzern."},
+  {t:4,q:"Was ist die 'Gewerbesteueranrechnung' (§ 35 EStG)?",o:["Eine Erstattung der Gewerbesteuer","Für Personenunternehmer wird die Gewerbesteuer mit dem 4-fachen Gewerbe-Messbetrag auf die Einkommensteuer angerechnet – um Doppelbelastung zu vermindern","Eine Befreiung von der Gewerbesteuer","Eine Vorauszahlung auf die Einkommensteuer"],a:1,e:"§ 35 EStG: Für Einzelunternehmer und Personengesellschafter wird die Gewerbesteuer pauschal mit dem 4-fachen des Gewerbe-Messbetrags auf die ESt angerechnet. Bei einem Hebesatz von 400% entspricht dies einer vollständigen Entlastung – bei höherem Hebesatz: teilweise Doppelbelastung."},
+  {t:4,q:"Was ist die 'Verlustverrechnungsbeschränkung' bei § 15a EStG?",o:["Verluste dürfen nie steuerlich genutzt werden","Verluste beschränkt haftender Gesellschafter (z.B. Kommanditisten) können nur bis zur Höhe ihres Kapitalkontos sofort genutzt werden – darüber hinaus: Verlusttopf","Verluste in GmbHs können 10 Jahre vorgetragen werden","Verluste dürfen nur mit Gewinnen der gleichen Einkunftsart verrechnet werden"],a:1,e:"§ 15a EStG: Verluste beschränkt haftender Gesellschafter (Kommanditisten) können steuerlich nur bis zur Höhe des positiven Kapitalkontos abgezogen werden. Darüber hinaus werden sie als 'verrechenbare Verluste' (Verlusttopf) gespeichert und können nur mit späteren Gewinnen aus der Gesellschaft verrechnet werden."},
+  {t:4,q:"Was ist die 'Umsatzsteuerliche Organschaft'?",o:["Ein separates Umsatzsteuerrecht für Konzerne","Mehrere rechtlich selbstständige Unternehmen werden als ein einziger Steuerpflichtiger behandelt, wenn eine organisatorische, finanzielle und wirtschaftliche Eingliederung besteht","Eine Befreiung von der USt für Konzerntöchter","Eine vereinfachte USt-Voranmeldung für Großunternehmen"],a:1,e:"Bei der USt-Organschaft (§ 2 Abs. 2 Nr. 2 UStG) gelten mehrere Unternehmen (Organträger + Organgesellschaften) als ein einziger Unternehmer. Leistungen innerhalb der Organschaft sind nicht steuerbar. Der Organträger gibt eine gemeinsame USt-Voranmeldung ab."},
+  {t:4,q:"Was ist die 'Mindestbesteuerung' (§ 10d Abs. 2 EStG)?",o:["Ein Mindeststeuersatz von 15%","Verlustvortäge können in einem Jahr nur bis zu einem Sockelbetrag von 1 Mio. € + 60% des darüber hinausgehenden Gesamtbetrags der Einkünfte abgezogen werden","Alle Unternehmen müssen mindestens 5% ihres Umsatzes als Steuer zahlen","Eine Sondersteuer für Großkonzerne"],a:1,e:"Die Mindestbesteuerung (§ 10d Abs. 2 EStG) beschränkt die Nutzung von Verlustvorträgen: Bis 1 Mio. € können Vorträge uneingeschränkt genutzt werden. Darüber hinaus nur 60% der verbleibenden Einkünfte – 40% unterliegen immer der Besteuerung."},
+  // M5: Lohnbuchhaltung
+  {t:5,q:"Was ist der 'Arbeitgeberanteil' zur Sozialversicherung?",o:["Der volle Beitrag, den der Arbeitnehmer zahlt","Der vom Arbeitgeber hälftig getragene Anteil an den SV-Beiträgen (Kranken-, Pflege-, Renten-, Arbeitslosenversicherung) – ca. 20% des Bruttolohns","Ein freiwilliger Zuschuss zur betrieblichen Altersvorsorge","Die Beiträge zur Unfallversicherung"],a:1,e:"Der AG-Anteil zur Sozialversicherung beträgt ca. 20% des Bruttolohns (je hälftig mit dem Arbeitnehmer). Er enthält: Krankenversicherung (7,3%), Rentenversicherung (9,3%), Arbeitslosenversicherung (1,3%), Pflegeversicherung (1,775%). Hinzu kommt die Unfallversicherung (voll vom AG)."},
+  {t:5,q:"Was ist der 'Nettolohn' und wie berechnet er sich?",o:["Bruttolohn + Steuern","Bruttolohn minus Lohnsteuer, Solidaritätszuschlag, ggf. Kirchensteuer und Arbeitnehmer-Sozialversicherungsbeiträge","Bruttolohn minus Arbeitgeberanteil","Bruttolohn plus Zulagen"],a:1,e:"Nettolohn = Bruttolohn − Lohnsteuer − SolZ − ggf. KiSt − AN-Anteil Krankenversicherung − AN-Anteil Rentenversicherung − AN-Anteil Arbeitslosenversicherung − AN-Anteil Pflegeversicherung. Der AG zahlt zusätzlich ca. 20% als AG-Anteil SV."},
+  {t:5,q:"Was sind 'Sachbezüge' und wie werden sie bewertet?",o:["Bargeldgeschenke für Mitarbeiter","Nicht-monetäre Leistungen des Arbeitgebers (Dienstwagen, Mahlzeiten, Jobticket), die als geldwerter Vorteil mit dem Marktwert oder Pauschalwert lohnsteuer- und SV-pflichtig sind","Steuerfreie Reisekostenzuschüsse","Prämien für besondere Leistungen"],a:1,e:"Sachbezüge (geldwerter Vorteil) werden mit dem marktüblichen Wert oder amtlichen Sachbezugswerten berechnet. Beispiel: Dienstwagen = 1%-Regelung oder Fahrtenbuch. Bis 50 €/Monat steuerfrei (§ 8 Abs. 2 Satz 11 EStG). Lohnsteuer- und SV-pflichtig."},
+  {t:5,q:"Was ist die 'Pauschalversteuerung' von Arbeitgeberbeiträgen (z.B. § 40b EStG)?",o:["Eine Methode, bei der kein Lohnsteuerabzug erfolgt","Der Arbeitgeber versteuert bestimmte Bezüge (z.B. Direktversicherungsbeiträge) pauschal mit einem festgelegten Steuersatz anstelle der individuellen Lohnsteuer des Mitarbeiters","Eine Befreiung von der Lohnsteuer","Eine Vereinfachung der Sozialversicherungsbeiträge"],a:1,e:"Bei der Pauschalversteuerung (§§ 40, 40a, 40b EStG) versteuert der Arbeitgeber bestimmte Zuwendungen mit einem Pauschsteuersatz (z.B. 20% für Direktversicherungen nach § 40b). Der Mitarbeiter muss diese nicht in seiner Steuererklärung angeben."},
+  {t:5,q:"Was ist das 'Lohnkonto' (§ 41 EStG)?",o:["Das Bankkonto des Arbeitnehmers","Ein Aufzeichnungskonto, das der Arbeitgeber für jeden Mitarbeiter führen muss – mit allen Lohnzahlungen, Abzügen und Steuermerkmalen","Die Lohnbuchhaltung des Unternehmens","Das Privatkonto des Gesellschafters"],a:1,e:"§ 41 EStG verpflichtet den Arbeitgeber, für jeden Arbeitnehmer ein Lohnkonto zu führen. Es enthält: persönliche Daten, Steuerklasse, alle Zahlungen (Brutto, LSt, SolZ, KiSt, SV-Beiträge) und ist Grundlage für die elektronische Lohnsteuerbescheinigung."},
+  {t:5,q:"Was ist die 'Fünftelregelung' (§ 34 EStG)?",o:["Eine Sonderregel für die 5. Lohnsteuerklasse","Eine günstigere Versteuerung außerordentlicher Einkünfte (z.B. Abfindungen, Jubiläumszahlungen) durch Verteilung auf 5 Jahre","Eine Regelung für die Rentenversicherung","Ein Verfahren zur Berechnung des Kindergeldes"],a:1,e:"§ 34 EStG: Außerordentliche Einkünfte (Abfindungen, Entlassungsgelder, außerordentliche Zahlungen) können mit der Fünftelregelung begünstigt besteuert werden. 1/5 der außerordentlichen Einkünfte erhöht das Einkommen; die darauf entfallende Steuer wird mit 5 multipliziert."},
+  {t:5,q:"Was ist 'Kurzarbeitergeld' (KUG) und wer trägt es?",o:["Ein Gehaltszuschuss des Arbeitgebers","Eine Leistung der Bundesagentur für Arbeit, die bei vorübergehendem Arbeitsausfall bis zu 67% (oder 80% ab 4. Monat) des Nettolohns für ausgefallene Stunden ersetzt","Eine Steuerbefreiung für Geringverdiener","Ein Darlehen des Finanzamts"],a:1,e:"KUG wird von der Bundesagentur für Arbeit (BA) gezahlt und beträgt 60% (67% mit Kindern) des ausgefallenen Nettolohns. Ab dem 4. Monat KUG: 70%/77%, ab dem 7.: 80%/87%. Es ist steuerfrei, aber dem Progressionsvorbehalt unterliegend."},
+  {t:5,q:"Was sind 'Vermögenswirksame Leistungen' (VL)?",o:["Geldwerte Vorteile für Aktionäre","Freiwillige oder tarifliche Arbeitgeberzuschüsse (max. 40 €/Monat), die in zugelassene Anlageformen (Bausparvertrag, Fondssparplan) eingezahlt werden","Ein Gehaltsbestandteil der Führungskräfte","Sachzuwendungen für Mitarbeiter"],a:1,e:"VL sind freiwillige oder tarifliche Arbeitgeberzuschüsse zur Vermögensbildung der Mitarbeiter (max. 40 €/Monat). Sie sind lohnsteuer- und SV-pflichtig. Arbeitnehmer mit geringem Einkommen erhalten zusätzlich eine Arbeitnehmer-Sparzulage vom Staat (§ 13 5. VermBG)."},
+  {t:5,q:"Was ist die 'Lohnsteuer-Anmeldung'?",o:["Die jährliche Einkommensteuererklärung des Arbeitnehmers","Die monatliche oder vierteljährliche Erklärung des Arbeitgebers an das Finanzamt über die einbehaltene Lohnsteuer, SolZ und KiSt aller Mitarbeiter (via ELSTER)","Ein Formular zur Beantragung von Kurzarbeitergeld","Die Anmeldung neuer Mitarbeiter bei der Krankenkasse"],a:1,e:"Die Lohnsteuer-Anmeldung (§ 41a EStG) erfolgt monatlich (Lohnsteuer > 5.000 €/Jahr) oder vierteljährlich (1.080–5.000 €) oder jährlich (< 1.080 €) via ELSTER. Der AG meldet und überweist die gesamte einbehaltene LSt aller Mitarbeiter an das Betriebsstätten-Finanzamt."},
+  {t:5,q:"Was ist die 'betriebliche Altersvorsorge' (bAV) und welche Durchführungswege gibt es?",o:["Eine rein private Rentenversicherung","Eine vom Arbeitgeber mitfinanzierte oder vollständig finanzierte Altersvorsorge – Durchführungswege: Direktzusage, Unterstützungskasse, Direktversicherung, Pensionskasse, Pensionsfonds","Eine staatliche Förderung für Kleinunternehmer","Eine Sonderform der Gewerbesteuer"],a:1,e:"Die bAV ermöglicht die Altersvorsorge über den Betrieb. 5 Durchführungswege: Direktzusage (Rückstellung beim AG), Unterstützungskasse, Direktversicherung (Lebensversicherung), Pensionskasse, Pensionsfonds. Steuerlich: Entgeltumwandlung bis 8% des RV-Höchstbetrags steuerfrei."},
+  // M6: GoBD & Digitale Buchführung
+  {t:6,q:"Was ist ein 'Verfahrensdokument' nach GoBD?",o:["Eine Betriebsanleitung für die Buchhaltungssoftware","Eine vollständige Beschreibung der eingesetzten DV-gestützten Buchführungssysteme, Prozesse und Kontrollen – dem Finanzamt auf Anfrage vorzulegen","Eine interne Arbeitsanweisung ohne Rechtsbedeutung","Ein Dokument für die Jahresabschlussprüfung"],a:1,e:"Das Verfahrensdokument (GoBD Rn. 151) beschreibt vollständig das eingesetzte DV-System: Organisation, Prozesse, Sicherungsmaßnahmen, Zugriffsrechte und Archivierung. Es muss aktuell gehalten und dem Finanzamt bei einer Prüfung vorgelegt werden."},
+  {t:6,q:"Was ist die 'Datenträgerüberlassung' (DTÜ) bei einer Betriebsprüfung?",o:["Die physische Übergabe aller Belege in Papierform","Die Übergabe der gesamten digitalen Buchführungsdaten auf einem Datenträger (USB, DVD) an den Prüfer – in standardisiertem Format (z.B. GDPDU/GDPdU/DSFinV-K)","Die Übermittlung der Steuererklärung via ELSTER","Die Vorlage der Jahresabschlüsse"],a:1,e:"Bei der Betriebsprüfung kann das Finanzamt nach § 147 Abs. 6 AO Datenzugriff verlangen: unmittelbarer Zugriff (Z1), mittelbarer Zugriff durch Auswertungen (Z2) oder Datenträgerüberlassung (Z3). Die Daten müssen in auswertbarer Form (z.B. CSV, XML) vorliegen."},
+  {t:6,q:"Was versteht man unter 'revisionssicherer Archivierung'?",o:["Archivierung nur auf Papier","Digitale Archivierung, die Vollständigkeit, Unveränderbarkeit, Verfügbarkeit und maschinelle Auswertbarkeit über die gesamte Aufbewahrungsfrist (10 Jahre) gewährleistet","Archivierung auf externen USB-Sticks","Jährliche Sicherung auf CD"],a:1,e:"Revisionssichere Archivierung erfüllt die GoBD-Anforderungen: Dokumente dürfen nicht verändert, gelöscht oder überschrieben werden. Jede Zugriffshistorie wird protokolliert. Gängige Systeme: DMS (Dokumentenmanagementsysteme) mit Write-Once-Technologie oder zertifiziertem Cloud-Speicher."},
+  {t:6,q:"Was ist die 'E-Rechnung' und wann wird sie in Deutschland Pflicht?",o:["Eine PDF-Rechnung per E-Mail","Eine strukturierte elektronische Rechnung (z.B. XRechnung, ZUGFeRD) im XML-Format – ab 2025 für B2B-Umsätze zwischen inländischen Unternehmen gesetzlich verpflichtend (Wachstumschancengesetz)","Eine Rechnung mit QR-Code","Eine Rechnung über ein staatliches Portal"],a:1,e:"E-Rechnung (Wachstumschancengesetz, § 14 UStG n.F.): Ab 01.01.2025 müssen inländische Unternehmen E-Rechnungen empfangen können. Ausstellungspflicht: Ab 2027 für alle Unternehmen (ab 2026 für Umsatz > 800.000 €). Formate: XRechnung, ZUGFeRD."},
+  {t:6,q:"Was ist die 'Verfahrensdokumentation für Kassensysteme' (INSIKA/TSE)?",o:["Eine Anleitung zur Bedienung des Kassensystems","Seit 2020 müssen elektronische Kassensysteme mit einer zertifizierten technischen Sicherheitseinrichtung (TSE) ausgestattet sein, die jede Transaktion manipulationssicher protokolliert (§ 146a AO)","Eine freiwillige Qualitätsprüfung","Ein System nur für Gastronomie-Betriebe"],a:1,e:"§ 146a AO: Alle elektronischen Kassensysteme müssen ab 01.01.2020 eine TSE (Technische Sicherheitseinrichtung) haben, die alle Geschäftsvorfälle in Echtzeit unveränderbar speichert. Außerdem ist eine Kassennachschau (§ 146b AO) möglich."},
+  {t:6,q:"Was ist 'DATEV' und welche Rolle spielt es in der deutschen Buchführung?",o:["Ein staatliches Buchführungssystem des Finanzamts","Die größte genossenschaftliche Software- und IT-Organisation für Steuerberater und Buchhalter in Deutschland – Marktstandard für Buchführungs- und Lohnsoftware","Ein internationaler Buchführungsstandard","Ein EU-weites Rechnungslegungssystem"],a:1,e:"DATEV eG ist die führende Softwaregenossenschaft für Steuerberater und Buchhalter in Deutschland. DATEV-Programme (Kanzlei-Rechnungswesen, Lohn, Jahresabschluss) sind de facto Standard. Die DATEV-Schnittstelle (*.csv/*.kne) ist das wichtigste Datenaustauchformat."},
+  {t:6,q:"Was ist 'ELSTER' und wer muss es nutzen?",o:["Eine Buchhaltungssoftware","Das elektronische Steuererklärungsportal der deutschen Finanzverwaltung – Pflicht für Unternehmen zur elektronischen Übermittlung von Steuererklärungen und Voranmeldungen","Eine freiwillige Online-Plattform für Steuererklärungen","Ein System nur für Kapitalgesellschaften"],a:1,e:"ELSTER (Elektronische Steuererklärung) ist das Pflichtportal für die elektronische Übermittlung von USt-Voranmeldungen, Lohnsteueranmeldungen, Körperschaft- und Einkommensteuererklärungen. Seit 2011 sind Gewinneinkünfte (§ 25 Abs. 4 EStG) grundsätzlich elektronisch zu übermitteln."},
+  {t:6,q:"Was ist der 'DSFinV-K' Standard?",o:["Ein Dateiformat für die Bilanzerstellung","Der Datenstandard für die Finanzverwaltung – Kassensysteme (DSFinV-K = Digitale Schnittstelle Finanzverwaltung Kassensysteme), der die Datenstruktur für Kassendaten bei Betriebsprüfungen vorschreibt","Ein Format für elektronische Rechnungen","Ein Steuererklärungsformat"],a:1,e:"DSFinV-K definiert, wie Kassendaten strukturiert exportiert werden müssen, damit das Finanzamt sie bei einer Betriebsprüfung auswerten kann. Alle TSE-pflichtigen Kassensysteme müssen diesen Export liefern. Ergänzt den GoBD-Datenzugriff."},
+  {t:6,q:"Was ist eine 'Digitale Betriebsprüfung' (§ 147 Abs. 6 AO)?",o:["Eine Prüfung, die nur online per Videocall stattfindet","Das Recht des Finanzamts, auf digitale Buchführungsdaten zuzugreifen – direkt, durch Auswertungen oder per Datenaushändigung auf Datenträgern","Eine Prüfung nur für Online-Shops","Eine automatische Prüfung durch KI"],a:1,e:"§ 147 Abs. 6 AO gibt dem Finanzamt drei Zugriffsarten: Z1 = unmittelbarer Lesezugriff auf DV-System, Z2 = Auswertungen durch den Steuerpflichtigen, Z3 = Datenträgerhanding. Geprüfte Buchführungsdaten müssen 10 Jahre maschinell auswertbar bleiben."},
+];
+
+// ═══════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════
+let selA = new Set([0,1,2,3,4,5,6]);
+let selB = new Set([0,1,2,3,4,5,6]);
+let activeCourse = 'a';
+let quizQs = [], curIdx = 0, answers = [], curCourse = 'a';
+
+// ═══════════════════════════════════════════════════
+// BUILD GRIDS
+// ═══════════════════════════════════════════════════
+function buildGrid(gridId, topics, selSet, colorClass, prefix) {
+  const grid = document.getElementById(gridId);
+  topics.forEach((name, i) => {
+    const card = document.createElement('div');
+    card.className = `topic-card ${colorClass}${selSet.has(i)?' selected':''}`;
+    card.innerHTML = `<div class="t-num">${prefix}${String(i+1).padStart(2,'0')}</div><div class="t-name">${name}</div><div class="t-check">✓</div>`;
+    card.addEventListener('click', () => {
+      if (selSet.has(i)) { if(selSet.size===1) return; selSet.delete(i); card.classList.remove('selected'); }
+      else { selSet.add(i); card.classList.add('selected'); }
+    });
+    grid.appendChild(card);
+  });
+}
+buildGrid('grid-a', TOPICS_A, selA, 'tc-green', 'T');
+buildGrid('grid-b', TOPICS_B, selB, 'tc-blue',  'M');
+
+function switchCourse(c) {
+  activeCourse = c;
+  document.querySelectorAll('.ctab').forEach(el => el.classList.remove('active'));
+  document.querySelector(`.ctab-${c}`).classList.add('active');
+  document.querySelectorAll('.course-panel').forEach(el => el.classList.remove('active'));
+  document.getElementById(`panel-${c}`).classList.add('active');
+}
+
+function selectAllTopics(c) {
+  const [sel, gid, tops] = c==='a' ? [selA,'grid-a',TOPICS_A] : [selB,'grid-b',TOPICS_B];
+  tops.forEach((_,i) => sel.add(i));
+  document.querySelectorAll(`#${gid} .topic-card`).forEach(el => el.classList.add('selected'));
+}
+
+// ═══════════════════════════════════════════════════
+// START QUIZ
+// ═══════════════════════════════════════════════════
+function startQuiz(c) {
+  curCourse = c;
+  const [qBank, sel] = c==='a' ? [QA, selA] : [QB, selB];
+  const pool = qBank.filter(q => sel.has(q.t));
+  quizQs = [...pool].sort(() => Math.random()-.5).slice(0, Math.min(10, pool.length));
+  curIdx = 0; answers = [];
+
+  const isB = c === 'b';
+  document.getElementById('qz-logo').textContent = isB ? 'IHK / DATEV Vorbereitung' : 'Grundlagen-Kurs';
+  document.getElementById('qz-logo').className = isB ? 'qz-logo blue' : 'qz-logo';
+  document.getElementById('q-cnt').className = isB ? 'q-cnt blue' : 'q-cnt';
+  document.getElementById('prog-bar').className = isB ? 'prog-bar blue' : 'prog-bar';
+  document.getElementById('q-next').style.background = isB ? '#3b5bdb' : '#0ea472';
+
+  document.getElementById('quiz-home-view').style.display = 'none';
+  document.getElementById('quiz-results-view').style.display = 'none';
+  const activeView = document.getElementById('quiz-active-view');
+  activeView.style.display = 'flex';
+  renderQuestion();
+}
+
+// ═══════════════════════════════════════════════════
+// RENDER QUESTION
+// ═══════════════════════════════════════════════════
+function renderQuestion() {
+  const q = quizQs[curIdx], total = quizQs.length;
+  const topics = curCourse==='a' ? TOPICS_A : TOPICS_B;
+  const isB = curCourse === 'b';
+  document.getElementById('q-cnt').textContent = `${curIdx+1} / ${total}`;
+  document.getElementById('prog-bar').style.width = `${(curIdx/total)*100}%`;
+  document.getElementById('q-tag').className = isB ? 'q-tag blue' : 'q-tag';
+  document.getElementById('q-tag').textContent = `${isB?'MODUL':'THEMA'} 0${q.t+1} · ${topics[q.t].toUpperCase()}`;
+  document.getElementById('q-text').textContent = q.q;
+
+  const optsEl = document.getElementById('q-opts');
+  optsEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const shuffled = [0,1,2,3].sort(() => Math.random()-.5);
+  shuffled.forEach((origIdx, pos) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.dataset.correct = origIdx===q.a ? '1' : '0';
+    btn.innerHTML = `<span class="opt-k">${letters[pos]}</span><span>${q.o[origIdx]}</span>`;
+    btn.addEventListener('click', () => pickAnswer(btn, q));
+    optsEl.appendChild(btn);
+  });
+
+  document.getElementById('q-expl').className = 'expl-box';
+  document.getElementById('q-next').style.display = 'none';
+  const card = document.getElementById('qz-card');
+  card.style.animation = 'none'; card.offsetHeight;
+  card.style.animation = 'cardIn .35s cubic-bezier(.4,0,.2,1)';
+}
+
+function pickAnswer(btn, q) {
+  document.querySelectorAll('.opt').forEach(o => o.classList.add('locked'));
+  const ok = btn.dataset.correct === '1';
+  answers.push({ correct: ok, t: q.t });
+  if (ok) { btn.classList.add('correct'); }
+  else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.opt').forEach(o => { if(o.dataset.correct==='1') o.classList.add('correct'); });
+  }
+  const expl = document.getElementById('q-expl');
+  expl.textContent = q.e;
+  expl.className = 'expl-box show' + (ok ? '' : ' wrong');
+  document.getElementById('q-next').style.display = 'inline-flex';
+}
+
+function nextQuestion() {
+  curIdx++;
+  if (curIdx >= quizQs.length) showResults();
+  else renderQuestion();
+}
+
+// ═══════════════════════════════════════════════════
+// RESULTS
+// ═══════════════════════════════════════════════════
+function showResults() {
+  document.getElementById('quiz-active-view').style.display = 'none';
+  document.getElementById('quiz-results-view').style.display = 'block';
+
+  const isB = curCourse === 'b';
+  const topics = isB ? TOPICS_B : TOPICS_A;
+  const total = answers.length;
+  const correct = answers.filter(a => a.correct).length;
+  const pct = Math.round((correct/total)*100);
+
+  document.getElementById('res-badge').textContent = isB ? 'IHK / DATEV VORBEREITUNG' : 'GRUNDLAGEN-KURS';
+  document.getElementById('res-badge').className = isB ? 'res-badge blue' : 'res-badge';
+  document.getElementById('res-pct').textContent = pct+'%';
+  document.getElementById('res-pct').className = isB ? 'score-pct blue' : 'score-pct';
+  document.getElementById('res-correct').textContent = correct;
+  document.getElementById('res-wrong').textContent = total-correct;
+  document.getElementById('res-total').textContent = total;
+  document.getElementById('res-total').style.color = isB ? '#3b5bdb' : '#0ea472';
+  document.getElementById('res-restart').style.background = isB ? '#3b5bdb' : '#0ea472';
+
+  document.getElementById('rg1').setAttribute('stop-color', isB ? '#3b5bdb' : '#0ea472');
+  document.getElementById('rg2').setAttribute('stop-color', isB ? '#748ffc' : '#06c47f');
+
+  const offset = 421 - (421*pct/100);
+  document.getElementById('res-circle').style.strokeDashoffset = 421;
+  setTimeout(() => {
+    document.getElementById('res-circle').style.transition = 'stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1)';
+    document.getElementById('res-circle').style.strokeDashoffset = offset;
+  }, 200);
+
+  let title, sub;
+  if (pct>=90) { title='Ausgezeichnet! 🏆'; sub='Du beherrschst das Thema perfekt! Sehr starke Leistung.' }
+  else if (pct>=70) { title='Sehr gut! 🎉'; sub='Solide Grundlage! Wiederhole die Bereiche, in denen du Fehler hattest.' }
+  else if (pct>=50) { title='Auf dem richtigen Weg 📚'; sub='Guter Ansatz! Wiederhole die schwachen Module und versuche es erneut.' }
+  else { title='Weiter üben 💪'; sub='Kein Problem – Übung macht den Meister! Schau dir die Erklärungen nochmal an.' }
+  document.getElementById('res-title').textContent = title;
+  document.getElementById('res-sub').textContent = sub;
+
+  const stats = {};
+  answers.forEach(a => {
+    if (!stats[a.t]) stats[a.t] = {c:0,n:0};
+    stats[a.t].n++; if(a.correct) stats[a.t].c++;
+  });
+  const bk = document.getElementById('res-topic-bk');
+  bk.innerHTML = `<div class="tb-title">📊 Ergebnisse nach ${isB?'Modul':'Thema'}</div>`;
+  Object.keys(stats).sort().forEach(ti => {
+    const s = stats[ti], p = Math.round((s.c/s.n)*100);
+    const row = document.createElement('div');
+    row.className = 'tb-row';
+    row.innerHTML = `<div class="tb-name">${topics[Number(ti)]}</div><div class="tb-bar-wrap"><div class="tb-bar${isB?' blue':''}" style="width:0%" data-pct="${p}"></div></div><div class="tb-score">${s.c}/${s.n}</div>`;
+    bk.appendChild(row);
+  });
+  setTimeout(() => { document.querySelectorAll('.tb-bar').forEach(b => b.style.width = b.dataset.pct+'%'); }, 400);
+}
+
+function restartQuiz() { startQuiz(curCourse); }
+
+function backToQuizHome() {
+  document.getElementById('quiz-active-view').style.display = 'none';
+  document.getElementById('quiz-results-view').style.display = 'none';
+  document.getElementById('quiz-home-view').style.display = 'block';
+}
+
+// ═══════════════════════════════════════════════════
+// PAGE NAVIGATION
+// ═══════════════════════════════════════════════════
+function showMainPage(id) {
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+    p.style.display = 'none';
+  });
+  const el = document.getElementById(id);
+  el.classList.add('active');
+  el.style.display = 'flex';
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  const idx = ['home-page','quiz-page','download-page'].indexOf(id);
+  document.querySelectorAll('.nav-link')[idx]?.classList.add('active');
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html
