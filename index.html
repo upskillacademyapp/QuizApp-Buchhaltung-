@@ -459,6 +459,344 @@ nav { padding: 0 14px; height: 54px }
 .nav-link { padding: 5px 8px; font-size: 11px }
 }
 
+/* ═══════════════════════════════════════════
+LERNSEITE
+═══════════════════════════════════════════ */
+#learn-page { background:#f0f7f4 }
+
+.learn-hero {
+max-width: 900px; margin: 0 auto;
+padding: 56px 24px 20px; text-align: center;
+}
+.learn-hero h2 {
+font-family:‘DM Serif Display’,serif;
+font-size: clamp(30px,5vw,52px); margin-bottom:10px;
+}
+.learn-hero p { color:#4a6b60; font-size:16px; max-width:560px; margin:0 auto 32px; line-height:1.65 }
+
+/* Tab bar */
+.learn-tabs {
+display: flex; gap: 6px; justify-content: center;
+margin: 0 24px 36px; flex-wrap: wrap;
+}
+.ltab {
+padding: 8px 18px; border-radius: 999px; font-size: 13px; font-weight: 700;
+cursor: pointer; border: 2px solid #d4edd7; background: #fff; color: #4a6b60;
+transition: all .18s; font-family: ‘Outfit’, sans-serif;
+}
+.ltab.act-a { background:#0ea472; color:#fff; border-color:#0ea472 }
+.ltab.act-b { background:#3b5bdb; color:#fff; border-color:#3b5bdb }
+.ltab:hover:not(.act-a):not(.act-b) { border-color:#0ea472; color:#0ea472 }
+
+/* Content panels */
+.learn-panel { display: none; max-width: 900px; margin: 0 auto; padding: 0 24px 60px }
+.learn-panel.lp-active { display: block; animation: fadeUp .3s ease }
+
+/* Chapter cards */
+.chapter {
+background: #fff; border: 1.5px solid #d4edd7;
+border-radius: 20px; margin-bottom: 20px; overflow: hidden;
+box-shadow: 0 2px 14px rgba(14,164,114,.07);
+}
+.chapter-head {
+display: flex; align-items: center; gap: 14px;
+padding: 20px 24px; cursor: pointer;
+transition: background .18s; user-select: none;
+}
+.chapter-head:hover { background: rgba(14,164,114,.04) }
+.ch-icon { font-size: 26px; flex-shrink: 0 }
+.ch-title {
+font-family: ‘DM Serif Display’, serif; font-size: 19px;
+color: #0d1f1a; flex: 1;
+}
+.ch-badge {
+font-family: ‘JetBrains Mono’, monospace; font-size: 10px; font-weight: 700;
+letter-spacing: 1px; padding: 3px 10px; border-radius: 999px;
+background: rgba(14,164,114,.10); color: #0a7a55; flex-shrink: 0;
+}
+.ch-badge.blue { background: rgba(59,91,219,.10); color: #3b5bdb }
+.ch-arrow {
+font-size: 14px; color: #94a3b8; transition: transform .25s;
+flex-shrink: 0;
+}
+.chapter.open .ch-arrow { transform: rotate(180deg) }
+
+.chapter-body {
+display: none; padding: 0 24px 24px; border-top: 1.5px solid #e8f5ef;
+}
+.chapter.open .chapter-body { display: block }
+
+/* Content elements */
+.learn-section { margin-bottom: 22px }
+.learn-section:last-child { margin-bottom: 0 }
+.ls-title {
+font-size: 13px; font-weight: 800; text-transform: uppercase;
+letter-spacing: 1px; color: #0ea472; margin: 20px 0 10px;
+font-family: ‘JetBrains Mono’, monospace;
+}
+.ls-title.blue { color: #3b5bdb }
+.ls-text { font-size: 14.5px; color: #2d4a40; line-height: 1.75; margin-bottom: 10px }
+
+/* Definition boxes */
+.def-box {
+background: rgba(14,164,114,.06); border-left: 4px solid #0ea472;
+border-radius: 0 10px 10px 0; padding: 14px 16px; margin: 12px 0;
+font-size: 14px; color: #1a3a2a; line-height: 1.7;
+}
+.def-box.blue { background: rgba(59,91,219,.06); border-left-color: #3b5bdb; color: #1a1a3a }
+.def-box strong { color: #0a7a55; font-weight: 800 }
+.def-box.blue strong { color: #3b5bdb }
+
+/* Formula / code style */
+.formula {
+background: #0d1f1a; color: #06c47f;
+font-family: ‘JetBrains Mono’, monospace; font-size: 13px;
+padding: 14px 18px; border-radius: 10px; margin: 12px 0;
+line-height: 1.7; overflow-x: auto;
+}
+.formula.blue { background: #0f0f2a; color: #748ffc }
+
+/* Merksatz */
+.merksatz {
+background: linear-gradient(135deg,rgba(14,164,114,.08),rgba(6,196,127,.04));
+border: 1.5px solid #c6e8d9; border-radius: 12px;
+padding: 14px 16px; margin: 14px 0;
+font-size: 14px; font-weight: 600; color: #0a7a55; line-height: 1.65;
+}
+.merksatz::before { content: ’💡 ’; }
+.merksatz.blue { background:rgba(59,91,219,.06); border-color:#c7d2fe; color:#3730a3 }
+.merksatz.blue::before { content: ’💡 ’; }
+
+/* Tag pills */
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 }
+.tag {
+font-family: ‘JetBrains Mono’, monospace; font-size: 10px; font-weight: 700;
+padding: 3px 10px; border-radius: 6px; letter-spacing: .5px;
+background: rgba(14,164,114,.10); color: #0a7a55;
+}
+.tag.blue { background: rgba(59,91,219,.10); color: #3b5bdb }
+.tag.amber { background: rgba(245,158,11,.12); color: #92400e }
+
+/* Comparison table */
+.cmp-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13.5px }
+.cmp-table th {
+background: #0ea472; color: #fff; padding: 10px 14px;
+text-align: left; font-weight: 700;
+}
+.cmp-table th.blue { background: #3b5bdb }
+.cmp-table td { padding: 9px 14px; border-bottom: 1px solid #d4edd7; color: #2d4a40 }
+.cmp-table tr:nth-child(even) td { background: rgba(14,164,114,.04) }
+
+@media (max-width: 768px) {
+.learn-hero { padding: 36px 14px 16px }
+.learn-tabs { margin: 0 14px 24px }
+.learn-panel { padding: 0 14px 48px }
+.chapter-head { padding: 16px 16px }
+.ch-title { font-size: 16px }
+.chapter-body { padding: 0 16px 18px }
+.cmp-table { font-size: 12px }
+.cmp-table th, .cmp-table td { padding: 8px 10px }
+}
+
+/* ═══════════════════════════════════════════════════
+LEARN PAGE
+═══════════════════════════════════════════════════ */
+#learn-page { background:#f0f7f4 }
+
+.learn-hero {
+max-width: 860px; margin: 0 auto;
+padding: 52px 24px 28px; text-align: center;
+}
+.learn-hero h2 {
+font-family:‘DM Serif Display’,serif;
+font-size: clamp(30px,5vw,50px); margin-bottom:10px;
+}
+.learn-hero p { color:#4a6b60; font-size:16px; max-width:540px; margin:0 auto 32px; line-height:1.65 }
+
+/* Course selector */
+.learn-tabs { display:flex; gap:10px; justify-content:center; margin-bottom:32px; flex-wrap:wrap }
+.ltab {
+padding:10px 24px; border-radius:12px; font-size:14px; font-weight:700;
+cursor:pointer; border:2px solid #c6e8d9; background:#fff; color:#4a6b60;
+transition:all .2s; font-family:‘Outfit’,sans-serif;
+}
+.ltab.active { color:#fff; border-color:transparent }
+.ltab-a.active { background:#0ea472; box-shadow:0 6px 20px rgba(14,164,114,.3) }
+.ltab-b.active { background:#3b5bdb; box-shadow:0 6px 20px rgba(59,91,219,.3) }
+.ltab:hover:not(.active) { border-color:#0ea472; color:#0ea472 }
+
+.learn-panel { display:none }
+.learn-panel.active { display:block }
+
+/* Topic nav sidebar + content */
+.learn-layout {
+display: grid;
+grid-template-columns: 220px 1fr;
+gap: 24px;
+max-width: 1100px;
+margin: 0 auto;
+padding: 0 24px 80px;
+align-items: start;
+}
+.topic-nav {
+background:#fff; border:2px solid #d4edd7; border-radius:16px;
+padding: 12px; position: sticky; top: 78px;
+box-shadow:0 2px 12px rgba(14,164,114,.07);
+}
+.topic-nav-title {
+font-family:‘JetBrains Mono’,monospace; font-size:9px; font-weight:700;
+letter-spacing:2px; text-transform:uppercase; color:#4a6b60;
+padding: 6px 8px 10px; border-bottom:1.5px solid #d4edd7; margin-bottom:8px;
+}
+.tnav-btn {
+display:flex; align-items:center; gap:10px;
+width:100%; padding:9px 10px; border-radius:10px; border:none;
+background:transparent; cursor:pointer; text-align:left;
+font-family:‘Outfit’,sans-serif; font-size:13px; font-weight:600;
+color:#4a6b60; transition:all .18s; line-height:1.3;
+}
+.tnav-btn:hover { background:rgba(14,164,114,.08); color:#0a7a55 }
+.tnav-btn.active { background:#0ea472; color:#fff }
+.tnav-btn.blue.active { background:#3b5bdb }
+.tnav-num {
+flex-shrink:0; width:22px; height:22px; border-radius:6px;
+background:rgba(14,164,114,.12); color:#0ea472;
+display:flex; align-items:center; justify-content:center;
+font-family:‘JetBrains Mono’,monospace; font-size:10px; font-weight:700;
+}
+.tnav-btn.active .tnav-num { background:rgba(255,255,255,.25); color:#fff }
+.tnav-btn.blue .tnav-num { background:rgba(59,91,219,.12); color:#3b5bdb }
+.tnav-btn.blue.active .tnav-num { background:rgba(255,255,255,.25); color:#fff }
+
+/* Content area */
+.learn-content { min-width: 0 }
+
+.lcard {
+display:none;
+background:#fff; border:2px solid #d4edd7; border-radius:20px;
+padding: 36px 38px; box-shadow:0 4px 24px rgba(14,164,114,.08);
+animation: fadeUp .3s ease;
+}
+.lcard.active { display:block }
+
+.lcard-eyebrow {
+font-family:‘JetBrains Mono’,monospace; font-size:10px; font-weight:700;
+letter-spacing:1.5px; text-transform:uppercase;
+color:#0ea472; background:rgba(14,164,114,.10);
+padding:5px 12px; border-radius:6px; display:inline-block; margin-bottom:16px;
+}
+.lcard-eyebrow.blue { color:#3b5bdb; background:rgba(59,91,219,.10) }
+
+.lcard h3 {
+font-family:‘DM Serif Display’,serif;
+font-size:clamp(22px,3vw,30px); margin-bottom:18px; color:#0d1f1a; line-height:1.25;
+}
+
+/* Content blocks */
+.lcard p { font-size:15px; color:#2d4a40; line-height:1.75; margin-bottom:14px; font-weight:400 }
+.lcard strong { color:#0a7a55; font-weight:700 }
+
+.lcard h4 {
+font-size:14px; font-weight:800; color:#0d1f1a;
+margin: 22px 0 10px; text-transform:uppercase; letter-spacing:.5px;
+font-family:‘Outfit’,sans-serif;
+}
+
+/* Info boxes */
+.info-box {
+border-radius:12px; padding:16px 18px; margin:18px 0; font-size:14px; line-height:1.7;
+}
+.info-green  { background:rgba(14,164,114,.07); border-left:4px solid #0ea472; color:#2d4a40 }
+.info-amber  { background:rgba(245,158,11,.07); border-left:4px solid #f59e0b; color:#2d4a40 }
+.info-blue   { background:rgba(59,91,219,.07);  border-left:4px solid #3b5bdb; color:#2d4a40 }
+.info-red    { background:rgba(224,49,49,.06);  border-left:4px solid #e03131; color:#2d4a40 }
+.info-box strong { font-weight:700 }
+
+/* T-Konto / Table */
+.t-konto-wrap { display:flex; gap:16px; margin:18px 0; flex-wrap:wrap }
+.t-konto {
+flex:1; min-width:220px;
+border:2px solid #d4edd7; border-radius:12px; overflow:hidden;
+}
+.t-konto-head {
+background:#0ea472; color:#fff; font-weight:800; font-size:13px;
+padding:10px 14px; text-align:center; font-family:‘Outfit’,sans-serif;
+}
+.t-konto-head.blue { background:#3b5bdb }
+.t-konto-body { display:grid; grid-template-columns:1fr 1fr }
+.t-konto-cell {
+padding:10px 14px; font-size:13px; font-weight:600; line-height:1.4;
+border:1px solid #d4edd7;
+}
+.t-soll { color:#0a7a55; background:rgba(14,164,114,.04) }
+.t-haben { color:#e03131; background:rgba(224,49,49,.04) }
+.t-konto-label {
+font-family:‘JetBrains Mono’,monospace; font-size:9px; letter-spacing:1px;
+text-transform:uppercase; color:#4a6b60; padding:6px 14px;
+background:#f0f7f4; border-top:1.5px solid #d4edd7;
+display:flex; justify-content:space-between;
+}
+
+/* Formula boxes */
+.formula {
+background:#0d1f1a; color:#06c47f; border-radius:12px;
+padding:16px 20px; font-family:‘JetBrains Mono’,monospace;
+font-size:14px; margin:16px 0; line-height:1.7;
+}
+
+/* Tag list */
+.tag-row { display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 }
+.tag {
+display:inline-block; font-family:‘JetBrains Mono’,monospace;
+font-size:11px; font-weight:700; padding:4px 11px; border-radius:6px;
+letter-spacing:.5px;
+}
+.tag-green { background:rgba(14,164,114,.12); color:#0a7a55 }
+.tag-blue  { background:rgba(59,91,219,.12);  color:#3b5bdb }
+.tag-amber { background:rgba(245,158,11,.12); color:#92400e }
+.tag-red   { background:rgba(224,49,49,.10);  color:#b91c1c }
+
+/* Example buchungssatz */
+.buchung {
+background:#f0f7f4; border:2px solid #c6e8d9; border-radius:12px;
+padding:14px 18px; font-family:‘JetBrains Mono’,monospace;
+font-size:13px; color:#0d1f1a; margin:10px 0; line-height:1.6;
+}
+.buchung span { color:#0ea472; font-weight:700 }
+.buchung .betrag { color:#3b5bdb }
+
+/* Merksatz */
+.merksatz {
+background:linear-gradient(135deg,rgba(14,164,114,.08),rgba(6,196,127,.04));
+border:2px solid #c6e8d9; border-radius:14px;
+padding:18px 20px; margin:18px 0;
+}
+.merksatz-label {
+font-family:‘JetBrains Mono’,monospace; font-size:9px; font-weight:700;
+letter-spacing:2px; text-transform:uppercase; color:#0ea472; margin-bottom:8px;
+}
+.merksatz p { font-size:15px; font-weight:700; color:#0d1f1a; margin:0; line-height:1.5 }
+
+/* Nav buttons */
+.lcard-nav {
+display:flex; justify-content:space-between; align-items:center;
+margin-top:32px; padding-top:24px; border-top:2px solid #d4edd7;
+}
+.lcard-nav span { font-family:‘JetBrains Mono’,monospace; font-size:11px; color:#4a6b60 }
+
+/* Mobile */
+@media (max-width: 768px) {
+.learn-layout { grid-template-columns:1fr; gap:16px; padding:0 14px 48px }
+.topic-nav { position:static; display:flex; flex-wrap:wrap; gap:6px; padding:10px }
+.topic-nav-title { display:none }
+.tnav-btn { width:auto; flex:0 0 auto; font-size:12px; padding:7px 10px }
+.tnav-num { display:none }
+.lcard { padding:22px 18px }
+.t-konto-wrap { flex-direction:column }
+.lcard-nav { flex-direction:column; gap:10px; text-align:center }
+.lcard-nav .btn { width:100%; justify-content:center }
+}
+
 </style>
 </head>
 <body>
@@ -469,6 +807,7 @@ nav { padding: 0 14px; height: 54px }
   <div class="nav-logo">Buchhalter<span>Tutor</span></div>
   <div class="nav-links">
     <button class="nav-link active" onclick="showMainPage('home-page')">🏠 Start</button>
+    <button class="nav-link" onclick="showMainPage('learn-page')">📖 Lernen</button>
     <button class="nav-link" onclick="showMainPage('quiz-page')">🧠 Quiz</button>
     <button class="nav-link" onclick="showMainPage('download-page')">📥 Vorlagen</button>
   </div>
@@ -483,7 +822,8 @@ nav { padding: 0 14px; height: 54px }
     <p>Lerne eigenständig deine Buchhaltung zu führen – mit interaktivem Quiz, kostenlosen Vorlagen und rechtssicheren Informationen nach HGB & EStG.</p>
     <div class="hero-ctas">
       <button class="btn btn-primary" onclick="showMainPage('quiz-page')">🧠 Quiz starten</button>
-      <button class="btn btn-outline" onclick="showMainPage('download-page')">📥 Vorlagen downloaden</button>
+      <button class="btn btn-outline" onclick="showMainPage('learn-page')">📖 Lernen</button>
+      <button class="btn btn-ghost" onclick="showMainPage('download-page')">📥 Vorlagen</button>
     </div>
     <div class="float-badges">
       <span class="float-badge fb-green">§ 238 HGB</span>
@@ -522,6 +862,11 @@ nav { padding: 0 14px; height: 54px }
       <div class="feat-desc">Alle Inhalte orientieren sich an aktuellen Gesetzen: HGB, EStG, UStG, AO und GoBD. Kein Ersatz für steuerliche Beratung.</div>
     </div>
     <div class="feat-card">
+      <div class="feat-icon">📖</div>
+      <div class="feat-title">Kompakte Lernseite</div>
+      <div class="feat-desc">Alle Themen beider Kurse kompakt zusammengefasst – Theorie, Formeln, Merksätze und Gesetzesgrundlagen auf einen Blick.</div>
+    </div>
+    <div class="feat-card">
       <div class="feat-icon">🆓</div>
       <div class="feat-title">100% kostenlos</div>
       <div class="feat-desc">Alle Vorlagen, das Quiz und alle Inhalte sind vollständig kostenlos – ohne Registrierung, ohne Abo.</div>
@@ -529,11 +874,1261 @@ nav { padding: 0 14px; height: 54px }
   </div>
 
   <footer>
-    <strong>⚠️ Rechtlicher Hinweis:</strong> Alle Inhalte dieser Website dienen ausschließlich zu Lernzwecken und stellen keine steuerliche oder rechtliche Beratung dar.
+    <strong>© 2025 Sara Manoochehri — BuchhalterTutor</strong> &nbsp;|&nbsp; <strong>⚠️ Rechtlicher Hinweis:</strong> Alle Inhalte dieser Website dienen ausschließlich zu Lernzwecken und stellen keine steuerliche oder rechtliche Beratung dar.
     Für individuelle Fragen wende dich an einen zugelassenen Steuerberater.<br>
     Rechtsstand der Inhalte: aktuell nach HGB, EStG, UStG und AO. · Kein Ersatz für professionellen Rat.
+    <br><br>© 2025 <strong>Sara Manoochehri</strong> · BuchhalterTutor · Alle Rechte vorbehalten.
   </footer>
 </div>
+
+<!-- ══════════════ LEARN PAGE ══════════════ -->
+
+<div id="learn-page" class="page" style="display:none">
+
+  <div class="learn-hero">
+    <div class="hero-eyebrow" style="margin-bottom:16px">📖 Kompaktes Lernmaterial</div>
+    <h2>Alles Wichtige.<br>Auf einen Blick.</h2>
+    <p>Theorie, Formeln und Merksätze zu allen Themen beider Kurse – kompakt und verständlich erklärt.</p>
+  </div>
+
+  <div class="learn-tabs">
+    <button class="ltab act-a" id="ltab-a" onclick="switchLearn('a')">📘 Grundlagen-Kurs</button>
+    <button class="ltab" id="ltab-b" onclick="switchLearn('b')">🏛️ IHK / DATEV Vorbereitung</button>
+  </div>
+
+  <!-- ─────── PANEL A: Grundlagen ─────── -->
+
+  <div class="learn-panel lp-active" id="lpanel-a">
+
+```
+<!-- T0 -->
+<div class="chapter" id="ch-a0">
+  <div class="chapter-head" onclick="toggleChapter('ch-a0')">
+    <div class="ch-icon">📚</div>
+    <div class="ch-title">Grundkonzepte der Buchführung</div>
+    <div class="ch-badge">§ 238 HGB · GoB</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="chapter-body">
+    <div class="ls-title">Was ist Buchführung?</div>
+    <p class="ls-text">Buchführung ist die systematische, lückenlose Aufzeichnung aller Geschäftsvorfälle eines Unternehmens in Geldeinheiten. Sie ist die Grundlage für den Jahresabschluss und die Steuererklärung.</p>
+    <div class="def-box"><strong>GoB – Grundsätze ordnungsmäßiger Buchführung (§ 238 HGB):</strong><br>
+    Vollständigkeit · Richtigkeit · Zeitgerechtheit · Klarheit · Unveränderlichkeit · Einzelbewertung · Vorsicht · Stetigkeit</div>
+
+    <div class="ls-title">Buchführungspflicht</div>
+    <div class="tag-row">
+      <span class="tag">§ 238 HGB</span><span class="tag">§ 141 AO</span><span class="tag">§ 4 Abs. 3 EStG</span>
+    </div>
+    <table class="cmp-table">
+      <tr><th>Gruppe</th><th>Regelung</th><th>Methode</th></tr>
+      <tr><td>Kaufleute (HGB)</td><td>§ 238 HGB – immer</td><td>Doppelte Buchführung</td></tr>
+      <tr><td>Gewerbetreibende (AO)</td><td>Umsatz &gt; 600.000 € <em>oder</em> Gewinn &gt; 60.000 €</td><td>Doppelte Buchführung</td></tr>
+      <tr><td>Freiberufler / Klein</td><td>Unterhalb der Grenzen</td><td>EÜR (§ 4 Abs. 3 EStG)</td></tr>
+    </table>
+
+    <div class="ls-title">GoBD – Digitale Buchführung</div>
+    <p class="ls-text">Die GoBD (BMF 2019) regelt elektronische Buchführungssysteme: Daten müssen unveränderbar, vollständig, zeitgerecht und maschinell auswertbar sein. Aufbewahrung: <strong>10 Jahre</strong> Buchungsbelege, <strong>6 Jahre</strong> Handelsbriefe.</p>
+    <div class="merksatz">Keine Buchung ohne Beleg! Jeder Geschäftsvorfall braucht einen schriftlichen oder digitalen Nachweis.</div>
+
+    <div class="ls-title">Wichtige Bilanzierungsgrundsätze</div>
+    <div class="def-box"><strong>Realisationsprinzip:</strong> Gewinne erst erfassen, wenn realisiert (Leistung erbracht).<br>
+    <strong>Imparitätsprinzip:</strong> Drohende Verluste sofort erfassen – noch nicht realisierte Gewinne nicht.<br>
+    <strong>Niederstwertprinzip:</strong> Umlaufvermögen immer mit dem niedrigeren Wert ansetzen (AK oder Marktwert).<br>
+    <strong>Einzelbewertung:</strong> Jeder Posten einzeln bewerten – keine Saldierung.</div>
+  </div>
+</div>
+
+<!-- T1 -->
+<div class="chapter" id="ch-a1">
+  <div class="chapter-head" onclick="toggleChapter('ch-a1')">
+    <div class="ch-icon">⚖️</div>
+    <div class="ch-title">Soll & Haben – Buchungssätze</div>
+    <div class="ch-badge">Doppelte Buchführung</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="chapter-body">
+    <div class="ls-title">Das T-Konto</div>
+    <div class="formula">SOLL (links)          |          HABEN (rechts)
+```
+
+──────────────────────|──────────────────────
+Aktiv: + Zugang     |    Aktiv: − Abgang
+Passiv: − Abgang    |    Passiv: + Zugang
+Aufwand: + Zugang   |    Ertrag: + Zugang</div>
+<div class="merksatz">Jede Buchung berührt mindestens zwei Konten: Soll-Seite = Haben-Seite (Summe immer gleich).</div>
+
+```
+    <div class="ls-title">Typische Buchungssätze</div>
+    <table class="cmp-table">
+      <tr><th>Geschäftsvorfall</th><th>Soll (Konto)</th><th>Haben (Konto)</th></tr>
+      <tr><td>Warenkauf auf Ziel</td><td>Wareneinkauf 3200</td><td>Verbindlichkeiten L+L 1600</td></tr>
+      <tr><td>Kundenrechnung</td><td>Forderungen L+L 1400</td><td>Umsatzerlöse 8200</td></tr>
+      <tr><td>Banküberweisung empfangen</td><td>Bank 1200</td><td>Forderungen L+L 1400</td></tr>
+      <tr><td>Lieferant bezahlen</td><td>Verbindlichkeiten L+L 1600</td><td>Bank 1200</td></tr>
+      <tr><td>Gehalt zahlen</td><td>Löhne & Gehälter 4120</td><td>Bank 1200</td></tr>
+      <tr><td>Darlehen aufnehmen</td><td>Bank 1200</td><td>Darlehensverbindlichkeiten 0700</td></tr>
+      <tr><td>Miete zahlen</td><td>Mietaufwand 4210</td><td>Bank 1200</td></tr>
+    </table>
+    <div class="def-box"><strong>Saldo</strong> = Differenz Soll-Summe minus Haben-Summe.<br>
+    <strong>Sollsaldo</strong> = Soll überwiegt (typisch für Aktiv- und Aufwandskonten).<br>
+    <strong>Habensaldo</strong> = Haben überwiegt (typisch für Passiv- und Ertragskonten).</div>
+  </div>
+</div>
+
+<!-- T2 -->
+<div class="chapter" id="ch-a2">
+  <div class="chapter-head" onclick="toggleChapter('ch-a2')">
+    <div class="ch-icon">📋</div>
+    <div class="ch-title">SKR03 / SKR04 Kontenrahmen</div>
+    <div class="ch-badge">DATEV-Standard</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="chapter-body">
+    <div class="ls-title">Aufbau SKR03 (Abschlussgliederungsprinzip)</div>
+    <table class="cmp-table">
+      <tr><th>Klasse</th><th>Inhalt</th><th>Wichtige Konten</th></tr>
+      <tr><td><strong>0</strong></td><td>Anlagevermögen & Eigenkapital</td><td>0320 Maschinen · 0700 Darlehen</td></tr>
+      <tr><td><strong>1</strong></td><td>Umlaufvermögen & kurzfr. FK</td><td>1100 Kasse · 1200 Bank · 1400 Forderungen · 1600 Verbindlichkeiten</td></tr>
+      <tr><td><strong>2</strong></td><td>Neutrale Aufwendungen</td><td>2100 außerordentliche Aufwendungen</td></tr>
+      <tr><td><strong>3</strong></td><td>Wareneinkauf & Bestände</td><td>3200 Wareneinkauf · 3960 Bestandsveränderungen</td></tr>
+      <tr><td><strong>4</strong></td><td>Betriebliche Aufwendungen</td><td>4120 Löhne · 4210 Miete · 4520 Kfz · 4600 Werbung</td></tr>
+      <tr><td><strong>8</strong></td><td>Erlöse / Erträge</td><td>8200 Umsatzerlöse · 8400 Steuerfreie Umsätze</td></tr>
+      <tr><td><strong>9</strong></td><td>Vortrags- und Abschlusskonten</td><td>9000 Saldenvorträge</td></tr>
+    </table>
+    <div class="merksatz">SKR03 = nach Bilanzgliederung (Steuerberater bevorzugt). SKR04 = nach Betriebsprozessen (Industrie/Handel bevorzugt).</div>
+    <div class="def-box"><strong>Kontenrahmen</strong> = Branchenweiter Standard (SKR03/04).<br>
+    <strong>Kontenplan</strong> = Unternehmensspezifische Auswahl und Anpassung des Kontenrahmens.</div>
+  </div>
+</div>
+
+<!-- T3 -->
+<div class="chapter" id="ch-a3">
+  <div class="chapter-head" onclick="toggleChapter('ch-a3')">
+    <div class="ch-icon">📒</div>
+    <div class="ch-title">Handelsbücher & GoBD</div>
+    <div class="ch-badge">§ 238 HGB · § 146 AO</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="chapter-body">
+    <div class="ls-title">Pflichtbücher nach HGB</div>
+    <table class="cmp-table">
+      <tr><th>Buch</th><th>Funktion</th><th>Aufbewahrung</th></tr>
+      <tr><td><strong>Grundbuch</strong> (Journal)</td><td>Chronologische Erfassung aller Buchungen</td><td>10 Jahre</td></tr>
+      <tr><td><strong>Hauptbuch</strong></td><td>Kontengeordnete Erfassung, Salden</td><td>10 Jahre</td></tr>
+      <tr><td><strong>Kassenbuch</strong></td><td>Tägliche Bargeldbewegungen (§ 146 AO)</td><td>10 Jahre</td></tr>
+      <tr><td>Handelsbriefe</td><td>Ein-/ausgehende Geschäftskorrespondenz</td><td>6 Jahre</td></tr>
+    </table>
+    <div class="ls-title">GoBD – Kernpflichten</div>
+    <div class="def-box">
+      <strong>Unveränderbarkeit:</strong> Einmal erfasste Buchungen dürfen nicht gelöscht werden – nur Stornobuchung.<br>
+      <strong>Zeitgerechtheit:</strong> Bargeschäfte täglich, andere Vorgänge binnen 10 Tagen.<br>
+      <strong>Maschinelle Auswertbarkeit:</strong> Daten müssen mit Prüfsoftware (IDEA) lesbar sein.<br>
+      <strong>Verfahrensdokumentation:</strong> Das eingesetzte DV-System muss vollständig beschrieben sein.
+    </div>
+    <div class="merksatz">Kassenbuch: Keine Lücken, kein Tipp-Ex! Fehler → Stornobuchung. Bei Mängeln darf das Finanzamt schätzen (§ 162 AO).</div>
+  </div>
+</div>
+
+<!-- T4 -->
+<div class="chapter" id="ch-a4">
+  <div class="chapter-head" onclick="toggleChapter('ch-a4')">
+    <div class="ch-icon">🧾</div>
+    <div class="ch-title">Umsatzsteuer (UStG)</div>
+    <div class="ch-badge">§§ 1–28 UStG</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="chapter-body">
+    <div class="ls-title">Steuersätze & Pflichten</div>
+    <table class="cmp-table">
+      <tr><th>Steuersatz</th><th>Anwendung</th><th>Beispiele</th></tr>
+      <tr><td><strong>19%</strong></td><td>Regelsteuersatz</td><td>Die meisten Waren & Dienstleistungen</td></tr>
+      <tr><td><strong>7%</strong></td><td>Ermäßigt (§ 12 Abs. 2 UStG)</td><td>Lebensmittel, Bücher, ÖPNV, Zeitungen</td></tr>
+      <tr><td><strong>0% / steuerfrei</strong></td><td>§ 4 UStG</td><td>Arzt, Schule, Banken, Export, ig. Lieferung</td></tr>
+    </table>
+    <div class="formula">Zahllast = Umsatzsteuer (Ausgangsrechnungen)
+     − Vorsteuer (Eingangsrechnungen)
+```
+
+─────────────────────────────────────────────
+Positiv → Zahlung an Finanzamt
+Negativ → Erstattung vom Finanzamt</div>
+<div class="ls-title">Pflichtangaben auf Rechnungen (§ 14 UStG)</div>
+<div class="def-box">
+Vollständiger Name & Anschrift (Aussteller + Empfänger) · Steuernummer oder USt-IdNr. · Rechnungsdatum · Fortlaufende Rechnungsnummer · Leistungsbeschreibung & Leistungszeitraum · Nettobetrag · Steuersatz · MwSt.-Betrag · Bruttobetrag
+</div>
+<div class="ls-title">Voranmeldung & Fristen</div>
+<div class="def-box"><strong>Fälligkeit:</strong> 10. des Folgemonats/-quartals (via ELSTER).<br>
+<strong>Kleinunternehmer (§ 19 UStG):</strong> Vorjahresumsatz ≤ 22.000 € → keine USt-Pflicht, kein Vorsteuerabzug.<br>
+<strong>Reverse Charge (§ 13b UStG):</strong> Bei bestimmten Leistungen schuldet der Empfänger die USt.</div>
+<div class="merksatz">SKR03: Konto 1576 = Vorsteuer (Aktiv). Konto 1771 = Umsatzsteuer (Passiv).</div>
+</div>
+</div>
+
+```
+<!-- T5 -->
+<div class="chapter" id="ch-a5">
+  <div class="chapter-head" onclick="toggleChapter('ch-a5')">
+    <div class="ch-icon">📊</div>
+    <div class="ch-title">Jahresabschluss – Bilanz & GuV</div>
+    <div class="ch-badge">§§ 242–277 HGB</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="chapter-body">
+    <div class="ls-title">Bilanzstruktur</div>
+    <div class="formula">AKTIVA (Mittelverwendung)  |  PASSIVA (Mittelherkunft)
+```
+
+───────────────────────────|──────────────────────────
+A. Anlagevermögen          |  A. Eigenkapital
+Immaterielle Werte      |     Gezeichnetes Kapital
+Sachanlagen             |     Rücklagen
+Finanzanlagen           |     Jahresüberschuss
+|
+B. Umlaufvermögen          |  B. Rückstellungen
+Vorräte                 |
+Forderungen L+L         |  C. Verbindlichkeiten
+Bank / Kasse            |     Langfristig / Kurzfristig
+───────────────────────────|──────────────────────────
+SUMME AKTIVA               |  SUMME PASSIVA  (= immer gleich!)</div>
+<div class="formula">Eigenkapital = Aktiva − Fremdkapital</div>
+<div class="ls-title">Gewinn- und Verlustrechnung (GuV)</div>
+<div class="def-box">
+<strong>Gesamtkostenverfahren (§ 275 Abs. 2 HGB):</strong><br>
+Umsatzerlöse<br>
++ / − Bestandsveränderungen<br>
++ Sonstige betriebliche Erträge<br>
+− Materialaufwand · − Personalaufwand · − Abschreibungen · − Sonstige Aufwendungen<br>
+= <strong>Betriebsergebnis (EBIT)</strong><br>
++/− Finanzergebnis<br>
+− Steuern<br>
+= <strong>Jahresüberschuss / -fehlbetrag</strong>
+</div>
+<div class="ls-title">Abschreibung (AfA – § 7 EStG)</div>
+<div class="formula">Lineare AfA = Anschaffungskosten ÷ Nutzungsdauer (Jahre)
+Degressive AfA = Buchwert × AfA-Satz (max. 25%, max. 2,5× linear)
+GWG sofort = Anschaffungskosten ≤ 800 € netto → 100% im Jahr der Anschaffung</div>
+<div class="merksatz">Rückstellungen = Passivposten für ungewisse Verbindlichkeiten (Pensionen, Steuern, Garantien). Rücklagen = Eigenkapital aus thesaurierten Gewinnen.</div>
+</div>
+</div>
+
+```
+<!-- T6 -->
+<div class="chapter" id="ch-a6">
+  <div class="chapter-head" onclick="toggleChapter('ch-a6')">
+    <div class="ch-icon">⚖️</div>
+    <div class="ch-title">Steuerrecht Grundlagen</div>
+    <div class="ch-badge">EStG · KStG · GewStG</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="chapter-body">
+    <div class="ls-title">Steuerarten im Überblick</div>
+    <table class="cmp-table">
+      <tr><th>Steuer</th><th>Steuerpflichtiger</th><th>Satz</th><th>Gesetz</th></tr>
+      <tr><td><strong>Einkommensteuer (ESt)</strong></td><td>Natürliche Personen</td><td>14–45% (progressiv)</td><td>§ 1 EStG</td></tr>
+      <tr><td><strong>Körperschaftsteuer (KSt)</strong></td><td>GmbH, AG, eG</td><td>15% + 5,5% SolZ</td><td>§ 1 KStG</td></tr>
+      <tr><td><strong>Gewerbesteuer (GewSt)</strong></td><td>Alle Gewerbetreibenden</td><td>Hebesatz × 3,5%</td><td>§ 2 GewStG</td></tr>
+      <tr><td><strong>Umsatzsteuer (USt)</strong></td><td>Unternehmer</td><td>7% / 19%</td><td>§ 1 UStG</td></tr>
+      <tr><td><strong>Solidaritätszuschlag</strong></td><td>Körperschaften (+ teils ESt)</td><td>5,5% auf ESt/KSt</td><td>SolZG</td></tr>
+    </table>
+    <div class="ls-title">Betriebsausgaben (§ 4 Abs. 4 EStG)</div>
+    <div class="def-box"><strong>Absetzbar:</strong> Alle betrieblich veranlassten Aufwendungen (Miete, Personal, Material, AfA, Zinsen, Versicherungen).<br>
+    <strong>Nicht absetzbar / begrenzt:</strong> Private Anteile · Geschenke über 35 € netto p.P./Jahr · 70% der Bewirtungskosten (30% nicht abzugsfähig).</div>
+    <div class="ls-title">Gewerbesteuer-Freibetrag</div>
+    <div class="formula">Einzelunternehmen & Personengesellschaften: 24.500 € Freibetrag (§ 11 GewStG)
+```
+
+GmbH / AG: KEIN Freibetrag → GewSt ab 1. Euro Gewerbeertrag
+GewSt-Anrechnung: 4× Messbetrag auf ESt anrechenbar (§ 35 EStG)</div>
+<div class="merksatz">Betriebsausgaben mindern den Gewinn und damit die Steuerlast. Immer Belege aufbewahren – 10 Jahre!</div>
+</div>
+</div>
+
+  </div><!-- end lpanel-a -->
+
+  <!-- ─────── PANEL B: IHK / DATEV ─────── -->
+
+  <div class="learn-panel" id="lpanel-b">
+
+```
+<!-- M0 -->
+<div class="chapter" id="ch-b0">
+  <div class="chapter-head" onclick="toggleChapter('ch-b0')">
+    <div class="ch-icon">🏛️</div>
+    <div class="ch-title">Doppelte Buchführung – vertieft</div>
+    <div class="ch-badge blue">§ 242 HGB</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="chapter-body">
+    <div class="ls-title blue">Schwebende Geschäfte & Abgrenzung</div>
+    <div class="def-box blue"><strong>Schwebendes Geschäft:</strong> Noch nicht zu buchen, solange beide Seiten ihre Leistung nicht erbracht haben.<br>
+    <strong>ARAP (Aktiver RAP):</strong> Ausgabe jetzt → Aufwand in der Folgeperiode (z.B. im Dezember gezahlte Januarmiete).<br>
+    <strong>PRAP (Passiver RAP):</strong> Einnahme jetzt → Ertrag in der Folgeperiode (z.B. erhaltene Vorauszahlung).</div>
+    <div class="ls-title blue">Handelsbilanz vs. Steuerbilanz</div>
+    <table class="cmp-table">
+      <tr><th class="blue">Kriterium</th><th class="blue">Handelsbilanz (HGB)</th><th class="blue">Steuerbilanz (EStG)</th></tr>
+      <tr><td>Zweck</td><td>Gläubiger- & Gesellschafterschutz</td><td>Steuerberechnung (Finanzamt)</td></tr>
+      <tr><td>Vorsichtsprinzip</td><td>Streng (Niederstwert)</td><td>Abweichungen möglich</td></tr>
+      <tr><td>Abschreibungen</td><td>Planmäßig nach HGB</td><td>AfA-Tabellen BMF</td></tr>
+      <tr><td>Rückstellungen</td><td>Breit (auch ungewisse Schulden)</td><td>Enger Katalog</td></tr>
+    </table>
+    <div class="merksatz blue">Maßgeblichkeitsprinzip (§ 5 EStG): Handelsbilanz ist grundsätzlich maßgeblich für die Steuerbilanz – mit gesetzlichen Ausnahmen.</div>
+    <div class="ls-title blue">Stille Reserven</div>
+    <div class="def-box blue">Entstehen, wenn Vermögensgegenstände unter ihrem tatsächlichen Wert bilanziert sind. Bei Auflösung (z.B. Verkauf) entsteht ein steuerpflichtiger Gewinn.</div>
+  </div>
+</div>
+
+<!-- M1 -->
+<div class="chapter" id="ch-b1">
+  <div class="chapter-head" onclick="toggleChapter('ch-b1')">
+    <div class="ch-icon">📈</div>
+    <div class="ch-title">Jahresabschlussanalyse & Kennzahlen</div>
+    <div class="ch-badge blue">KPI · Ratios</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="chapter-body">
+    <div class="ls-title blue">Wichtige Kennzahlen (Formeln)</div>
+    <div class="formula blue">Eigenkapitalquote     = EK / Bilanzsumme × 100%
+```
+
+Verschuldungsgrad      = FK / EK × 100%
+
+Liquidität 1. Grades  = Zahlungsmittel / kurzfr. FK × 100%  [Richtwert: ~20%]
+Liquidität 2. Grades  = (ZM + Forderungen) / kurzfr. FK × 100%  [Richtwert: ~100%]
+Liquidität 3. Grades  = Umlaufvermögen / kurzfr. FK × 100%  [Richtwert: ~150%]
+
+RoA (Gesamtkapitalrendite) = (JÜ + Fremdkapitalzinsen) / Bilanzsumme × 100%
+RoE (Eigenkapitalrendite)  = Jahresüberschuss / Eigenkapital × 100%
+EBIT-Marge                 = EBIT / Umsatz × 100%
+
+Working Capital            = Umlaufvermögen − kurzfristiges Fremdkapital
+Forderungsumschlag         = Umsatz / Ø Forderungen  →  Debitorenziel = 365 / Forderungsumschlag</div>
+<div class="ls-title blue">Goldene Bilanzregel</div>
+<div class="def-box blue"><strong>Goldene Bilanzregel:</strong> Anlagevermögen soll durch langfristiges Kapital (EK + langfr. FK) finanziert sein → Fristenkongruenz.<br>
+<strong>Leverage-Effekt:</strong> Wenn Gesamtkapitalrendite > FK-Zinssatz → mehr FK steigert EK-Rendite. Umgekehrt: negativer Leverage.</div>
+<div class="ls-title blue">EBIT, EBITDA, Cashflow</div>
+<div class="formula blue">EBIT   = Ergebnis vor Zinsen & Steuern (= Betriebsergebnis)
+EBITDA = EBIT + Abschreibungen (operativer Cashflow-Proxy)
+Free Cashflow = Operativer CF − Investitions-CF</div>
+</div>
+</div>
+
+```
+<!-- M2 -->
+<div class="chapter" id="ch-b2">
+  <div class="chapter-head" onclick="toggleChapter('ch-b2')">
+    <div class="ch-icon">🏭</div>
+    <div class="ch-title">Kosten- & Leistungsrechnung (KLR)</div>
+    <div class="ch-badge blue">KLR · DB-Rechnung</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="chapter-body">
+    <div class="ls-title blue">Kosten vs. Aufwendungen</div>
+    <table class="cmp-table">
+      <tr><th class="blue">Kriterium</th><th class="blue">Aufwand (GuV/HGB)</th><th class="blue">Kosten (KLR)</th></tr>
+      <tr><td>Umfang</td><td>Alle Werteverzehre inkl. neutral</td><td>Nur betriebszweckbezogen</td></tr>
+      <tr><td>Enthält</td><td>Spenden, Verluste, Steuern</td><td>Kalkulatorische Kosten</td></tr>
+      <tr><td>Basis</td><td>HGB / Steuerrecht</td><td>Intern / Managementbedarf</td></tr>
+    </table>
+    <div class="ls-title blue">Deckungsbeitragsrechnung</div>
+    <div class="formula blue">Deckungsbeitrag I  = Umsatz − variable Kosten
+```
+
+Deckungsbeitrag II = DB I − produktfixe Kosten
+Deckungsbeitrag III= DB II − bereichsfixe Kosten
+Gewinn             = DB III − unternehmensfixe Kosten
+
+Break-Even-Point (Menge) = Fixkosten ÷ DB je Einheit
+Break-Even-Point (Umsatz)= Fixkosten ÷ DB-Quote</div>
+<div class="ls-title blue">Kalkulationsschema Industrie</div>
+<div class="formula blue">Materialeinzelkosten
+
+- Materialgemeinkosten
+  = Materialkosten
+- Fertigungslöhne (Einzelkosten)
+- Fertigungsgemeinkosten
+- Sonderkosten der Fertigung
+  = Herstellkosten
+- Verwaltungsgemeinkosten
+- Vertriebsgemeinkosten
+  = Selbstkosten
+- Gewinnzuschlag
+  = Angebotspreis (Netto)</div>
+  <div class="merksatz blue">Vollkostenrechnung: Alle Kosten auf Produkt. Teilkostenrechnung (DB-Rechnung): Nur variable Kosten direkt – Fixkosten als Block. Für kurzfristige Preisentscheidungen: DB-Rechnung überlegen!</div>
+  </div>
+  
+    </div>
+  
+    <!-- M3 -->
+  
+    <div class="chapter" id="ch-b3">
+      <div class="chapter-head" onclick="toggleChapter('ch-b3')">
+        <div class="ch-icon">📅</div>
+        <div class="ch-title">Budgetierung & Abweichungsanalyse</div>
+        <div class="ch-badge blue">Controlling</div>
+        <div class="ch-arrow">▼</div>
+      </div>
+      <div class="chapter-body">
+        <div class="ls-title blue">Arten der Budgetierung</div>
+        <table class="cmp-table">
+          <tr><th class="blue">Methode</th><th class="blue">Beschreibung</th><th class="blue">Vorteil</th></tr>
+          <tr><td>Klassisches Budget</td><td>Jahresplan, fortgeschrieben</td><td>Einfach, bekannt</td></tr>
+          <tr><td>Zero-Based Budgeting</td><td>Jedes Jahr von null</td><td>Deckt Ineffizienzen auf</td></tr>
+          <tr><td>Rollierender Forecast</td><td>Konstant 12 Monate voraus</td><td>Aktuell & flexibel</td></tr>
+          <tr><td>Beyond Budgeting</td><td>Verzicht auf starre Jahrespläne</td><td>Agilität</td></tr>
+        </table>
+        <div class="ls-title blue">Abweichungsanalyse</div>
+        <div class="formula blue">Gesamtabweichung = Ist-Wert − Plan-Wert
+
+Umsatzabweichung = Preisabweichung + Mengenabweichung
+Preisabweichung  = (Ist-Preis − Plan-Preis) × Ist-Menge
+Mengenabweichung = (Ist-Menge − Plan-Menge) × Plan-Preis
+
+Kostenabweichung = Verbrauchsabweichung + Beschäftigungsabweichung</div>
+<div class="def-box blue"><strong>KPIs (Key Performance Indicators)</strong> sollten SMART sein:<br>
+<strong>S</strong>pezifisch · <strong>M</strong>essbar · <strong>A</strong>ngemessen · <strong>R</strong>ealistisch · <strong>T</strong>erminiert<br><br>
+<strong>Balanced Scorecard</strong> (Kaplan/Norton): 4 Perspektiven: Finanzen · Kunden · Prozesse · Lernen & Wachstum</div>
+</div>
+</div>
+
+```
+<!-- M4 -->
+<div class="chapter" id="ch-b4">
+  <div class="chapter-head" onclick="toggleChapter('ch-b4')">
+    <div class="ch-icon">🏦</div>
+    <div class="ch-title">Ertragsteuern (KSt, GewSt, ESt)</div>
+    <div class="ch-badge blue">KStG · GewStG · EStG</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="chapter-body">
+    <div class="ls-title blue">Steuerbelastung GmbH – Beispielrechnung</div>
+    <div class="formula blue">Jahresüberschuss (vor Steuern)        100.000 €
+```
+
+− Körperschaftsteuer 15%              − 15.000 €
+− SolZ 5,5% auf KSt                  −    825 €
+− Gewerbesteuer (Hebesatz 400%)       − 14.000 €
+──────────
+Nettogewinn (nach Steuern)            ≈ 70.175 €
+(Effektive Gesamtbelastung ca. 30%)</div>
+<div class="ls-title blue">Gewerbesteuer-Berechnung</div>
+<div class="formula blue">Gewerbeertrag (bereinigt nach § 7–9 GewStG)
+× Steuermesszahl 3,5%
+= Steuermessbetrag
+× Hebesatz der Gemeinde (z.B. 400%)
+= Gewerbesteuer
+Hinzurechnungen (§ 8 GewStG): 25% Zinsen, 20% bewegl. Mieten, 50% Immobilienmieten</div>
+<div class="ls-title blue">Wichtige Steuerkonzepte</div>
+<table class="cmp-table">
+<tr><th class="blue">Konzept</th><th class="blue">Erklärung</th><th class="blue">Rechtsgrundlage</th></tr>
+<tr><td>Organschaft</td><td>Tochter überträgt Gewinn an Mutter → gemeinsame Besteuerung</td><td>§§ 14 ff. KStG</td></tr>
+<tr><td>Zinsschranke</td><td>Zinsabzug max. 30% des steuerlichen EBITDA</td><td>§ 4h EStG</td></tr>
+<tr><td>Mindestbesteuerung</td><td>Verlustvortrag: 1 Mio. € + max. 60% des darüber liegenden Einkommens</td><td>§ 10d EStG</td></tr>
+<tr><td>vGA</td><td>Nicht fremdübliche Leistung an Gesellschafter → Gewinnhinzurechnung</td><td>§ 8 Abs. 3 KStG</td></tr>
+<tr><td>GewSt-Anrechnung</td><td>4× Messbetrag auf ESt anrechenbar</td><td>§ 35 EStG</td></tr>
+</table>
+</div>
+</div>
+
+```
+<!-- M5 -->
+<div class="chapter" id="ch-b5">
+  <div class="chapter-head" onclick="toggleChapter('ch-b5')">
+    <div class="ch-icon">👥</div>
+    <div class="ch-title">Lohnbuchhaltung & Sozialversicherung</div>
+    <div class="ch-badge blue">§ 41 EStG · SGB</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="chapter-body">
+    <div class="ls-title blue">Vom Brutto zum Netto</div>
+    <div class="formula blue">Bruttolohn                              3.000,00 €
+```
+
+− Lohnsteuer (nach Steuerklasse)      −   350,00 €
+− Solidaritätszuschlag                −    19,25 €
+− Kirchensteuer (ggf.)                −    31,50 €
+− AN-Anteil Rentenversicherung 9,3%   −   279,00 €
+− AN-Anteil Krankenversicherung 7,3%  −   219,00 €
+− AN-Anteil Pflegeversicherung 1,8%   −    54,00 €
+− AN-Anteil Arbeitslosenversicherung 1,3% − 39,00 €
+───────────
+Nettolohn (ca.)                       ≈ 2.008,25 €
+
+AG zahlt zusätzlich ca. 20% SV-Anteil → Gesamtkosten: ca. 3.600 €</div>
+<div class="ls-title blue">Wichtige Regelungen</div>
+<table class="cmp-table">
+<tr><th class="blue">Thema</th><th class="blue">Inhalt</th><th class="blue">Grundlage</th></tr>
+<tr><td>Sachbezüge</td><td>Geldwerter Vorteil (Dienstwagen, Mahlzeiten). Freibetrag: 50 €/Monat</td><td>§ 8 EStG</td></tr>
+<tr><td>Fünftelregelung</td><td>Abfindungen günstiger versteuern</td><td>§ 34 EStG</td></tr>
+<tr><td>bAV</td><td>Betriebliche Altersvorsorge: bis 8% der RV-BBG steuerfrei</td><td>§ 3 Nr. 63 EStG</td></tr>
+<tr><td>Lohnkonto</td><td>Pflichtaufzeichnung pro Mitarbeiter</td><td>§ 41 EStG</td></tr>
+<tr><td>LSt-Anmeldung</td><td>Monatlich/quartalsweise via ELSTER</td><td>§ 41a EStG</td></tr>
+</table>
+<div class="merksatz blue">Lohnsteuer-Anmeldung (§ 41a EStG): Monatlich bei LSt > 5.000 €/Jahr. Quartalsweise bei 1.080–5.000 €. Jährlich bei < 1.080 €.</div>
+</div>
+</div>
+
+```
+<!-- M6 -->
+<div class="chapter" id="ch-b6">
+  <div class="chapter-head" onclick="toggleChapter('ch-b6')">
+    <div class="ch-icon">💻</div>
+    <div class="ch-title">GoBD & Digitale Buchführung</div>
+    <div class="ch-badge blue">GoBD · ELSTER · DATEV</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="chapter-body">
+    <div class="ls-title blue">Digitale Pflichten im Überblick</div>
+    <table class="cmp-table">
+      <tr><th class="blue">Thema</th><th class="blue">Anforderung</th><th class="blue">Grundlage</th></tr>
+      <tr><td>Kassensysteme (TSE)</td><td>Technische Sicherheitseinrichtung Pflicht seit 2020</td><td>§ 146a AO</td></tr>
+      <tr><td>E-Rechnung</td><td>Empfangspflicht ab 2025, Ausstellungspflicht ab 2027 (B2B)</td><td>§ 14 UStG n.F.</td></tr>
+      <tr><td>Datenzugriff FA</td><td>Z1 (direkt), Z2 (Auswertung), Z3 (Datenträger)</td><td>§ 147 Abs. 6 AO</td></tr>
+      <tr><td>DSFinV-K</td><td>Standardformat für Kassendaten bei Betriebsprüfung</td><td>GoBD</td></tr>
+      <tr><td>Verfahrensdoku</td><td>Vollständige Beschreibung des DV-Systems</td><td>GoBD Rn. 151</td></tr>
+    </table>
+    <div class="ls-title blue">ELSTER & DATEV</div>
+    <div class="def-box blue"><strong>ELSTER:</strong> Pflichtportal für elektronische Übermittlung von USt-Voranmeldungen, LSt-Anmeldungen, KSt- und ESt-Erklärungen. <br>
+    <strong>DATEV:</strong> De-facto-Standard-Software für Steuerberater und Buchhalter in Deutschland. DATEV-Schnittstelle = gängiges Datenübertragungsformat.<br>
+    <strong>Revisionssichere Archivierung:</strong> Unveränderbar, vollständig, maschinell auswertbar, 10 Jahre verfügbar (DMS mit Write-Once-Technologie).</div>
+    <div class="merksatz blue">GoBD-Grundsatz: Was digital erzeugt wird, muss digital archiviert werden – einfaches Einscannen von Papierbelegen reicht nicht immer aus!</div>
+  </div>
+</div>
+```
+
+  </div><!-- end lpanel-b -->
+
+  <footer>
+    <strong>© 2025 Sara Manoochehri — BuchhalterTutor</strong> &nbsp;|&nbsp; <strong>⚠️ Rechtlicher Hinweis:</strong> Alle Lerninhalte dienen ausschließlich zu Bildungszwecken und stellen keine steuerliche oder rechtliche Beratung dar.
+    Rechtsstand: aktuell nach HGB, EStG, UStG, AO und GoBD. · Kein Ersatz für professionellen Rat.<br><br>
+    © 2025 <strong>Sara Manoochehri</strong> · BuchhalterTutor · Alle Rechte vorbehalten.
+  </footer>
+</div>
+<!-- ══ END LEARN PAGE ══ -->
+
+<!-- ══════════════ LEARN PAGE ══════════════ -->
+
+<div id="learn-page" class="page" style="display:none">
+  <div class="learn-hero">
+    <div class="hero-eyebrow" style="margin-bottom:14px">📖 Lernbereich</div>
+    <h2>Kompaktes Buchhaltungs-Wissen</h2>
+    <p>Alle wichtigen Themen – kompakt erklärt mit Beispielen, Merksätzen und Buchungssätzen.</p>
+    <div class="learn-tabs">
+      <button class="ltab ltab-a active" onclick="switchLearnCourse('la')">📘 Grundlagen-Kurs</button>
+      <button class="ltab ltab-b" onclick="switchLearnCourse('lb')">🏛️ IHK / DATEV</button>
+    </div>
+  </div>
+
+  <!-- Panel A: Grundlagen -->
+
+  <div class="learn-panel active" id="lpanel-la">
+    <div class="learn-layout">
+      <div class="topic-nav" id="lnav-a">
+        <div class="topic-nav-title">Themen</div>
+        <button class="tnav-btn active" onclick="showLearn('la',0)"><span class="tnav-num">1</span>Grundkonzepte</button>
+        <button class="tnav-btn" onclick="showLearn('la',1)"><span class="tnav-num">2</span>Soll &amp; Haben</button>
+        <button class="tnav-btn" onclick="showLearn('la',2)"><span class="tnav-num">3</span>SKR03 / SKR04</button>
+        <button class="tnav-btn" onclick="showLearn('la',3)"><span class="tnav-num">4</span>Bücher &amp; GoBD</button>
+        <button class="tnav-btn" onclick="showLearn('la',4)"><span class="tnav-num">5</span>Umsatzsteuer</button>
+        <button class="tnav-btn" onclick="showLearn('la',5)"><span class="tnav-num">6</span>Jahresabschluss</button>
+        <button class="tnav-btn" onclick="showLearn('la',6)"><span class="tnav-num">7</span>Steuerrecht</button>
+      </div>
+      <div class="learn-content" id="lcontent-a">
+
+```
+    <!-- T0: Grundkonzepte -->
+    <div class="lcard active" id="la-0">
+      <span class="lcard-eyebrow">THEMA 01</span>
+      <h3>Grundkonzepte der Buchführung</h3>
+      <p>Die <strong>Buchführung</strong> ist die systematische Aufzeichnung aller wirtschaftlichen Vorgänge eines Unternehmens. Sie bildet die Grundlage für Steuererklärungen, Jahresabschlüsse und unternehmerische Entscheidungen.</p>
+
+      <h4>🏛️ Wer muss Buchhaltung führen?</h4>
+      <div class="info-box info-green">
+        <strong>§ 238 HGB:</strong> Jeder <strong>Kaufmann</strong> ist zur Buchführung verpflichtet.<br>
+        <strong>§ 141 AO:</strong> Gewerbetreibende ab <strong>600.000 € Umsatz</strong> oder <strong>60.000 € Gewinn</strong> pro Jahr.<br>
+        Freiberufler &amp; Kleinunternehmer: Vereinfachte <strong>EÜR (§ 4 Abs. 3 EStG)</strong> möglich.
+      </div>
+
+      <h4>📜 Grundsätze ordnungsmäßiger Buchführung (GoB)</h4>
+      <div class="tag-row">
+        <span class="tag tag-green">Vollständigkeit</span>
+        <span class="tag tag-green">Richtigkeit</span>
+        <span class="tag tag-green">Klarheit</span>
+        <span class="tag tag-green">Kontinuität</span>
+        <span class="tag tag-green">Zeitgerechtheit</span>
+        <span class="tag tag-amber">Einzelbewertung</span>
+        <span class="tag tag-amber">Vorsicht</span>
+      </div>
+
+      <h4>📅 Wichtige Bewertungsprinzipien</h4>
+      <p><strong>Realisationsprinzip (§ 252 HGB):</strong> Gewinne erst ausweisen, wenn sie realisiert (erwirtschaftet) sind. Drohende Verluste dagegen sofort — das nennt sich <strong>Imparitätsprinzip</strong>.</p>
+      <p><strong>Niederstwertprinzip:</strong> Beim Umlaufvermögen immer den <em>niedrigeren</em> Wert aus Anschaffungskosten und Marktwert ansetzen.</p>
+
+      <div class="merksatz">
+        <div class="merksatz-label">💡 Merksatz</div>
+        <p>„Keine Buchung ohne Beleg!" — Jeder Geschäftsvorfall braucht einen schriftlichen oder digitalen Nachweis.</p>
+      </div>
+
+      <h4>⏰ Aufbewahrungsfristen (§ 147 AO)</h4>
+      <div class="info-box info-amber">
+        <strong>10 Jahre:</strong> Buchungsbelege, Inventare, Bilanzen, Buchführungsunterlagen<br>
+        <strong>6 Jahre:</strong> Handelsbriefe, Angebote, Auftragsbestätigungen, allgemeine Geschäftskorrespondenz
+      </div>
+
+      <div class="lcard-nav">
+        <span>1 / 7</span>
+        <button class="btn btn-primary" onclick="showLearn('la',1)" style="font-size:14px;padding:10px 22px">Weiter: Soll &amp; Haben →</button>
+      </div>
+    </div>
+
+    <!-- T1: Soll & Haben -->
+    <div class="lcard" id="la-1">
+      <span class="lcard-eyebrow">THEMA 02</span>
+      <h3>Soll &amp; Haben — Buchungssätze</h3>
+      <p>Die <strong>doppelte Buchführung (Doppik)</strong> erfasst jeden Geschäftsvorfall auf mindestens zwei Konten: einmal im <strong>Soll</strong> (links) und einmal im <strong>Haben</strong> (rechts) — immer mit gleichen Beträgen.</p>
+
+      <div class="formula">Soll-Summe = Haben-Summe &nbsp;(immer!)</div>
+
+      <h4>🔑 Das T-Konto Prinzip</h4>
+      <div class="t-konto-wrap">
+        <div class="t-konto">
+          <div class="t-konto-head">AKTIVKONTO (z.B. Bank)</div>
+          <div class="t-konto-body">
+            <div class="t-konto-cell t-soll">SOLL<br>+ Zugang<br>+ Anfangsbestand</div>
+            <div class="t-konto-cell t-haben">HABEN<br>− Abgang<br>+ Schlussbestand</div>
+          </div>
+          <div class="t-konto-label"><span>Soll</span><span>Haben</span></div>
+        </div>
+        <div class="t-konto">
+          <div class="t-konto-head" style="background:#3b5bdb">PASSIVKONTO (z.B. Verbindlichkeiten)</div>
+          <div class="t-konto-body">
+            <div class="t-konto-cell" style="color:#e03131;background:rgba(224,49,49,.04)">SOLL<br>− Abgang<br>+ Schlussbestand</div>
+            <div class="t-konto-cell" style="color:#3b5bdb;background:rgba(59,91,219,.04)">HABEN<br>+ Zugang<br>+ Anfangsbestand</div>
+          </div>
+          <div class="t-konto-label"><span>Soll</span><span>Haben</span></div>
+        </div>
+      </div>
+
+      <h4>📝 Buchungssatz-Beispiele</h4>
+      <div class="buchung">
+        Kauf Ware auf Ziel 1.190 € brutto (19% MwSt):<br>
+        <span>Wareneingang 1.000 €</span> + <span>Vorsteuer 190 €</span> an <span>Verbindlichkeiten L+L 1.190 €</span>
+      </div>
+      <div class="buchung">
+        Zahlung Lieferantenrechnung per Bank:<br>
+        <span>Verbindlichkeiten L+L</span> an <span>Bank <span class="betrag">1.190 €</span></span>
+      </div>
+      <div class="buchung">
+        Warenverkauf auf Rechnung 2.380 € brutto:<br>
+        <span>Forderungen L+L 2.380 €</span> an <span>Umsatzerlöse 2.000 €</span> + <span>USt 380 €</span>
+      </div>
+      <div class="buchung">
+        Bankdarlehen 50.000 € aufgenommen:<br>
+        <span>Bank 50.000 €</span> an <span>Darlehensverbindlichkeiten 50.000 €</span>
+      </div>
+
+      <div class="merksatz">
+        <div class="merksatz-label">💡 Merksatz</div>
+        <p>Aktivkonten: Zugang = Soll · Abgang = Haben<br>Passivkonten: Zugang = Haben · Abgang = Soll<br>Aufwandskonten: immer Soll · Ertragskonten: immer Haben</p>
+      </div>
+
+      <div class="lcard-nav">
+        <button class="btn btn-ghost" onclick="showLearn('la',0)" style="font-size:13px;padding:9px 18px">← Zurück</button>
+        <span>2 / 7</span>
+        <button class="btn btn-primary" onclick="showLearn('la',2)" style="font-size:14px;padding:10px 22px">Weiter →</button>
+      </div>
+    </div>
+
+    <!-- T2: Kontenrahmen -->
+    <div class="lcard" id="la-2">
+      <span class="lcard-eyebrow">THEMA 03</span>
+      <h3>SKR03 &amp; SKR04 — Die Kontenrahmen</h3>
+      <p>Ein <strong>Kontenrahmen</strong> ist ein standardisiertes Verzeichnis aller möglichen Buchungskonten. Die gebräuchlichsten in Deutschland sind <strong>SKR03</strong> (Steuerberater-Standard) und <strong>SKR04</strong> (Industrie).</p>
+
+      <h4>🔢 Aufbau SKR03 (nach Abschlussgliederung)</h4>
+      <div class="info-box info-green">
+        <strong>Klasse 0</strong> — Anlagevermögen (Gebäude, Maschinen, Fahrzeuge)<br>
+        <strong>Klasse 1</strong> — Umlaufvermögen &amp; Kapital (Bank 1200, Kasse 1100, Forderungen 1400, Verbindlichkeiten 1600)<br>
+        <strong>Klasse 2</strong> — Neutrale Aufwendungen &amp; Erträge<br>
+        <strong>Klasse 3</strong> — Wareneinkauf (Wareneingang 3200)<br>
+        <strong>Klasse 4</strong> — Betriebliche Aufwendungen (Personal 4120, Miete 4210, Kfz 4520)<br>
+        <strong>Klasse 8</strong> — Erlöse (Umsatzerlöse 8200)<br>
+        <strong>Klasse 9</strong> — Eigenkapital, Vorträge
+      </div>
+
+      <h4>📊 Die wichtigsten Konten auf einen Blick</h4>
+      <div class="buchung">
+        <span>1100</span> Kasse &nbsp;·&nbsp; <span>1200</span> Bank &nbsp;·&nbsp; <span>1400</span> Forderungen L+L<br>
+        <span>1576</span> Vorsteuer &nbsp;·&nbsp; <span>1600</span> Verbindlichkeiten L+L &nbsp;·&nbsp; <span>1770</span> USt-Zahllast<br>
+        <span>3200</span> Wareneingang &nbsp;·&nbsp; <span>4120</span> Löhne &amp; Gehälter<br>
+        <span>4210</span> Miete &nbsp;·&nbsp; <span>8200</span> Umsatzerlöse
+      </div>
+
+      <h4>🆚 SKR03 vs. SKR04</h4>
+      <div class="info-box info-blue">
+        <strong>SKR03:</strong> Nach Bilanzpositionen gegliedert — Standard bei Steuerberatern und KMU. Erlöse in Klasse 8.<br>
+        <strong>SKR04:</strong> Nach betrieblichem Ablauf (Prozesse) — Standard in Industrie &amp; Handel. Erlöse in Klasse 4.
+      </div>
+
+      <div class="merksatz">
+        <div class="merksatz-label">💡 Merksatz</div>
+        <p>Kontenrahmen (z.B. SKR03) = allgemeiner Standard für alle. Kontenplan = die individuelle Auswahl deines Unternehmens daraus.</p>
+      </div>
+
+      <div class="lcard-nav">
+        <button class="btn btn-ghost" onclick="showLearn('la',1)" style="font-size:13px;padding:9px 18px">← Zurück</button>
+        <span>3 / 7</span>
+        <button class="btn btn-primary" onclick="showLearn('la',3)" style="font-size:14px;padding:10px 22px">Weiter →</button>
+      </div>
+    </div>
+
+    <!-- T3: GoBD -->
+    <div class="lcard" id="la-3">
+      <span class="lcard-eyebrow">THEMA 04</span>
+      <h3>Handelsbücher &amp; GoBD</h3>
+      <p>Kaufleute müssen nach <strong>§ 238 HGB</strong> bestimmte Bücher führen. Seit 2019 regelt das <strong>GoBD-Schreiben des BMF</strong> detailliert, wie digitale Buchführung korrekt zu führen ist.</p>
+
+      <h4>📚 Pflichtbücher nach HGB</h4>
+      <div class="info-box info-green">
+        <strong>Grundbuch (Journal):</strong> Chronologische Erfassung aller Buchungen<br>
+        <strong>Hauptbuch:</strong> Buchungen nach Konten geordnet — zeigt Saldo jedes Kontos<br>
+        <strong>Kassenbuch:</strong> Täglich zu führen bei Bargeldverkehr (§ 146 AO)<br>
+        <strong>Lohnbuch:</strong> Für jeden Mitarbeiter (§ 41 EStG)<br>
+        <strong>Anlagenbuch:</strong> Alle Wirtschaftsgüter mit AfA-Daten
+      </div>
+
+      <h4>⚡ GoBD — Die wichtigsten Anforderungen</h4>
+      <div class="info-box info-amber">
+        <strong>Unveränderbarkeit:</strong> Einmal gespeicherte Buchungen dürfen nicht spurlos geändert werden — nur Stornobuchungen erlaubt<br>
+        <strong>Zeitgerechtheit:</strong> Bargeschäfte täglich, andere Vorfälle innerhalb 10 Tage nach Belegeingang<br>
+        <strong>Maschinelle Auswertbarkeit:</strong> Daten müssen vom Finanzamt mit Prüfsoftware (IDEA) ausgewertet werden können<br>
+        <strong>Verfahrensdokumentation:</strong> Das eingesetzte System muss vollständig beschrieben sein
+      </div>
+
+      <h4>🗑️ Kassenbuch-Regeln (§ 146 AO)</h4>
+      <div class="info-box info-red">
+        <strong>Verboten:</strong> Tipp-Ex, Radierungen, Leerzeilen, nachträgliche Änderungen<br>
+        <strong>Pflicht:</strong> Täglicher Abschluss, Anfangs- und Endbestand, Originalbelege<br>
+        <strong>Folge bei Mängeln:</strong> Finanzamt kann Einnahmen <strong>schätzen (§ 162 AO)</strong> — oft zum Nachteil des Unternehmers
+      </div>
+
+      <div class="merksatz">
+        <div class="merksatz-label">💡 Merksatz</div>
+        <p>GoBD = digitale GoB. Was auf Papier gilt (Unveränderbarkeit, Vollständigkeit), gilt genauso für Excel, DATEV und jede Buchhaltungssoftware.</p>
+      </div>
+
+      <div class="lcard-nav">
+        <button class="btn btn-ghost" onclick="showLearn('la',2)" style="font-size:13px;padding:9px 18px">← Zurück</button>
+        <span>4 / 7</span>
+        <button class="btn btn-primary" onclick="showLearn('la',4)" style="font-size:14px;padding:10px 22px">Weiter →</button>
+      </div>
+    </div>
+
+    <!-- T4: USt -->
+    <div class="lcard" id="la-4">
+      <span class="lcard-eyebrow">THEMA 05</span>
+      <h3>Umsatzsteuer (UStG)</h3>
+      <p>Die <strong>Umsatzsteuer (USt)</strong> ist eine Verbrauchsteuer, die auf Lieferungen und Leistungen erhoben wird. Unternehmer sind Treuhänder des Staates — sie kassieren die USt vom Kunden und führen sie ans Finanzamt ab.</p>
+
+      <h4>📊 Steuersätze in Deutschland</h4>
+      <div class="tag-row">
+        <span class="tag tag-green">19% — Regelsteuersatz</span>
+        <span class="tag tag-amber">7% — Ermäßigt (Lebensmittel, Bücher, ÖPNV)</span>
+        <span class="tag tag-blue">0% — Ausfuhrlieferungen</span>
+        <span class="tag" style="background:rgba(100,116,139,.1);color:#475569">Steuerfrei — z.B. Arzt, Schule, Finanzdienstleistungen (§ 4 UStG)</span>
+      </div>
+
+      <h4>🔄 Das Vorsteuer-System</h4>
+      <div class="formula">USt-Zahllast = Umsatzsteuer (auf Ausgangsrechnungen)<br>            &minus; Vorsteuer (aus Eingangsrechnungen)<br>─────────────────────────────<br>= Zahlung an FA (+) &nbsp;oder&nbsp; Erstattung (−)</div>
+
+      <h4>📝 Buchung USt / Vorsteuer (SKR03)</h4>
+      <div class="buchung">
+        Ausgangsrechnung 1.190 € (netto 1.000 € + 19% USt):<br>
+        <span>Forderungen L+L 1.190 €</span> an <span>Erlöse 1.000 €</span> + <span>USt (Kto 1776) 190 €</span>
+      </div>
+      <div class="buchung">
+        Eingangsrechnung 595 € (netto 500 € + 19% VSt):<br>
+        <span>Aufwand 500 €</span> + <span>Vorsteuer (Kto 1576) 95 €</span> an <span>Verbindlichkeiten 595 €</span>
+      </div>
+
+      <h4>📅 Voranmeldung &amp; Fristen</h4>
+      <div class="info-box info-amber">
+        <strong>Monatlich</strong> (Vorauszahlung Vorjahr &gt; 7.500 €) oder <strong>Quartalsweise</strong> (1.000–7.500 €)<br>
+        <strong>Fällig:</strong> 10. des Folgemonats/-quartals — elektronisch via <strong>ELSTER</strong> (§ 18 UStG)<br>
+        <strong>Dauerfristverlängerung:</strong> +1 Monat gegen 1/11 Sondervorauszahlung
+      </div>
+
+      <h4>🏠 Kleinunternehmerregelung (§ 19 UStG)</h4>
+      <div class="info-box info-blue">
+        Vorjahresumsatz ≤ <strong>22.000 €</strong> &amp; Schätzung laufendes Jahr ≤ <strong>50.000 €</strong><br>
+        → Keine USt-Ausweisung, aber auch <strong>kein Vorsteuerabzug</strong>
+      </div>
+
+      <div class="merksatz">
+        <div class="merksatz-label">💡 Merksatz</div>
+        <p>Pflichtangaben auf jeder Rechnung (§ 14 UStG): Name &amp; Anschrift, Steuernummer oder USt-IdNr., Datum, fortlaufende Nummer, Leistungsbeschreibung, Netto, Steuersatz, MwSt-Betrag, Brutto.</p>
+      </div>
+
+      <div class="lcard-nav">
+        <button class="btn btn-ghost" onclick="showLearn('la',3)" style="font-size:13px;padding:9px 18px">← Zurück</button>
+        <span>5 / 7</span>
+        <button class="btn btn-primary" onclick="showLearn('la',5)" style="font-size:14px;padding:10px 22px">Weiter →</button>
+      </div>
+    </div>
+
+    <!-- T5: Jahresabschluss -->
+    <div class="lcard" id="la-5">
+      <span class="lcard-eyebrow">THEMA 06</span>
+      <h3>Jahresabschluss — Bilanz &amp; GuV</h3>
+      <p>Der <strong>Jahresabschluss</strong> fasst alle Buchungen eines Geschäftsjahres zusammen und zeigt die wirtschaftliche Lage des Unternehmens. Er besteht mindestens aus <strong>Bilanz</strong> und <strong>GuV</strong>.</p>
+
+      <h4>📋 Bestandteile (§ 264 HGB — GmbH)</h4>
+      <div class="tag-row">
+        <span class="tag tag-green">Bilanz (Pflicht)</span>
+        <span class="tag tag-green">GuV (Pflicht)</span>
+        <span class="tag tag-green">Anhang (Pflicht)</span>
+        <span class="tag tag-amber">Lagebericht (ab mittelgroß)</span>
+        <span class="tag tag-blue">Kapitalflussrechnung (kapitalmarktorientiert)</span>
+      </div>
+
+      <h4>⚖️ Die Bilanz — Aufbau</h4>
+      <div class="t-konto-wrap">
+        <div class="t-konto">
+          <div class="t-konto-head">AKTIVA (Vermögen)</div>
+          <div class="t-konto-body" style="grid-template-columns:1fr">
+            <div class="t-konto-cell t-soll">A. Anlagevermögen<br>· Immaterielle Werte<br>· Sachanlagen<br>· Finanzanlagen</div>
+            <div class="t-konto-cell t-soll">B. Umlaufvermögen<br>· Vorräte<br>· Forderungen<br>· Bank / Kasse</div>
+          </div>
+        </div>
+        <div class="t-konto">
+          <div class="t-konto-head" style="background:#3b5bdb">PASSIVA (Finanzierung)</div>
+          <div class="t-konto-body" style="grid-template-columns:1fr">
+            <div class="t-konto-cell" style="color:#3b5bdb;background:rgba(59,91,219,.04)">A. Eigenkapital<br>· Stammkapital<br>· Rücklagen<br>· Jahresüberschuss</div>
+            <div class="t-konto-cell" style="color:#e03131;background:rgba(224,49,49,.04)">B. Fremdkapital<br>· Rückstellungen<br>· Verbindlichkeiten lang-/kurzfristig</div>
+          </div>
+        </div>
+      </div>
+      <div class="formula">Aktiva = Passiva &nbsp;&nbsp;(immer!)<br>Eigenkapital = Aktiva − Fremdkapital</div>
+
+      <h4>📊 GuV — Ergebnis ermitteln</h4>
+      <div class="info-box info-green">
+        <strong>Gesamtkostenverfahren (§ 275 Abs. 2 HGB):</strong><br>
+        Umsatzerlöse<br>
+        + Bestandsveränderungen<br>
+        − Materialaufwand<br>
+        − Personalaufwand<br>
+        − Abschreibungen<br>
+        − Sonstige Aufwendungen<br>
+        ± Finanzergebnis<br>
+        − Steuern<br>
+        = <strong>Jahresüberschuss / -fehlbetrag</strong>
+      </div>
+
+      <h4>🏭 Abschreibungen (AfA, § 7 EStG)</h4>
+      <div class="info-box info-blue">
+        <strong>Linear:</strong> Anschaffungskosten / Nutzungsdauer = gleicher Betrag jährlich<br>
+        <strong>Degressiv (§ 7 Abs. 2 EStG):</strong> Max. 25% oder 2,5-fach linear, fallende Beträge<br>
+        <strong>GWG (§ 6 Abs. 2 EStG):</strong> Bis 800 € netto → Sofortabschreibung
+      </div>
+
+      <div class="lcard-nav">
+        <button class="btn btn-ghost" onclick="showLearn('la',4)" style="font-size:13px;padding:9px 18px">← Zurück</button>
+        <span>6 / 7</span>
+        <button class="btn btn-primary" onclick="showLearn('la',6)" style="font-size:14px;padding:10px 22px">Weiter →</button>
+      </div>
+    </div>
+
+    <!-- T6: Steuerrecht -->
+    <div class="lcard" id="la-6">
+      <span class="lcard-eyebrow">THEMA 07</span>
+      <h3>Steuerrecht Grundlagen</h3>
+      <p>Neben der Umsatzsteuer zahlen Unternehmen je nach Rechtsform verschiedene <strong>Ertragsteuern</strong>. Das Zusammenspiel aus ESt, KSt und GewSt ist zentral für jede Unternehmensplanung.</p>
+
+      <h4>💼 Steuerarten nach Rechtsform</h4>
+      <div class="info-box info-green">
+        <strong>Einzelunternehmen / Personengesellschaft:</strong><br>
+        → Einkommensteuer (ESt) auf den Unternehmensgewinn (0–45%)<br>
+        → Gewerbesteuer (ab 24.500 € Freibetrag, GewSt wird auf ESt angerechnet § 35 EStG)<br><br>
+        <strong>GmbH / AG (Kapitalgesellschaft):</strong><br>
+        → Körperschaftsteuer 15% + 5,5% SolZ = ca. 15,83%<br>
+        → Gewerbesteuer (kein Freibetrag)<br>
+        → Effektive Gesamtbelastung: ca. 28–32% (je nach Gemeinde)
+      </div>
+
+      <h4>🏙️ Gewerbesteuer</h4>
+      <div class="formula">Gewerbesteuer = Gewerbeertrag × Steuermesszahl (3,5%) × Hebesatz<br>Beispiel (Hebesatz 400%): 100.000 € × 3,5% × 400% = 14.000 €</div>
+
+      <h4>📅 Steuerliche Fristen im Überblick</h4>
+      <div class="info-box info-amber">
+        <strong>USt-Voranmeldung:</strong> 10. des Folgemonats/-quartals (ELSTER)<br>
+        <strong>ESt-Vorauszahlungen:</strong> 10.3. / 10.6. / 10.9. / 10.12.<br>
+        <strong>KSt-Erklärung (GmbH):</strong> 31. Juli des Folgejahres (Steuerberater: Verlängerung möglich)<br>
+        <strong>Gewerbesteuererklärung:</strong> Zusammen mit der ESt/KSt-Erklärung
+      </div>
+
+      <h4>💰 Betriebsausgaben (§ 4 Abs. 4 EStG)</h4>
+      <div class="info-box info-blue">
+        <strong>Absetzbar:</strong> Alle betrieblich veranlassten Aufwendungen — Miete, Personal, Material, AfA, Zinsen, Versicherungen, Beratungskosten<br>
+        <strong>Nicht absetzbar:</strong> Private Kosten, Geschenke über 35 € netto pro Person/Jahr, nicht abzugsfähige Bewirtungskosten (30%)
+      </div>
+
+      <div class="merksatz">
+        <div class="merksatz-label">💡 Merksatz</div>
+        <p>Steuerplanung lohnt sich! Ein Steuerberater kostet Geld — spart aber meist das Vielfache davon. Kein Ersatz für professionelle Beratung.</p>
+      </div>
+
+      <div class="lcard-nav">
+        <button class="btn btn-ghost" onclick="showLearn('la',5)" style="font-size:13px;padding:9px 18px">← Zurück</button>
+        <span>7 / 7</span>
+        <button class="btn btn-primary" onclick="switchLearnCourse('lb')" style="font-size:14px;padding:10px 22px;background:#3b5bdb">IHK-Kurs starten →</button>
+      </div>
+    </div>
+
+  </div><!-- /lcontent-a -->
+</div><!-- /learn-layout -->
+```
+
+  </div><!-- /lpanel-la -->
+
+  <!-- Panel B: IHK -->
+
+  <div class="learn-panel" id="lpanel-lb">
+    <div class="learn-layout">
+      <div class="topic-nav" id="lnav-b">
+        <div class="topic-nav-title">Module</div>
+        <button class="tnav-btn blue active" onclick="showLearn('lb',0)"><span class="tnav-num" style="background:rgba(59,91,219,.12);color:#3b5bdb">1</span>Buchführung vertieft</button>
+        <button class="tnav-btn blue" onclick="showLearn('lb',1)"><span class="tnav-num" style="background:rgba(59,91,219,.12);color:#3b5bdb">2</span>Jahresabschluss-Analyse</button>
+        <button class="tnav-btn blue" onclick="showLearn('lb',2)"><span class="tnav-num" style="background:rgba(59,91,219,.12);color:#3b5bdb">3</span>Kostenrechnung</button>
+        <button class="tnav-btn blue" onclick="showLearn('lb',3)"><span class="tnav-num" style="background:rgba(59,91,219,.12);color:#3b5bdb">4</span>Budgetierung</button>
+        <button class="tnav-btn blue" onclick="showLearn('lb',4)"><span class="tnav-num" style="background:rgba(59,91,219,.12);color:#3b5bdb">5</span>Ertragsteuern</button>
+        <button class="tnav-btn blue" onclick="showLearn('lb',5)"><span class="tnav-num" style="background:rgba(59,91,219,.12);color:#3b5bdb">6</span>Lohnbuchhaltung</button>
+        <button class="tnav-btn blue" onclick="showLearn('lb',6)"><span class="tnav-num" style="background:rgba(59,91,219,.12);color:#3b5bdb">7</span>GoBD &amp; Digital</button>
+      </div>
+      <div class="learn-content" id="lcontent-b">
+
+```
+    <!-- M0 -->
+    <div class="lcard active" id="lb-0">
+      <span class="lcard-eyebrow blue">MODUL 01</span>
+      <h3>Doppelte Buchführung — Vertieft</h3>
+      <p>Aufbauend auf den Grundlagen gehen wir tiefer in die Systematik der Buchführung: <strong>Abgrenzungsposten, schwebende Geschäfte, stille Reserven</strong> und die Verbindung zwischen Handels- und Steuerbilanz.</p>
+
+      <h4>📅 Periodenabgrenzung — ARAP &amp; PRAP</h4>
+      <div class="info-box info-blue">
+        <strong>ARAP (Aktiver Rechnungsabgrenzungsposten):</strong> Ausgabe in Periode 1, Aufwand in Periode 2<br>
+        Beispiel: Versicherungsprämie 1.200 € für Jan–Dez bezahlt im Dez → 11/12 = ARAP<br><br>
+        <strong>PRAP (Passiver Rechnungsabgrenzungsposten):</strong> Einnahme in Periode 1, Ertrag in Periode 2<br>
+        Beispiel: Mietvorauszahlung vom Kunden im Dez für Jan → PRAP
+      </div>
+
+      <h4>🔇 Stille Reserven</h4>
+      <p>Stille Reserven entstehen, wenn Vermögensgegenstände <strong>unter ihrem tatsächlichen Marktwert</strong> bilanziert werden — z.B. durch lineare AfA oder das Niederstwertprinzip. Bei Auflösung (Verkauf) erhöhen sie den steuerpflichtigen Gewinn.</p>
+
+      <h4>📑 Handels- vs. Steuerbilanz (Maßgeblichkeit)</h4>
+      <div class="info-box info-amber">
+        <strong>Maßgeblichkeitsprinzip (§ 5 EStG):</strong> Die Handelsbilanz (HGB) ist grundsätzlich maßgeblich für die Steuerbilanz.<br>
+        Ausnahmen: Steuerliche Sonderabschreibungen, steuerliche Bewertungsvorbehalte → Differenzen = <strong>latente Steuern (§ 274 HGB)</strong>
+      </div>
+
+      <div class="formula">EK (Handelsrecht) ≠ EK (Steuerrecht)<br>Differenz → latente Steuern aktiv/passiv</div>
+
+      <div class="lcard-nav">
+        <span>1 / 7</span>
+        <button class="btn btn-primary" onclick="showLearn('lb',1)" style="font-size:14px;padding:10px 22px;background:#3b5bdb">Weiter →</button>
+      </div>
+    </div>
+
+    <!-- M1 -->
+    <div class="lcard" id="lb-1">
+      <span class="lcard-eyebrow blue">MODUL 02</span>
+      <h3>Jahresabschluss-Analyse</h3>
+      <p>Die <strong>Bilanzanalyse</strong> liefert Kennzahlen zur Beurteilung von Liquidität, Rentabilität und Stabilität eines Unternehmens — unverzichtbar für Investoren, Banken und das Management.</p>
+
+      <h4>💧 Liquiditätskennzahlen</h4>
+      <div class="formula">Liquidität 1. Grades = (Kasse + Bank) / kurzfristige Verbindlichkeiten × 100  [≈ 20%]
+```
+
+Liquidität 2. Grades = (UV − Vorräte) / kurzfristige Verbindlichkeiten × 100  [≈ 100%]
+Liquidität 3. Grades = Umlaufvermögen / kurzfristige Verbindlichkeiten × 100   [≈ 150%]</div>
+
+```
+      <h4>📈 Rentabilitätskennzahlen</h4>
+      <div class="formula">ROE (Eigenkapitalrendite)  = Jahresüberschuss / Eigenkapital × 100
+```
+
+ROA (Gesamtkapitalrendite) = (JÜ + FK-Zinsen) / Bilanzsumme × 100
+EBIT-Marge                 = EBIT / Umsatz × 100
+EBITDA                     = EBIT + Abschreibungen</div>
+
+```
+      <h4>🏗️ Kapitalstruktur</h4>
+      <div class="formula">Eigenkapitalquote    = EK / Bilanzsumme × 100   [je höher, desto stabiler]
+```
+
+Verschuldungsgrad    = FK / EK × 100
+Goldene Bilanzregel  → Anlagevermögen durch EK + langfristiges FK finanziert</div>
+
+```
+      <h4>⚡ Leverage-Effekt</h4>
+      <div class="info-box info-blue">
+        Fremdkapital erhöht die EK-Rendite, <strong>solange</strong> die Gesamtkapitalrendite über dem FK-Zinssatz liegt.<br>
+        Umgekehrt: Gesamtrendite &lt; FK-Zinssatz → negativer Leverage → EK wird vernichtet
+      </div>
+
+      <div class="lcard-nav">
+        <button class="btn btn-ghost" onclick="showLearn('lb',0)" style="font-size:13px;padding:9px 18px">← Zurück</button>
+        <span>2 / 7</span>
+        <button class="btn btn-primary" onclick="showLearn('lb',2)" style="font-size:14px;padding:10px 22px;background:#3b5bdb">Weiter →</button>
+      </div>
+    </div>
+
+    <!-- M2 -->
+    <div class="lcard" id="lb-2">
+      <span class="lcard-eyebrow blue">MODUL 03</span>
+      <h3>Kosten- &amp; Leistungsrechnung (KLR)</h3>
+      <p>Die KLR ist ein <strong>internes Steuerungsinstrument</strong> (keine Pflicht nach HGB). Sie beantwortet: Was kostet was? Welche Produkte sind rentabel? Wo liegt die Gewinnschwelle?</p>
+
+      <h4>🔢 Kostenarten</h4>
+      <div class="tag-row">
+        <span class="tag tag-green">Fixkosten (unabhängig von Menge)</span>
+        <span class="tag tag-amber">Variable Kosten (proportional zur Menge)</span>
+        <span class="tag tag-blue">Einzelkosten (direkt zuordenbar)</span>
+        <span class="tag" style="background:rgba(100,116,139,.1);color:#475569">Gemeinkosten (Umlage nötig)</span>
+      </div>
+
+      <h4>📊 Deckungsbeitragsrechnung</h4>
+      <div class="formula">DB I   = Umsatz − variable Kosten
+```
+
+DB II  = DB I − produktfixe Kosten
+DB III = DB II − unternehmensfixe Kosten = Betriebsergebnis</div>
+
+```
+      <h4>⚖️ Break-Even-Point (Gewinnschwelle)</h4>
+      <div class="formula">BEP (Menge)  = Fixkosten / DB je Einheit
+```
+
+BEP (Umsatz) = Fixkosten / DB-Quote
+DB-Quote     = DB I / Umsatz × 100</div>
+
+```
+      <div class="buchung">
+        Beispiel: FK=40.000 € · Preis=100 € · variable Kosten=60 €<br>
+        <span>DB = 40 € → BEP = 40.000 / 40 = 1.000 Stück</span>
+      </div>
+
+      <h4>🏭 Kalkulationsschema (Industrie)</h4>
+      <div class="info-box info-green">
+        Materialeinzelkosten + Materialgemeinkosten = <strong>Materialkosten</strong><br>
+        + Fertigungslöhne + Fertigungsgemeinkosten = <strong>Herstellkosten</strong><br>
+        + Verwaltungs- &amp; Vertriebsgemeinkosten = <strong>Selbstkosten</strong><br>
+        + Gewinnzuschlag = <strong>Verkaufspreis (netto)</strong>
+      </div>
+
+      <div class="lcard-nav">
+        <button class="btn btn-ghost" onclick="showLearn('lb',1)" style="font-size:13px;padding:9px 18px">← Zurück</button>
+        <span>3 / 7</span>
+        <button class="btn btn-primary" onclick="showLearn('lb',3)" style="font-size:14px;padding:10px 22px;background:#3b5bdb">Weiter →</button>
+      </div>
+    </div>
+
+    <!-- M3 -->
+    <div class="lcard" id="lb-3">
+      <span class="lcard-eyebrow blue">MODUL 04</span>
+      <h3>Budgetierung &amp; Controlling</h3>
+      <p>Das <strong>Budget</strong> ist der quantitative Ausdruck der Unternehmenspläne. Controlling vergleicht Plan und Ist, analysiert Abweichungen und steuert gegenwärtig.</p>
+
+      <h4>🗺️ Budgetprozess</h4>
+      <div class="info-box info-blue">
+        <strong>1.</strong> Umsatzbudget (Ausgangspunkt)<br>
+        <strong>2.</strong> Produktionsbudget (abgeleitet)<br>
+        <strong>3.</strong> Einkaufsbudget / Materialbedarf<br>
+        <strong>4.</strong> Gemeinkosten- &amp; Personalbudget<br>
+        <strong>5.</strong> Investitionsbudget<br>
+        <strong>6.</strong> Liquiditäts-/Finanzbudget (Ergebnis)
+      </div>
+
+      <h4>📉 Abweichungsanalyse</h4>
+      <div class="formula">Preisabweichung  = (Istpreis − Planpreis) × Istmenge
+```
+
+Mengenabweichung = (Istmenge − Planmenge) × Planpreis
+Gesamtabweichung = Preis- + Mengenabweichung</div>
+<div class="info-box info-amber">
+<strong>Günstig:</strong> Istkosten < Plankosten · <strong>Ungünstig:</strong> Istkosten > Plankosten<br>
+Günstige Umsatzabweichung: Ist-Umsatz > Plan-Umsatz
+</div>
+
+```
+      <h4>🔄 Moderne Ansätze</h4>
+      <div class="tag-row">
+        <span class="tag tag-blue">Rolling Forecast (laufend aktuell)</span>
+        <span class="tag tag-green">Zero-Based Budgeting (von null)</span>
+        <span class="tag tag-amber">Balanced Scorecard</span>
+        <span class="tag" style="background:rgba(100,116,139,.1);color:#475569">Beyond Budgeting</span>
+      </div>
+
+      <div class="merksatz">
+        <div class="merksatz-label">💡 Merksatz</div>
+        <p>KPIs müssen SMART sein: Spezifisch · Messbar · Attraktiv · Realistisch · Terminiert</p>
+      </div>
+
+      <div class="lcard-nav">
+        <button class="btn btn-ghost" onclick="showLearn('lb',2)" style="font-size:13px;padding:9px 18px">← Zurück</button>
+        <span>4 / 7</span>
+        <button class="btn btn-primary" onclick="showLearn('lb',4)" style="font-size:14px;padding:10px 22px;background:#3b5bdb">Weiter →</button>
+      </div>
+    </div>
+
+    <!-- M4 -->
+    <div class="lcard" id="lb-4">
+      <span class="lcard-eyebrow blue">MODUL 05</span>
+      <h3>Ertragsteuern — KSt, GewSt &amp; ESt</h3>
+      <p>Unternehmen zahlen je nach Rechtsform unterschiedliche Kombinationen aus <strong>Einkommensteuer, Körperschaftsteuer und Gewerbesteuer</strong>.</p>
+
+      <h4>🏢 Körperschaftsteuer (KSt)</h4>
+      <div class="formula">KSt-Satz: 15% (§ 23 KStG)
+```
+
+- 5,5% Solidaritätszuschlag auf KSt (= 0,825%)
+  = effektiv ca. 15,825%
+- Gewerbesteuer (ca. 14–17% je nach Gemeinde)
+  ────────────────────────────
+  Gesamtbelastung GmbH: ca. 28–32%</div>
+  
+  ```
+      <h4>🏙️ Gewerbesteuer (GewSt)</h4>
+      <div class="info-box info-amber">
+        <strong>Steuermesszahl:</strong> 3,5% des Gewerbeertrags<br>
+        <strong>Hebesatz:</strong> je Gemeinde verschieden (300–500%)<br>
+        <strong>Freibetrag:</strong> 24.500 € nur für Einzelunternehmer &amp; Personengesellschaften<br>
+        <strong>Hinzurechnungen (§ 8 GewStG):</strong> 25% der Zinsen, 20%/50% der Mieten werden hinzugerechnet
+      </div>
+  
+      <h4>⚡ Besondere Regelungen</h4>
+      <div class="info-box info-blue">
+        <strong>Zinsschranke (§ 4h EStG):</strong> Nettozinsabzug max. 30% des steuerlichen EBITDA<br>
+        <strong>Verlustverrechnung (§ 10d EStG):</strong> Vortrag unbegrenzt, aber Mindestbesteuerung: max. 1 Mio. € + 60% des darüber liegenden Einkommens<br>
+        <strong>vGA:</strong> Zuwendungen an Gesellschafter über Marktniveau → steuerliche Korrektur
+      </div>
+  
+      <div class="merksatz">
+        <div class="merksatz-label">💡 Merksatz</div>
+        <p>GmbH-Gewinn → KSt 15% + GewSt ~15% = ~30% auf Unternehmensebene. Ausschüttung an Gesellschafter → noch 25% Abgeltungsteuer (§ 32d EStG) auf die Dividende.</p>
+      </div>
+  
+      <div class="lcard-nav">
+        <button class="btn btn-ghost" onclick="showLearn('lb',3)" style="font-size:13px;padding:9px 18px">← Zurück</button>
+        <span>5 / 7</span>
+        <button class="btn btn-primary" onclick="showLearn('lb',5)" style="font-size:14px;padding:10px 22px;background:#3b5bdb">Weiter →</button>
+      </div>
+    </div>
+  
+    <!-- M5 -->
+    <div class="lcard" id="lb-5">
+      <span class="lcard-eyebrow blue">MODUL 06</span>
+      <h3>Lohnbuchhaltung &amp; Sozialversicherung</h3>
+      <p>Die Lohnabrechnung ist eine der komplexesten Aufgaben in der Buchhaltung. Arbeitgeber sind verantwortlich für den <strong>Einbehalt und die Abführung von Steuern und Sozialversicherungsbeiträgen</strong>.</p>
+  
+      <h4>💰 Vom Brutto zum Netto</h4>
+      <div class="formula">Bruttolohn
+  ```
+
+− Lohnsteuer (Steuerklasse I–VI)
+− Solidaritätszuschlag (5,5% der LSt, ab 2021 Freigrenze)
+− Kirchensteuer (8–9% der LSt, falls KiSt-pflichtig)
+− AN-Anteil Krankenversicherung   (7,3% + Zusatzbeitrag ≈ 1%)
+− AN-Anteil Rentenversicherung    (9,3%)
+− AN-Anteil Arbeitslosenversicherung (1,3%)
+− AN-Anteil Pflegeversicherung    (1,775% / +0,6% ohne Kind)
+════════════════════════════
+= Nettolohn (Auszahlungsbetrag)</div>
+
+```
+      <h4>🏢 Arbeitgeberkosten</h4>
+      <div class="info-box info-amber">
+        Zum Bruttolohn zahlt der AG zusätzlich ca. <strong>20–21%</strong>:<br>
+        · KV-Anteil AG: 7,3% + ½ Zusatzbeitrag<br>
+        · RV-Anteil AG: 9,3%<br>
+        · AV-Anteil AG: 1,3%<br>
+        · PV-Anteil AG: 1,775%<br>
+        · Unfallversicherung (Berufsgenossenschaft): 100% AG
+      </div>
+
+      <h4>📅 Meldepflichten &amp; Fristen</h4>
+      <div class="info-box info-blue">
+        <strong>Lohnsteuer-Anmeldung (§ 41a EStG):</strong> Monatlich/quartalsweise via ELSTER<br>
+        <strong>SV-Beitrag:</strong> Drittletzter Bankarbeitstag des Monats an Krankenkasse<br>
+        <strong>Lohnsteuerbescheinigung:</strong> Elektronisch bis 28. Februar des Folgejahres<br>
+        <strong>Lohnkonto (§ 41 EStG):</strong> Für jeden Mitarbeiter führen, 6 Jahre aufbewahren
+      </div>
+
+      <div class="buchung">
+        Buchungssatz Gehaltsabrechnung (vereinfacht):<br>
+        <span>Löhne &amp; Gehälter 4.000 €</span> an <span>Bank 2.800 €</span> + <span>Verbindl. FA (LSt) 700 €</span> + <span>Verbindl. SV 500 €</span>
+      </div>
+
+      <div class="lcard-nav">
+        <button class="btn btn-ghost" onclick="showLearn('lb',4)" style="font-size:13px;padding:9px 18px">← Zurück</button>
+        <span>6 / 7</span>
+        <button class="btn btn-primary" onclick="showLearn('lb',6)" style="font-size:14px;padding:10px 22px;background:#3b5bdb">Weiter →</button>
+      </div>
+    </div>
+
+    <!-- M6 -->
+    <div class="lcard" id="lb-6">
+      <span class="lcard-eyebrow blue">MODUL 07</span>
+      <h3>GoBD &amp; Digitale Buchführung</h3>
+      <p>Die <strong>GoBD (BMF 2019)</strong> regelt, wie digitale Buchführung korrekt aufzubauen und zu betreiben ist. Verstöße können bei einer Betriebsprüfung zur Schätzung führen.</p>
+
+      <h4>📱 E-Rechnung — Die Zukunft</h4>
+      <div class="info-box info-green">
+        <strong>Ab 01.01.2025:</strong> Alle inländischen Unternehmen müssen E-Rechnungen <em>empfangen</em> können<br>
+        <strong>Ab 01.01.2027:</strong> Pflicht zur <em>Ausstellung</em> für alle Unternehmen<br>
+        <strong>Formate:</strong> XRechnung (XML), ZUGFeRD (PDF + XML)<br>
+        <strong>Rechtsgrundlage:</strong> Wachstumschancengesetz / § 14 UStG n.F.
+      </div>
+
+      <h4>🔐 TSE — Kassenpflicht</h4>
+      <div class="info-box info-amber">
+        <strong>§ 146a AO:</strong> Alle elektronischen Kassensysteme brauchen seit 01.01.2020 eine zertifizierte <strong>Technische Sicherheitseinrichtung (TSE)</strong><br>
+        Jede Transaktion wird manipulationssicher gespeichert<br>
+        <strong>DSFinV-K:</strong> Standard für Kassendaten-Export bei Betriebsprüfungen
+      </div>
+
+      <h4>🔍 Digitale Betriebsprüfung (§ 147 Abs. 6 AO)</h4>
+      <div class="info-box info-blue">
+        <strong>Z1:</strong> Unmittelbarer Lesezugriff des Prüfers auf dein DV-System<br>
+        <strong>Z2:</strong> Auswertungen auf Anforderung durch dich<br>
+        <strong>Z3:</strong> Datenträgerübergabe (USB/DVD) mit allen Buchführungsdaten<br>
+        Prüfsoftware: <strong>IDEA</strong> — kann Buchführungsdaten statistisch analysieren
+      </div>
+
+      <h4>⚙️ DATEV &amp; ELSTER</h4>
+      <div class="tag-row">
+        <span class="tag tag-green">DATEV = Standard-Software für Steuerberater</span>
+        <span class="tag tag-blue">ELSTER = Pflichtportal für Steuererklärungen</span>
+        <span class="tag tag-amber">Verfahrensdokumentation = Pflicht nach GoBD</span>
+      </div>
+
+      <div class="merksatz">
+        <div class="merksatz-label">💡 Merksatz</div>
+        <p>Revisionssicher ≠ nur digital. Es bedeutet: unveränderbar, vollständig, nachvollziehbar und maschinell auswertbar — für 10 Jahre.</p>
+      </div>
+
+      <div class="lcard-nav">
+        <button class="btn btn-ghost" onclick="showLearn('lb',5)" style="font-size:13px;padding:9px 18px">← Zurück</button>
+        <span>7 / 7</span>
+        <button class="btn btn-primary" onclick="showMainPage('quiz-page')" style="font-size:14px;padding:10px 22px">Zum Quiz →</button>
+      </div>
+    </div>
+
+  </div><!-- /lcontent-b -->
+</div><!-- /learn-layout -->
+```
+
+  </div><!-- /lpanel-lb -->
+
+</div><!-- /learn-page -->
 
 <!-- ══════════════ QUIZ PAGE ══════════════ -->
 
@@ -794,9 +2389,11 @@ nav { padding: 0 14px; height: 54px }
   <footer>
     <strong>⚠️ Alle Vorlagen sind Arbeitshilfen und ersetzen keine steuerliche Beratung.</strong><br>
     Rechtsstand: aktuell nach HGB, EStG, UStG und AO · Für individuelle Fragen: zugelassener Steuerberater<br>
+    <span style='color:#0ea472;font-weight:700'>© 2025 Sara Manoochehri — BuchhalterTutor</span><br>
     <a href="https://www.elster.de" target="_blank">ELSTER</a> ·
     <a href="https://www.bundesfinanzministerium.de" target="_blank">BMF AfA-Tabellen</a> ·
     <a href="https://www.gesetze-im-internet.de/hgb/" target="_blank">HGB Online</a>
+    <br><br>© 2025 <strong>Sara Manoochehri</strong> · BuchhalterTutor · Alle Rechte vorbehalten.
   </footer>
 </div>
 
@@ -813,7 +2410,7 @@ function showMainPage(id) {
   el.classList.add('active');
   el.style.display = 'flex';
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-  const idx = ['home-page','quiz-page','download-page'].indexOf(id);
+  const idx = ['home-page','learn-page','quiz-page','download-page'].indexOf(id);
   document.querySelectorAll('.nav-link')[idx]?.classList.add('active');
   window.scrollTo(0,0);
 }
@@ -1206,7 +2803,7 @@ function showMainPage(id) {
   el.classList.add('active');
   el.style.display = 'flex';
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-  const idx = ['home-page','quiz-page','download-page'].indexOf(id);
+  const idx = ['home-page','learn-page','quiz-page','download-page'].indexOf(id);
   document.querySelectorAll('.nav-link')[idx]?.classList.add('active');
   window.scrollTo(0,0);
 }
@@ -1236,6 +2833,52 @@ function dlFile(key, filename) {
   document.body.appendChild(a); a.click();
   document.body.removeChild(a);
   setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+
+// ═══════════════════════════════════════════════════
+// LEARN PAGE
+// ═══════════════════════════════════════════════════
+function toggleChapter(id) {
+  const ch = document.getElementById(id);
+  ch.classList.toggle('open');
+}
+
+function switchLearn(c) {
+  document.querySelectorAll('.ltab').forEach(t => {
+    t.classList.remove('act-a','act-b');
+  });
+  document.getElementById('ltab-'+c).classList.add(c==='a' ? 'act-a' : 'act-b');
+  document.querySelectorAll('.learn-panel').forEach(p => p.classList.remove('lp-active'));
+  document.getElementById('lpanel-'+c).classList.add('lp-active');
+}
+
+
+// ═══════════════════════════════════════════════════
+// LEARN PAGE LOGIC
+// ═══════════════════════════════════════════════════
+function switchLearnCourse(course) {
+  document.querySelectorAll('.ltab').forEach(el => el.classList.remove('active'));
+  document.querySelector('.ltab-' + (course === 'la' ? 'a' : 'b')).classList.add('active');
+  document.querySelectorAll('.learn-panel').forEach(el => el.classList.remove('active'));
+  document.getElementById('lpanel-' + course).classList.add('active');
+  showLearn(course, 0);
+}
+
+function showLearn(course, idx) {
+  // Update nav buttons
+  const navId = course === 'la' ? 'lnav-a' : 'lnav-b';
+  document.querySelectorAll('#' + navId + ' .tnav-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i === idx);
+  });
+  // Show content card
+  const contentId = course === 'la' ? 'lcontent-a' : 'lcontent-b';
+  document.querySelectorAll('#' + contentId + ' .lcard').forEach((card, i) => {
+    card.classList.toggle('active', i === idx);
+  });
+  // Scroll to top of card on mobile
+  const card = document.querySelector('#' + contentId + ' .lcard.active');
+  if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 </script>
