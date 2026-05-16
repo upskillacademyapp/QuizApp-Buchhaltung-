@@ -797,6 +797,131 @@ margin-top:32px; padding-top:24px; border-top:2px solid #d4edd7;
 .lcard-nav .btn { width:100%; justify-content:center }
 }
 
+/* ═══════════════════════════════════════
+KONTENARTEN QUIZ PAGE
+═══════════════════════════════════════ */
+#konto-page { background: #f0f7f4 }
+
+.konto-hero {
+text-align: center; padding: 52px 20px 28px;
+max-width: 700px; margin: 0 auto;
+}
+.konto-hero h2 {
+font-family: ‘Sora’, sans-serif; font-size: clamp(28px,5vw,46px);
+font-weight: 800; margin-bottom: 10px; color: #0d1f1a;
+}
+.konto-hero p { color: #4a6b60; font-size: 15px; line-height: 1.65; margin-bottom: 28px }
+
+/* Level selector */
+.level-tabs {
+display: flex; gap: 8px; justify-content: center;
+margin-bottom: 32px; flex-wrap: wrap;
+}
+.lvl-btn {
+padding: 9px 22px; border-radius: 999px; font-size: 13px; font-weight: 700;
+cursor: pointer; border: 2px solid #c6e8d9; background: #fff; color: #4a6b60;
+transition: all .2s; font-family: ‘Plus Jakarta Sans’, sans-serif;
+}
+.lvl-btn.active { background: #0ea472; color: #fff; border-color: transparent; box-shadow: 0 4px 16px rgba(14,164,114,.3) }
+.lvl-btn:hover:not(.active) { border-color: #0ea472; color: #0ea472 }
+
+/* Stats bar */
+.konto-stats {
+display: flex; gap: 12px; justify-content: center;
+margin-bottom: 28px; flex-wrap: wrap;
+}
+.kstat {
+background: #fff; border: 1.5px solid #d4edd7; border-radius: 12px;
+padding: 10px 18px; text-align: center; min-width: 80px;
+box-shadow: 0 2px 8px rgba(14,164,114,.06);
+}
+.kstat-val { font-family: ‘Sora’, sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 2px }
+.kstat-val.green { color: #0ea472 } .kstat-val.red { color: #e03131 } .kstat-val.blue { color: #3b5bdb }
+.kstat-lbl { font-size: 10px; color: #4a6b60; text-transform: uppercase; letter-spacing: 1px; font-family: ‘JetBrains Mono’, monospace }
+
+/* Main quiz card */
+.konto-card {
+background: #fff; border: 2px solid #d4edd7; border-radius: 22px;
+padding: 36px 38px; max-width: 640px; margin: 0 auto 60px;
+box-shadow: 0 6px 32px rgba(14,164,114,.10);
+animation: kCardIn .35s cubic-bezier(.4,0,.2,1);
+}
+@keyframes kCardIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+.konto-progress-wrap { height: 5px; background: #d4edd7; border-radius: 999px; margin-bottom: 24px; overflow: hidden }
+.konto-progress-bar { height: 100%; background: linear-gradient(90deg,#0ea472,#06c47f); border-radius: 999px; transition: width .5s ease }
+
+.konto-question-label {
+font-family: ‘JetBrains Mono’, monospace; font-size: 10px; font-weight: 700;
+letter-spacing: 2px; text-transform: uppercase; color: #0ea472;
+margin-bottom: 10px;
+}
+.konto-prompt {
+font-size: 13px; color: #4a6b60; margin-bottom: 6px; font-weight: 500;
+}
+.konto-account-name {
+font-family: ‘Sora’, sans-serif; font-size: clamp(26px,4vw,38px); font-weight: 800;
+color: #0d1f1a; margin-bottom: 6px; line-height: 1.1;
+}
+.konto-account-nr {
+font-family: ‘JetBrains Mono’, monospace; font-size: 13px; color: #94a3b8;
+margin-bottom: 28px;
+}
+
+/* Answer buttons */
+.konto-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px }
+.konto-options .konto-opt:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.konto-opt {
+padding: 16px 14px; border-radius: 14px; border: 2px solid #d4edd7;
+background: #f0f7f4; cursor: pointer; font-size: 14px; font-weight: 700;
+font-family: ‘Plus Jakarta Sans’, sans-serif; color: #2d4a40;
+transition: all .18s; text-align: center; line-height: 1.3;
+}
+.konto-opt:hover:not(.locked) { border-color: #0ea472; background: rgba(14,164,114,.08); transform: translateY(-2px) }
+.konto-opt.correct { border-color: #0ea472; background: rgba(14,164,114,.12); color: #0a7a55 }
+.konto-opt.wrong   { border-color: #e03131; background: rgba(224,49,49,.08); color: #b91c1c }
+.konto-opt.locked  { cursor: default; transform: none }
+.konto-opt .opt-icon { font-size: 20px; display: block; margin-bottom: 6px }
+
+/* Feedback */
+.konto-feedback {
+display: none; padding: 14px 16px; border-radius: 12px; font-size: 14px;
+line-height: 1.65; margin-bottom: 18px; font-weight: 500;
+}
+.konto-feedback.show { display: block; animation: lfadeIn .25s ease }
+.konto-feedback.ok  { background: #f0fdf8; border-left: 4px solid #0ea472; color: #1f3a2d }
+.konto-feedback.err { background: #fff5f5; border-left: 4px solid #e03131; color: #3a0a0a }
+
+.konto-nav { display: flex; justify-content: space-between; align-items: center }
+.konto-counter { font-family: ‘JetBrains Mono’, monospace; font-size: 12px; color: #94a3b8 }
+
+/* Result screen */
+.konto-result {
+background: #fff; border: 2px solid #d4edd7; border-radius: 22px;
+padding: 40px 36px; max-width: 560px; margin: 0 auto 60px; text-align: center;
+box-shadow: 0 6px 32px rgba(14,164,114,.10); display: none;
+}
+.konto-result h3 { font-family: ‘Sora’, sans-serif; font-size: 28px; font-weight: 800; margin-bottom: 8px }
+.konto-result p  { color: #4a6b60; font-size: 15px; margin-bottom: 28px; line-height: 1.6 }
+.konto-score-big {
+font-family: ‘Sora’, sans-serif; font-size: 64px; font-weight: 800;
+color: #0ea472; line-height: 1; margin-bottom: 6px;
+}
+.konto-highscore-label {
+font-family: ‘JetBrains Mono’, monospace; font-size: 11px; font-weight: 700;
+letter-spacing: 1px; color: #94a3b8; margin-bottom: 24px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+.konto-card { padding: 22px 16px; border-radius: 16px }
+.konto-options { grid-template-columns: 1fr; gap: 8px }
+.konto-account-name { font-size: 26px }
+.konto-hero { padding: 36px 14px 18px }
+.konto-result { padding: 28px 16px }
+.konto-score-big { font-size: 52px }
+}
+
 </style>
 </head>
 <body>
@@ -809,6 +934,7 @@ margin-top:32px; padding-top:24px; border-top:2px solid #d4edd7;
     <button class="nav-link active" onclick="showMainPage('home-page')">🏠 Start</button>
     <button class="nav-link" onclick="showMainPage('learn-page')">📖 Lernen</button>
     <button class="nav-link" onclick="showMainPage('quiz-page')">🧠 Quiz</button>
+    <button class="nav-link" onclick="showMainPage('konto-page')">🃏 Kontenarten</button>
     <button class="nav-link" onclick="showMainPage('download-page')">📥 Vorlagen</button>
   </div>
 </nav>
@@ -823,6 +949,7 @@ margin-top:32px; padding-top:24px; border-top:2px solid #d4edd7;
     <div class="hero-ctas">
       <button class="btn btn-primary" onclick="showMainPage('quiz-page')">🧠 Quiz starten</button>
       <button class="btn btn-outline" onclick="showMainPage('learn-page')">📖 Lernen</button>
+      <button class="btn btn-ghost" onclick="showMainPage('konto-page')">🃏 Kontenarten üben</button>
       <button class="btn btn-ghost" onclick="showMainPage('download-page')">📥 Vorlagen</button>
     </div>
     <div class="float-badges">
@@ -2233,6 +2360,98 @@ Günstige Umsatzabweichung: Ist-Umsatz > Plan-Umsatz
 
 <!-- ══════════════ DOWNLOAD PAGE ══════════════ -->
 
+<!-- ══════════════ KONTENARTEN PAGE ══════════════ -->
+
+<div id="konto-page" class="page" style="display:none">
+
+  <div class="konto-hero">
+    <div class="hero-eyebrow" style="margin-bottom:14px">🃏 Kontenarten-Quiz</div>
+    <h2>Welche Kontenart ist das?</h2>
+    <p>Ordne jedem Konto die richtige Kontenart zu — Aktiv, Passiv, Aufwand oder Ertrag. Mit Kontonummer und Erklärung.</p>
+
+```
+<div class="level-tabs">
+  <button class="lvl-btn active" onclick="startKontoQuiz('leicht')" id="lvl-leicht">🟢 Leicht (15)</button>
+  <button class="lvl-btn" onclick="startKontoQuiz('mittel')" id="lvl-mittel">🟡 Mittel (20)</button>
+  <button class="lvl-btn" onclick="startKontoQuiz('schwer')" id="lvl-schwer">🔴 Schwer (15)</button>
+  <button class="lvl-btn" onclick="startKontoQuiz('alle')" id="lvl-alle">⚡ Alle (50)</button>
+</div>
+
+<!-- Cheatsheet toggle -->
+<div style="margin-bottom:16px">
+  <button onclick="document.getElementById('konto-cheat').style.display=document.getElementById('konto-cheat').style.display==='none'?'block':'none'"
+    style="background:transparent;border:1.5px solid #c6e8d9;border-radius:999px;padding:7px 18px;font-size:12px;font-weight:700;cursor:pointer;color:#0ea472;font-family:'Plus Jakarta Sans',sans-serif">
+    📋 Kontenarten-Übersicht ein/ausblenden
+  </button>
+  <div id="konto-cheat" style="display:none;margin-top:12px;background:#fff;border:1.5px solid #d4edd7;border-radius:16px;padding:18px 20px;text-align:left;max-width:600px;margin-left:auto;margin-right:auto;box-shadow:0 2px 12px rgba(14,164,114,.07)">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div style="padding:12px;background:rgba(14,164,114,.07);border-radius:10px;border-left:3px solid #0ea472">
+        <div style="font-weight:800;font-size:13px;margin-bottom:4px">📈 Aktives Bestandskonto</div>
+        <div style="font-size:12px;color:#4a6b60;line-height:1.5">Zeigt <strong>Vermögenswerte</strong>.<br>Zugang = <strong>Soll</strong>, Abgang = Haben.<br>Saldo immer im <strong>Soll</strong>.<br><em>Beispiele: Kasse, Bank, Maschinen, Forderungen</em></div>
+      </div>
+      <div style="padding:12px;background:rgba(59,91,219,.07);border-radius:10px;border-left:3px solid #3b5bdb">
+        <div style="font-weight:800;font-size:13px;margin-bottom:4px">📉 Passives Bestandskonto</div>
+        <div style="font-size:12px;color:#4a6b60;line-height:1.5">Zeigt <strong>Kapital &amp; Schulden</strong>.<br>Zugang = <strong>Haben</strong>, Abgang = Soll.<br>Saldo immer im <strong>Haben</strong>.<br><em>Beispiele: EK, Darlehen, Verbindlichkeiten</em></div>
+      </div>
+      <div style="padding:12px;background:rgba(224,49,49,.07);border-radius:10px;border-left:3px solid #e03131">
+        <div style="font-weight:800;font-size:13px;margin-bottom:4px">💸 Aufwandskonto</div>
+        <div style="font-size:12px;color:#4a6b60;line-height:1.5"><strong>Mindert</strong> den Gewinn.<br>Steigt immer im <strong>Soll</strong>.<br>Abschluss gegen GuV (Haben).<br><em>Beispiele: Löhne, Miete, AfA, Zinsen</em></div>
+      </div>
+      <div style="padding:12px;background:rgba(245,158,11,.07);border-radius:10px;border-left:3px solid #f59e0b">
+        <div style="font-weight:800;font-size:13px;margin-bottom:4px">💰 Ertragskonto</div>
+        <div style="font-size:12px;color:#4a6b60;line-height:1.5"><strong>Erhöht</strong> den Gewinn.<br>Steigt immer im <strong>Haben</strong>.<br>Abschluss gegen GuV (Soll).<br><em>Beispiele: Umsätze, Zinserträge, Mieterträge</em></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="konto-stats">
+  <div class="kstat"><div class="kstat-val green" id="ks-richtig">0</div><div class="kstat-lbl">Richtig</div></div>
+  <div class="kstat"><div class="kstat-val red"   id="ks-falsch">0</div><div class="kstat-lbl">Falsch</div></div>
+  <div class="kstat"><div class="kstat-val blue"  id="ks-serie">0</div><div class="kstat-lbl">Serie 🔥</div></div>
+  <div class="kstat"><div class="kstat-val" style="color:#f59e0b" id="ks-highscore">0</div><div class="kstat-lbl">Highscore</div></div>
+</div>
+```
+
+  </div>
+
+  <!-- Quiz Card -->
+
+  <div class="konto-card" id="konto-quiz-card">
+    <div class="konto-progress-wrap">
+      <div class="konto-progress-bar" id="konto-prog" style="width:0%"></div>
+    </div>
+    <div class="konto-question-label" id="konto-qlabel">FRAGE 1 / 15</div>
+    <div class="konto-prompt">Um was für ein Konto handelt es sich?</div>
+    <div class="konto-account-name" id="konto-name">Kasse</div>
+    <div class="konto-account-nr" id="konto-nr">SKR03: 1100</div>
+    <div class="konto-options" id="konto-opts"></div>
+    <div class="konto-feedback" id="konto-fb"></div>
+    <div class="konto-nav">
+      <span class="konto-counter" id="konto-counter"></span>
+      <button class="btn btn-primary" id="konto-next" onclick="nextKontoQuestion()" style="display:none;font-size:14px;padding:11px 24px">Weiter →</button>
+    </div>
+  </div>
+
+  <!-- Result Card -->
+
+  <div class="konto-result" id="konto-result-card">
+    <div class="konto-score-big" id="konto-res-pct">0%</div>
+    <div class="konto-highscore-label" id="konto-res-hs"></div>
+    <h3 id="konto-res-title">Gut gemacht!</h3>
+    <p id="konto-res-sub"></p>
+    <div class="konto-stats" style="margin-bottom:28px">
+      <div class="kstat"><div class="kstat-val green" id="kres-r">0</div><div class="kstat-lbl">Richtig</div></div>
+      <div class="kstat"><div class="kstat-val red"   id="kres-f">0</div><div class="kstat-lbl">Falsch</div></div>
+      <div class="kstat"><div class="kstat-val blue"  id="kres-t">0</div><div class="kstat-lbl">Gesamt</div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="showMainPage('konto-page')" style="font-size:14px">Niveau wählen</button>
+      <button class="btn btn-primary" id="konto-res-retry" onclick="retryKonto()" style="font-size:14px">Nochmal →</button>
+    </div>
+  </div>
+
+</div>
+
 <div id="download-page" class="page" style="display:none">
   <div class="dl-hero">
     <div class="hero-eyebrow" style="margin-bottom:18px">📥 Kostenlose Excel-Vorlagen</div>
@@ -2410,7 +2629,7 @@ function showMainPage(id) {
   el.classList.add('active');
   el.style.display = 'flex';
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-  const idx = ['home-page','learn-page','quiz-page','download-page'].indexOf(id);
+  const idx = ['home-page','learn-page','quiz-page','konto-page','download-page'].indexOf(id);
   document.querySelectorAll('.nav-link')[idx]?.classList.add('active');
   window.scrollTo(0,0);
 }
@@ -2803,7 +3022,7 @@ function showMainPage(id) {
   el.classList.add('active');
   el.style.display = 'flex';
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-  const idx = ['home-page','learn-page','quiz-page','download-page'].indexOf(id);
+  const idx = ['home-page','learn-page','quiz-page','konto-page','download-page'].indexOf(id);
   document.querySelectorAll('.nav-link')[idx]?.classList.add('active');
   window.scrollTo(0,0);
 }
@@ -2880,6 +3099,252 @@ function showLearn(course, idx) {
   const card = document.querySelector('#' + contentId + ' .lcard.active');
   if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
+
+
+// ═══════════════════════════════════════════════════════════════
+// KONTENARTEN QUIZ
+// ═══════════════════════════════════════════════════════════════
+var KONTEN = [
+  // ── LEICHT ──────────────────────────────────────────────────────────────────
+  {name:"Kasse",           nr:"SKR03: 1100", art:"Aktives Bestandskonto",   lvl:"leicht",
+   hint:"Die Kasse zeigt den Bargeldbestand — ein Vermögenswert (Aktiva), der im Soll zunimmt."},
+  {name:"Bank",            nr:"SKR03: 1200", art:"Aktives Bestandskonto",   lvl:"leicht",
+   hint:"Das Bankkonto zeigt das Guthaben beim Kreditinstitut — Aktivkonto, steigt im Soll."},
+  {name:"Eigenkapital",    nr:"SKR03: 0800", art:"Passives Bestandskonto",  lvl:"leicht",
+   hint:"Eigenkapital ist die Schuld des Unternehmens gegenüber den Eigentümern — Passivkonto, steigt im Haben."},
+  {name:"Darlehen",        nr:"SKR03: 0700", art:"Passives Bestandskonto",  lvl:"leicht",
+   hint:"Ein aufgenommenes Darlehen ist eine Verbindlichkeit — Passivkonto, steigt im Haben."},
+  {name:"Umsatzerlöse",    nr:"SKR03: 8200", art:"Ertragskonto",            lvl:"leicht",
+   hint:"Umsatzerlöse entstehen durch Leistungserbringung — Ertragskonto, steigt im Haben."},
+  {name:"Löhne und Gehälter",nr:"SKR03: 4120",art:"Aufwandskonto",         lvl:"leicht",
+   hint:"Personalkosten sind Aufwendungen — Aufwandskonto, steigt im Soll."},
+  {name:"Forderungen aus L+L",nr:"SKR03: 1400",art:"Aktives Bestandskonto",lvl:"leicht",
+   hint:"Forderungen sind Ansprüche gegenüber Kunden — Aktivkonto, steigt im Soll."},
+  {name:"Verbindlichkeiten aus L+L",nr:"SKR03: 1600",art:"Passives Bestandskonto",lvl:"leicht",
+   hint:"Lieferantenschulden sind Verbindlichkeiten — Passivkonto, steigt im Haben."},
+  {name:"Miete",           nr:"SKR03: 4210", art:"Aufwandskonto",           lvl:"leicht",
+   hint:"Mietaufwand verringert den Gewinn — Aufwandskonto, steigt im Soll."},
+  {name:"Zinserträge",     nr:"SKR03: 8600", art:"Ertragskonto",            lvl:"leicht",
+   hint:"Zinserträge erhöhen den Gewinn — Ertragskonto, steigt im Haben."},
+  {name:"Wareneingang",    nr:"SKR03: 3200", art:"Aufwandskonto",           lvl:"leicht",
+   hint:"Der Wareneingang erfasst Materialeinkäufe — Aufwandskonto (Bestandsveränderung korrigiert am Jahresende)."},
+  {name:"Fuhrpark",        nr:"SKR03: 0320", art:"Aktives Bestandskonto",   lvl:"leicht",
+   hint:"Fahrzeuge sind Anlagevermögen — Aktivkonto, steigt im Soll bei Kauf."},
+  {name:"Rückstellungen",  nr:"SKR03: 0970", art:"Passives Bestandskonto",  lvl:"leicht",
+   hint:"Rückstellungen sind ungewisse Verbindlichkeiten — Passivkonto, steigt im Haben."},
+  {name:"Zinsaufwand",     nr:"SKR03: 2100", art:"Aufwandskonto",           lvl:"leicht",
+   hint:"Zinszahlungen für Kredite sind Aufwand — Aufwandskonto, steigt im Soll."},
+  {name:"Steuererstattung",nr:"SKR03: 8530", art:"Ertragskonto",            lvl:"leicht",
+   hint:"Steuererstattungen erhöhen den Gewinn — Ertragskonto, steigt im Haben."},
+
+  // ── MITTEL ──────────────────────────────────────────────────────────────────
+  {name:"Maschinen",       nr:"SKR03: 0400", art:"Aktives Bestandskonto",   lvl:"mittel",
+   hint:"Maschinen sind Sachanlagen des Anlagevermögens — Aktivkonto, wird linear abgeschrieben."},
+  {name:"Abschreibungen auf Sachanlagen",nr:"SKR03: 4820",art:"Aufwandskonto",lvl:"mittel",
+   hint:"AfA ist ein nicht-zahlungswirksamer Aufwand — Aufwandskonto, mindert den Gewinn jährlich."},
+  {name:"Gezeichnetes Kapital",nr:"SKR03: 0800",art:"Passives Bestandskonto",lvl:"mittel",
+   hint:"Das Stammkapital (GmbH) oder Grundkapital (AG) ist Eigenkapital — Passivkonto."},
+  {name:"Vorräte",         nr:"SKR03: 3970", art:"Aktives Bestandskonto",   lvl:"mittel",
+   hint:"Lagerbestände sind Umlaufvermögen — Aktivkonto, steigt beim Einkauf."},
+  {name:"Gewinnrücklagen", nr:"SKR03: 0850", art:"Passives Bestandskonto",  lvl:"mittel",
+   hint:"Thesaurierte Gewinne erhöhen das Eigenkapital — Passivkonto."},
+  {name:"Versicherungsaufwand",nr:"SKR03: 4360",art:"Aufwandskonto",        lvl:"mittel",
+   hint:"Versicherungsprämien sind Betriebsaufwand — Aufwandskonto, steigt im Soll."},
+  {name:"Mieterlöse",      nr:"SKR03: 8130", art:"Ertragskonto",            lvl:"mittel",
+   hint:"Erlöse aus der Vermietung von Betriebsvermögen — Ertragskonto, steigt im Haben."},
+  {name:"Umsatzsteuer (Verbindlichkeit)",nr:"SKR03: 1780",art:"Passives Bestandskonto",lvl:"mittel",
+   hint:"Die geschuldete Umsatzsteuer ist eine Verbindlichkeit gegenüber dem Finanzamt — Passivkonto."},
+  {name:"Vorsteuer",       nr:"SKR03: 1570", art:"Aktives Bestandskonto",   lvl:"mittel",
+   hint:"Die abzugsfähige Vorsteuer ist eine Forderung gegenüber dem Finanzamt — Aktivkonto."},
+  {name:"Rohstoffe",       nr:"SKR03: 3000", art:"Aktives Bestandskonto",   lvl:"mittel",
+   hint:"Rohstoffbestände sind Umlaufvermögen im Lager — Aktivkonto."},
+  {name:"Provisionserlöse",nr:"SKR03: 8230", art:"Ertragskonto",            lvl:"mittel",
+   hint:"Provisionen als Einnahme sind Erträge — Ertragskonto, steigt im Haben."},
+  {name:"Büroausstattung", nr:"SKR03: 0650", art:"Aktives Bestandskonto",   lvl:"mittel",
+   hint:"Büromöbel und -ausstattung sind Sachanlagen — Aktivkonto, wird abgeschrieben."},
+  {name:"Personalnebenkosten",nr:"SKR03: 4130",art:"Aufwandskonto",         lvl:"mittel",
+   hint:"Sozialversicherungsbeiträge des Arbeitgebers sind Personalaufwand — Aufwandskonto."},
+  {name:"Wechselverbindlichkeiten",nr:"SKR03: 1650",art:"Passives Bestandskonto",lvl:"mittel",
+   hint:"Wechsel als Zahlungsversprechen an Gläubiger sind Verbindlichkeiten — Passivkonto."},
+  {name:"Wertpapiere (UV)",nr:"SKR03: 1510", art:"Aktives Bestandskonto",   lvl:"mittel",
+   hint:"Kurzfristig gehaltene Wertpapiere zählen zum Umlaufvermögen — Aktivkonto."},
+  {name:"Bestandsveränderungen",nr:"SKR03: 8970",art:"Ertragskonto",        lvl:"mittel",
+   hint:"Positive Bestandsveränderungen (Mehrproduktion) erhöhen den Gewinn — Ertragskonto. Negative wirken als Aufwand."},
+  {name:"Steueraufwand",   nr:"SKR03: 7600", art:"Aufwandskonto",           lvl:"mittel",
+   hint:"Ertragsteuern (Körperschaftsteuer, Gewerbesteuer) sind Aufwand — Aufwandskonto."},
+  {name:"Geschäftsguthaben",nr:"SKR03: 0802",art:"Passives Bestandskonto",  lvl:"mittel",
+   hint:"Genossenschaftliche Geschäftsguthaben sind Eigenkapital — Passivkonto."},
+  {name:"Patente und Lizenzen",nr:"SKR03: 0210",art:"Aktives Bestandskonto",lvl:"mittel",
+   hint:"Immaterielle Vermögenswerte im Anlagevermögen — Aktivkonto, wird amortisiert."},
+
+  // ── SCHWER ──────────────────────────────────────────────────────────────────
+  {name:"Aktiver Rechnungsabgrenzungsposten (ARAP)",nr:"SKR03: 0980",art:"Aktives Bestandskonto",lvl:"schwer",
+   hint:"ARAP: Ausgabe in Periode 1, Aufwand in Periode 2 — Aktivkonto zur Periodenabgrenzung."},
+  {name:"Passiver Rechnungsabgrenzungsposten (PRAP)",nr:"SKR03: 0985",art:"Passives Bestandskonto",lvl:"schwer",
+   hint:"PRAP: Einnahme in Periode 1, Ertrag in Periode 2 — Passivkonto zur Periodenabgrenzung."},
+  {name:"Latente Steuern (Aktiv)",nr:"SKR03: 0986",art:"Aktives Bestandskonto",lvl:"schwer",
+   hint:"Aktive latente Steuern entstehen bei abzugsfähigen temporären Differenzen — Aktivkonto, zukünftige Steuerersparnis."},
+  {name:"Latente Steuern (Passiv)",nr:"SKR03: 0988",art:"Passives Bestandskonto",lvl:"schwer",
+   hint:"Passive latente Steuern entstehen bei zu versteuernden temporären Differenzen — Passivkonto, künftige Steuerlast."},
+  {name:"Disagio",         nr:"SKR03: 0272", art:"Aktives Bestandskonto",   lvl:"schwer",
+   hint:"Das Disagio (Damnum) ist ein aktiver RAP — Aktivkonto, wird über die Laufzeit des Darlehens aufgelöst."},
+  {name:"Eigenkapital-Differenz aus Währungsumrechnung",nr:"IAS 21",art:"Passives Bestandskonto",lvl:"schwer",
+   hint:"Währungsumrechnungsdifferenzen im Konzern werden erfolgsneutral im EK erfasst — Passivkonto."},
+  {name:"Dividendenertrag",nr:"SKR03: 8600", art:"Ertragskonto",            lvl:"schwer",
+   hint:"Dividenden aus Beteiligungen sind Beteiligungserträge — Ertragskonto, steigt im Haben."},
+  {name:"Abschreibung auf Forderungen",nr:"SKR03: 7450",art:"Aufwandskonto",lvl:"schwer",
+   hint:"Die Wertberichtigung uneinbringlicher Forderungen ist Aufwand — Aufwandskonto."},
+  {name:"Zuschreibung auf Anlagevermögen",nr:"SKR03: 8230",art:"Ertragskonto",lvl:"schwer",
+   hint:"Die Wertaufholung nach vorheriger Abschreibung ist ein Ertrag — Ertragskonto (außerordentlich)."},
+  {name:"Pensionsrückstellung",nr:"SKR03: 0955",art:"Passives Bestandskonto",lvl:"schwer",
+   hint:"Verpflichtungen aus Betriebsrenten sind langfristige Rückstellungen — Passivkonto."},
+  {name:"Goodwill (Firmenwert)",nr:"SKR03: 0200",art:"Aktives Bestandskonto",lvl:"schwer",
+   hint:"Der Firmenwert aus einem Unternehmenserwerb ist immaterielles Anlagevermögen — Aktivkonto."},
+  {name:"Erlöse aus Anlageabgang",nr:"SKR03: 8760",art:"Ertragskonto",      lvl:"schwer",
+   hint:"Verkaufserlöse aus dem Abgang von Anlagevermögen über dem Buchwert — Ertragskonto."},
+  {name:"Verluste aus Anlageabgang",nr:"SKR03: 2310",art:"Aufwandskonto",   lvl:"schwer",
+   hint:"Verluste beim Abgang von Anlagevermögen (Buchwert > Erlös) — Aufwandskonto."},
+  {name:"Genussrechtskapital",nr:"HGB §221",  art:"Passives Bestandskonto", lvl:"schwer",
+   hint:"Hybrides Kapital zwischen EK und FK — wird je nach Ausgestaltung als Passivkonto geführt."},
+  {name:"Steuerfreie Rücklagen (§ 6b EStG)",nr:"SKR03: 0958",art:"Passives Bestandskonto",lvl:"schwer",
+   hint:"Steuerlich begünstigte Rücklagen für Reinvestition — Passivkonto im Eigenkapital."},
+  {name:"Sonstige Rückstellungen", nr:"SKR03: 0970", art:"Passives Bestandskonto", lvl:"mittel",
+   hint:"Rückstellungen für ungewisse Verbindlichkeiten (z.B. Garantien, Prozesse) — Passivkonto, steigt im Haben bei Dotierung."},
+];
+
+var KONTO_ARTEN = [
+  {label:"Aktives Bestandskonto",  icon:"📈", color:"#0ea472",
+   desc:"Erfasst Vermögensgegenstände (Aktiva) — Zugang im Soll, Abgang im Haben. Saldo immer im Soll."},
+  {label:"Passives Bestandskonto", icon:"📉", color:"#3b5bdb",
+   desc:"Erfasst Schulden & Eigenkapital (Passiva) — Zugang im Haben, Abgang im Soll. Saldo immer im Haben."},
+  {label:"Aufwandskonto",          icon:"💸", color:"#e03131",
+   desc:"Erfasst Aufwendungen die den Gewinn mindern — steigt immer im Soll. Wird am Jahresende über GuV abgeschlossen."},
+  {label:"Ertragskonto",           icon:"💰", color:"#f59e0b",
+   desc:"Erfasst Erträge die den Gewinn erhöhen — steigt immer im Haben. Wird am Jahresende über GuV abgeschlossen."},
+  {label:"Gemischtes Konto",       icon:"🔀", color:"#8b5cf6",
+   desc:"Hat sowohl Bestands- als auch Erfolgscharakter (z.B. Privatkonto, Eigenverbrauch). Muss am Jahresende aufgeteilt werden."},
+];
+
+var kontoQueue = [], kontoIdx = 0, kontoRichtig = 0, kontoFalsch = 0;
+var kontoSerie = 0, kontoHighscore = 0, kontoLevel = 'leicht';
+
+function startKontoQuiz(level) {
+  kontoLevel = level;
+  document.querySelectorAll('.lvl-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('lvl-' + level).classList.add('active');
+
+  var pool = level === 'alle' ? KONTEN : KONTEN.filter(function(k){ return k.lvl === level; });
+  kontoQueue = pool.slice().sort(function(){ return Math.random() - .5; });
+  kontoIdx = 0; kontoRichtig = 0; kontoFalsch = 0; kontoSerie = 0;
+
+  document.getElementById('konto-result-card').style.display = 'none';
+  document.getElementById('konto-quiz-card').style.display = 'block';
+  updateKontoStats();
+  showKontoQuestion();
+}
+
+function showKontoQuestion() {
+  var q = kontoQueue[kontoIdx];
+  var total = kontoQueue.length;
+  document.getElementById('konto-qlabel').textContent = 'FRAGE ' + (kontoIdx+1) + ' / ' + total;
+  document.getElementById('konto-prog').style.width = (kontoIdx/total*100) + '%';
+  document.getElementById('konto-name').textContent = q.name;
+  document.getElementById('konto-nr').textContent = q.nr;
+  document.getElementById('konto-counter').textContent = (kontoIdx+1) + ' von ' + total;
+  document.getElementById('konto-fb').className = 'konto-feedback';
+  document.getElementById('konto-next').style.display = 'none';
+
+  // Show all 5 Kontenarten as options
+  var opts = KONTO_ARTEN.slice().sort(function(){ return Math.random()-.5; });
+  var container = document.getElementById('konto-opts');
+  container.innerHTML = '';
+  opts.forEach(function(opt) {
+    var btn = document.createElement('button');
+    btn.className = 'konto-opt';
+    btn.innerHTML = '<span class="opt-icon">' + opt.icon + '</span>' + opt.label;
+    btn.dataset.art = opt.label;
+    btn.addEventListener('click', function(){ pickKontoAnswer(btn, q); });
+    container.appendChild(btn);
+  });
+
+  // Animate card
+  var card = document.getElementById('konto-quiz-card');
+  card.style.animation = 'none'; card.offsetHeight;
+  card.style.animation = 'kCardIn .35s cubic-bezier(.4,0,.2,1)';
+}
+
+function pickKontoAnswer(btn, q) {
+  document.querySelectorAll('.konto-opt').forEach(function(b){ b.classList.add('locked'); });
+  var correct = btn.dataset.art === q.art;
+  if (correct) {
+    btn.classList.add('correct');
+    kontoRichtig++; kontoSerie++;
+    if (kontoSerie > kontoHighscore) kontoHighscore = kontoSerie;
+  } else {
+    btn.classList.add('wrong');
+    kontoFalsch++; kontoSerie = 0;
+    // Highlight correct
+    document.querySelectorAll('.konto-opt').forEach(function(b){
+      if (b.dataset.art === q.art) b.classList.add('correct');
+    });
+  }
+  var fb = document.getElementById('konto-fb');
+  // Find description of correct art
+  var artInfo = KONTO_ARTEN.find(function(a){ return a.label === q.art; });
+  var artDesc = artInfo ? ' | ' + artInfo.desc : '';
+  fb.innerHTML = (correct ? '<strong>✅ Richtig!</strong> ' : '<strong>❌ Falsch.</strong> Richtige Antwort: <strong>' + q.art + '</strong>. ')
+    + q.hint + '<br><em style="color:#4a6b60;font-size:12px">' + artDesc + '</em>';
+  fb.className = 'konto-feedback show ' + (correct ? 'ok' : 'err');
+  document.getElementById('konto-next').style.display = 'inline-flex';
+  updateKontoStats();
+}
+
+function nextKontoQuestion() {
+  kontoIdx++;
+  if (kontoIdx >= kontoQueue.length) {
+    showKontoResult();
+  } else {
+    showKontoQuestion();
+  }
+}
+
+function showKontoResult() {
+  document.getElementById('konto-quiz-card').style.display = 'none';
+  var card = document.getElementById('konto-result-card');
+  card.style.display = 'block';
+  var total = kontoQueue.length;
+  var pct = Math.round(kontoRichtig / total * 100);
+  document.getElementById('konto-res-pct').textContent = pct + '%';
+  document.getElementById('kres-r').textContent = kontoRichtig;
+  document.getElementById('kres-f').textContent = kontoFalsch;
+  document.getElementById('kres-t').textContent = total;
+  document.getElementById('konto-res-hs').textContent = 'Beste Serie: ' + kontoHighscore + ' 🔥';
+  var title, sub;
+  if (pct >= 90) { title = 'Ausgezeichnet! 🏆'; sub = 'Du kennst die Kontenarten perfekt! Profi-Niveau.'; }
+  else if (pct >= 70) { title = 'Sehr gut! 🎉'; sub = 'Solide Kenntnisse — wiederhole die Fehler und starte erneut.'; }
+  else if (pct >= 50) { title = 'Auf dem richtigen Weg 📚'; sub = 'Übe die schwierigen Konten und versuche es wieder.'; }
+  else { title = 'Weiter üben 💪'; sub = 'Schau dir die Erklärungen genau an und starte neu!'; }
+  document.getElementById('konto-res-title').textContent = title;
+  document.getElementById('konto-res-sub').textContent = sub;
+  updateKontoStats();
+}
+
+function retryKonto() {
+  document.getElementById('konto-result-card').style.display = 'none';
+  startKontoQuiz(kontoLevel);
+}
+
+function updateKontoStats() {
+  document.getElementById('ks-richtig').textContent = kontoRichtig;
+  document.getElementById('ks-falsch').textContent = kontoFalsch;
+  document.getElementById('ks-serie').textContent = kontoSerie;
+  document.getElementById('ks-highscore').textContent = kontoHighscore;
+}
+
+// Auto-start on page load
+document.addEventListener('DOMContentLoaded', function() {
+  startKontoQuiz('leicht');
+});
 
 </script>
 
