@@ -922,6 +922,184 @@ letter-spacing: 1px; color: #94a3b8; margin-bottom: 24px;
 .konto-score-big { font-size: 52px }
 }
 
+/* ═══════════════════════════════════════════════════
+COMPREHENSIVE MOBILE FIX — alle Seiten
+═══════════════════════════════════════════════════ */
+
+/* NAV — 5 Buttons auf kleinem Screen */
+@media (max-width: 768px) {
+nav {
+height: auto; min-height: 52px;
+padding: 8px 10px; flex-wrap: wrap; gap: 4px;
+justify-content: center;
+}
+.nav-logo { width: 100%; text-align: center; font-size: 15px; padding: 4px 0 2px }
+.nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px }
+.nav-link { padding: 5px 9px; font-size: 11px; border-radius: 7px }
+}
+
+@media (max-width: 400px) {
+.nav-link { padding: 4px 7px; font-size: 10.5px }
+}
+
+/* HOME */
+@media (max-width: 768px) {
+.hero { padding: 28px 14px 28px }
+.hero h1 { font-size: 34px; letter-spacing: -1px }
+.hero p { font-size: 14px; margin-bottom: 20px }
+.hero-eyebrow { font-size: 10px; padding: 5px 12px }
+.hero-ctas { flex-direction: column; align-items: center; gap: 8px }
+.hero-ctas .btn { width: 100%; max-width: 300px; justify-content: center; padding: 11px 20px }
+.float-badges { gap: 5px; padding: 0 8px }
+.float-badge { font-size: 9px; padding: 3px 8px }
+.features { grid-template-columns: 1fr; padding: 0 14px 40px; gap: 14px }
+.feat-card { padding: 20px 18px }
+.feat-icon { font-size: 28px; margin-bottom: 10px }
+.feat-title { font-size: 16px }
+.feat-desc { font-size: 13px }
+}
+
+/* QUIZ */
+@media (max-width: 768px) {
+.quiz-home { padding: 24px 14px 36px }
+.quiz-home h2 { font-size: 24px; margin-bottom: 6px }
+.quiz-home p { font-size: 13px; margin-bottom: 24px }
+.course-tabs { flex-direction: column; gap: 6px }
+.ctab { text-align: center; font-size: 13px; padding: 9px 16px }
+.topic-grid { grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 20px }
+.topic-card { padding: 13px 11px }
+.t-num { font-size: 9px }
+.t-name { font-size: 11.5px }
+.btn-row { flex-direction: column; align-items: center; gap: 8px }
+.btn-row .btn { width: 100%; max-width: 300px; justify-content: center }
+.qz-topbar { padding: 8px 12px; flex-wrap: wrap; gap: 6px; top: 0 }
+.qz-logo { font-size: 13px }
+.q-cnt { font-size: 11px; padding: 4px 10px }
+.qz-body { padding: 16px 10px 40px }
+.qz-card { padding: 20px 14px; border-radius: 14px }
+.q-tag { font-size: 9px; padding: 4px 10px; margin-bottom: 12px }
+.q-text { font-size: 16px; margin-bottom: 18px; line-height: 1.4 }
+.opts { gap: 8px; margin-bottom: 16px }
+.opt { font-size: 13px; padding: 11px 12px; gap: 9px }
+.opt-k { width: 24px; height: 24px; font-size: 10px; border-radius: 6px }
+.expl-box { font-size: 12.5px; padding: 11px 13px }
+.results-wrap { padding: 28px 14px }
+.score-ring { width: 120px; height: 120px }
+.score-pct { font-size: 32px }
+.res-title { font-size: 22px }
+.res-sub { font-size: 13px; margin-bottom: 20px }
+.breakdown { gap: 8px }
+.bk-item { padding: 10px 12px; min-width: 70px; border-radius: 12px }
+.bk-val { font-size: 22px }
+.bk-lbl { font-size: 9px }
+.topic-bk { padding: 14px; border-radius: 12px }
+.tb-bar-wrap { width: 70px }
+.tb-name { font-size: 12px }
+}
+
+@media (max-width: 400px) {
+.topic-grid { grid-template-columns: 1fr }
+.qz-card { padding: 16px 12px }
+.q-text { font-size: 15px }
+}
+
+/* LERNEN */
+@media (max-width: 768px) {
+.learn-hero { padding: 28px 14px 16px }
+.learn-hero h2 { font-size: 26px }
+.learn-hero p { font-size: 13px }
+.learn-tabs { flex-direction: column; gap: 6px; margin-bottom: 20px }
+.ltab { text-align: center; font-size: 13px; padding: 9px 16px }
+.learn-layout { grid-template-columns: 1fr; gap: 12px; padding: 0 12px 48px }
+.topic-nav {
+position: static !important;
+display: flex; flex-wrap: wrap; gap: 5px; padding: 10px;
+}
+.topic-nav-title { display: none }
+.tnav-btn { width: auto; flex: 0 0 auto; font-size: 11px; padding: 6px 9px }
+.tnav-num { display: none }
+.lcard { padding: 18px 14px; border-radius: 14px }
+.lcard h3 { font-size: 20px; margin-bottom: 12px }
+.lcard p { font-size: 13.5px }
+.lcard h4 { font-size: 12px; margin: 16px 0 7px }
+.info-box { padding: 12px 13px; font-size: 12.5px; margin: 12px 0 }
+.formula-box { font-size: 11px; padding: 12px 14px; overflow-x: auto }
+.t-konto-wrap { flex-direction: column }
+.tkonto { min-width: unset }
+.buchung-box { font-size: 11.5px; padding: 10px 13px }
+.merksatz-box { padding: 13px 14px }
+.merksatz-box p { font-size: 13px }
+.lcard-nav { flex-direction: column; gap: 8px; text-align: center; margin-top: 20px; padding-top: 16px }
+.lcard-nav .btn { width: 100%; justify-content: center; font-size: 13px !important; padding: 10px 16px !important }
+.tag-row { gap: 5px }
+.ltag { font-size: 10px; padding: 3px 8px }
+}
+
+/* KONTENARTEN QUIZ */
+@media (max-width: 768px) {
+.konto-hero { padding: 28px 14px 16px }
+.konto-hero h2 { font-size: 24px }
+.konto-hero p { font-size: 13px; margin-bottom: 16px }
+.level-tabs { gap: 6px; flex-wrap: wrap; justify-content: center }
+.lvl-btn { font-size: 12px; padding: 7px 14px }
+.konto-stats { gap: 8px; margin-bottom: 20px }
+.kstat { padding: 8px 12px; min-width: 64px; border-radius: 10px }
+.kstat-val { font-size: 18px }
+.kstat-lbl { font-size: 9px }
+.konto-card { padding: 18px 14px; border-radius: 14px; margin: 0 14px 40px }
+.konto-account-name { font-size: 22px; margin-bottom: 4px }
+.konto-account-nr { font-size: 11px; margin-bottom: 20px }
+.konto-question-label { font-size: 9px }
+.konto-options { grid-template-columns: 1fr; gap: 7px; margin-bottom: 14px }
+.konto-opt { padding: 13px 12px; font-size: 13px }
+.konto-opt .opt-icon { font-size: 18px; margin-bottom: 4px }
+.konto-feedback { font-size: 12.5px; padding: 11px 13px }
+.konto-result { padding: 24px 16px; margin: 0 14px 40px; border-radius: 14px }
+.konto-score-big { font-size: 48px }
+.konto-result h3 { font-size: 22px }
+.konto-result p { font-size: 13px; margin-bottom: 18px }
+
+/* Cheatsheet grid — 1 Spalte auf Handy */
+#konto-cheat > div { grid-template-columns: 1fr !important }
+}
+
+@media (max-width: 400px) {
+.konto-card { margin: 0 10px 36px; padding: 14px 12px }
+.konto-account-name { font-size: 19px }
+.level-tabs { gap: 4px }
+.lvl-btn { font-size: 11px; padding: 6px 10px }
+}
+
+/* DOWNLOAD */
+@media (max-width: 768px) {
+.dl-hero { padding: 28px 14px 16px }
+.dl-hero h2 { font-size: 26px }
+.dl-hero p { font-size: 13px; margin-bottom: 20px }
+.dl-grid { grid-template-columns: 1fr; padding: 0 14px 40px; gap: 14px }
+.dl-card-head { padding: 18px 18px 14px }
+.dl-icon { font-size: 32px; margin-bottom: 8px }
+.dl-title { font-size: 15px }
+.dl-card-body { padding: 14px 18px }
+.dl-desc { font-size: 13px }
+.dl-feature { font-size: 12px }
+.dl-legal { font-size: 10.5px; padding: 8px 10px }
+.legal-banner { margin: 0 14px 20px; padding: 14px 16px; gap: 10px; flex-direction: column }
+.legal-banner .icon { font-size: 22px }
+.legal-banner h4 { font-size: 13px }
+.legal-banner p { font-size: 12px }
+}
+
+/* FOOTER */
+@media (max-width: 768px) {
+footer { padding: 20px 14px; font-size: 11.5px }
+}
+
+/* Global overflow fix */
+
+- { box-sizing: border-box }
+  body { overflow-x: hidden }
+  img, video, iframe { max-width: 100% }
+
 </style>
 </head>
 <body>
